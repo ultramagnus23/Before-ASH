@@ -559,3 +559,36 @@ None of this changes what the app does — every fix here is either a type-safet
       wired in somewhere — this session's first real run of both caught
       ~20 type errors and 2 test bugs that had been sitting invisibly
       across every prior phase
+
+## A real bug found by the rate-limit fail-open fix, and one still open
+
+Re-running the e2e suite after seeding the catalog surfaced a second real
+bug in `lib/rate-limit.ts`, distinct from the "Upstash unconfigured" one
+documented above: `Redis.fromEnv()` ran at **module top-level**, so it threw
+synchronously the instant the file was imported — before `checkRateLimit`'s
+own `try/catch` (which only wrapped the `.limit()` call) ever got a chance
+to run. A dynamic `await import("@/lib/rate-limit")` call site can't catch
+that either, since the throw happens during module evaluation, not the call.
+Fixed by making both the `Redis` client and the limiter map lazy
+(`getLimiters()` / `getRedis()`), constructed on first use, inside the
+`try/catch` that's actually meant to handle infra failures. Same problem
+existed one layer up in `lib/ai/remix-cache.ts` (`import { redis } from
+"@/lib/rate-limit"` at its own top level); fixed the same way, with cache
+read/write failures now degrading to "no cache" instead of throwing.
+
+Still open: `add-to-list.spec.ts` and `mark-done.spec.ts` fail even after
+that fix, and even against a clean `next build` + `next start` (ruling out
+dev-mode HMR as the cause) — confirmed by reproducing manually in a real
+browser tab. The mutation itself succeeds (the item is genuinely in the
+list — visible on manual page reload), but the client-side fetch for the
+server action gets `net::ERR_ABORTED` before `useActionState` ever resolves,
+so `pending` stays `true` forever and the button sits on "Adding…"
+indefinitely. Playwright's own trace shows the same request with
+`response.status: -1` — never completed, not just slow. This looks like the
+RSC stream for the server-action response getting cut short somewhere
+between server and client, not a data or auth bug — worth a closer look at
+whatever's riding along in that same response (the automatic re-render of
+`/list` that `revalidatePath` triggers) before assuming it's this app's code
+versus a Next 15.5.23 + `@supabase/ssr` interaction. Not blocking manual use
+of the app; blocking only the two "must never break" e2e gates from going
+green in CI as-is.
