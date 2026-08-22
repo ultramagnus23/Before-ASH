@@ -1,0 +1,51 @@
+{
+  "name": "before-ash",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx db/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "cron:purge": "tsx scripts/cron-purge-deleted-accounts.ts",
+    "dev:approve-item": "tsx scripts/dev-approve-item.ts",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "next": "15.5.23",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "drizzle-orm": "^0.45.2",
+    "postgres": "^3.4.5",
+    "@supabase/supabase-js": "^2.46.0",
+    "@supabase/ssr": "^0.5.2",
+    "@upstash/redis": "^1.34.0",
+    "@upstash/ratelimit": "^2.0.0",
+    "zod": "^3.23.8",
+    "server-only": "^0.0.1",
+    "dotenv": "^16.4.5",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/node": "^22.9.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "postcss": "^8.4.49",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.5",
+    "@playwright/test": "^1.49.0",
+    "eslint": "^9.15.0",
+    "eslint-config-next": "15.5.23",
+    "@axe-core/playwright": "^4.10.1"
+  }
+}

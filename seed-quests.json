@@ -1,0 +1,5009 @@
+{
+ "_meta": {
+  "version": "2.0",
+  "count": 491,
+  "language": "English only",
+  "note": "Merged and deduplicated. Items with placeholder:true need real Ashoka names before launch."
+ },
+ "categories": [
+  {
+   "key": "campus_ritual",
+   "label": "Campus rituals",
+   "eyebrow": "01"
+  },
+  {
+   "key": "academic",
+   "label": "Academic",
+   "eyebrow": "02"
+  },
+  {
+   "key": "food",
+   "label": "Food",
+   "eyebrow": "03"
+  },
+  {
+   "key": "people",
+   "label": "People",
+   "eyebrow": "04"
+  },
+  {
+   "key": "creative",
+   "label": "Make something",
+   "eyebrow": "05"
+  },
+  {
+   "key": "body_sport",
+   "label": "Body",
+   "eyebrow": "06"
+  },
+  {
+   "key": "delhi_ncr",
+   "label": "Off campus",
+   "eyebrow": "07"
+  },
+  {
+   "key": "career_money",
+   "label": "Career and money",
+   "eyebrow": "08"
+  },
+  {
+   "key": "service",
+   "label": "Give something",
+   "eyebrow": "09"
+  },
+  {
+   "key": "solitude",
+   "label": "Alone",
+   "eyebrow": "10"
+  },
+  {
+   "key": "night",
+   "label": "After midnight",
+   "eyebrow": "11"
+  },
+  {
+   "key": "legacy",
+   "label": "Before you leave",
+   "eyebrow": "12"
+  },
+  {
+   "key": "chaos",
+   "label": "Chaotic good",
+   "eyebrow": "13"
+  },
+  {
+   "key": "skills",
+   "label": "Learn something",
+   "eyebrow": "14"
+  },
+  {
+   "key": "admin_life",
+   "label": "Unglamorous",
+   "eyebrow": "15"
+  }
+ ],
+ "quests": [
+  {
+   "title": "Watch the sun come up from the roofless side of campus without having slept",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1001",
+   "slug": "watch-sun-come-up-from-roofless-side"
+  },
+  {
+   "title": "Sit through an entire event you have zero interest in, front row",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1002",
+   "slug": "sit-through-entire-event-you-have-zero"
+  },
+  {
+   "title": "Learn every shortcut between the two furthest buildings on campus",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1003",
+   "slug": "learn-every-shortcut-between-two-furthest-buildings"
+  },
+  {
+   "title": "Find the quietest spot on campus and tell exactly one person",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1004",
+   "slug": "find-quietest-spot-campus-tell-exactly-person"
+  },
+  {
+   "title": "Go to a club's first meeting of the semester with no intention of joining",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1005",
+   "slug": "go-clubs-first-meeting-semester-with-no"
+  },
+  {
+   "title": "Attend a lecture in a department you will never take a course in",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1006",
+   "slug": "attend-lecture-department-you-will-never-take"
+  },
+  {
+   "title": "Be the last person to leave the library the night before finals",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1007",
+   "slug": "be-last-person-leave-library-night-before"
+  },
+  {
+   "title": "Spend one full day on campus without using your phone",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1008",
+   "slug": "spend-full-day-campus-without-using-phone"
+  },
+  {
+   "title": "Sit in the amphitheatre alone during a downpour",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1009",
+   "slug": "sit-amphitheatre-alone-during-downpour"
+  },
+  {
+   "title": "Vote in a student election after actually reading every manifesto",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1010",
+   "slug": "vote-student-election-after-actually-reading-every"
+  },
+  {
+   "title": "Run for something. Anything. Lose gracefully",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1011",
+   "slug": "run-something-anything-lose-gracefully"
+  },
+  {
+   "title": "Learn the name of every guard on your usual route",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1012",
+   "slug": "learn-name-every-guard-usual-route"
+  },
+  {
+   "title": "Go to a protest, march or sit-in you weren't dragged to",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1013",
+   "slug": "go-protest-march-or-sitin-you-werent"
+  },
+  {
+   "title": "Sit through an entire fest headliner set from the very back, sober",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1014",
+   "slug": "sit-through-entire-fest-headliner-set-from"
+  },
+  {
+   "title": "Be in the audience for a play where you know nobody in the cast",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1015",
+   "slug": "be-audience-play-where-you-know-nobody"
+  },
+  {
+   "title": "Take the same photo from the same spot on campus every month for a year",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1016",
+   "slug": "take-same-photo-from-same-spot-campus"
+  },
+  {
+   "title": "Sleep somewhere on campus that is not a bed",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1017",
+   "slug": "sleep-somewhere-campus-that-is-not-bed"
+  },
+  {
+   "title": "Find out what's actually inside the room everyone walks past",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "placeholder": true,
+   "id": "CP-1018",
+   "slug": "find-out-whats-actually-inside-room-everyone"
+  },
+  {
+   "title": "Walk the entire perimeter of campus in one go",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1019",
+   "slug": "walk-entire-perimeter-campus-go"
+  },
+  {
+   "title": "Show a visiting parent around campus like a proper tour guide",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1020",
+   "slug": "show-visiting-parent-around-campus-like-proper"
+  },
+  {
+   "title": "Ask a question in a 200-person lecture",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1021",
+   "slug": "ask-question-200person-lecture"
+  },
+  {
+   "title": "Go to office hours with no problem, just to talk",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1022",
+   "slug": "go-office-hours-with-no-problem-just"
+  },
+  {
+   "title": "Take a course purely because the professor is supposed to be incredible",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1023",
+   "slug": "take-course-purely-because-professor-is-supposed"
+  },
+  {
+   "title": "Read a full book from a course you dropped",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1024",
+   "slug": "read-full-book-from-course-you-dropped"
+  },
+  {
+   "title": "Disagree with a professor in class and hold the position politely",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1025",
+   "slug": "disagree-with-professor-class-hold-position-politely"
+  },
+  {
+   "title": "Get a research position by emailing someone cold",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1026",
+   "slug": "get-research-position-by-emailing-someone-cold"
+  },
+  {
+   "title": "Co-author anything with anyone",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1027",
+   "slug": "coauthor-anything-with-anyone"
+  },
+  {
+   "title": "Write one paper you'd be happy to show a stranger in ten years",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1028",
+   "slug": "write-paper-youd-be-happy-show-stranger"
+  },
+  {
+   "title": "Sit in on a class you're not registered for, all semester",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1029",
+   "slug": "sit-class-youre-not-registered-all-semester"
+  },
+  {
+   "title": "Present at a conference, even a tiny one",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1030",
+   "slug": "present-conference-even-tiny"
+  },
+  {
+   "title": "Learn to actually read a research paper, abstract to references",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1031",
+   "slug": "learn-actually-read-research-paper-abstract-references"
+  },
+  {
+   "title": "Teach a concept badly, then teach it again well",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1032",
+   "slug": "teach-concept-badly-then-teach-it-again"
+  },
+  {
+   "title": "Finish a paper more than 24 hours before the deadline. Once.",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AK-1033",
+   "slug": "finish-paper-more-than-24-hours-before"
+  },
+  {
+   "title": "Take the hardest course in your major on purpose",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1034",
+   "slug": "take-hardest-course-major-purpose"
+  },
+  {
+   "title": "Get a bad grade on something you tried genuinely hard at, and be fine",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AK-1035",
+   "slug": "get-bad-grade-something-you-tried-genuinely"
+  },
+  {
+   "title": "Read the entire syllabus of a course you'll never take",
+   "category": "academic",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1036",
+   "slug": "read-entire-syllabus-course-youll-never-take"
+  },
+  {
+   "title": "Start a reading group that survives past week three",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1037",
+   "slug": "start-reading-group-that-survives-past-week"
+  },
+  {
+   "title": "Argue a position you disagree with, well enough to convince someone",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1038",
+   "slug": "argue-position-you-disagree-with-well-enough"
+  },
+  {
+   "title": "Find the one library book nobody has borrowed in a decade and borrow it",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1039",
+   "slug": "find-library-book-nobody-has-borrowed-decade"
+  },
+  {
+   "title": "TA or tutor someone in a subject you barely survived",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1040",
+   "slug": "ta-or-tutor-someone-subject-you-barely"
+  },
+  {
+   "title": "Eat every single thing on the mess menu at least once",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "FD-1041",
+   "slug": "eat-every-single-thing-mess-menu-least"
+  },
+  {
+   "title": "Learn one dish well enough to cook it for eight people",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "FD-1042",
+   "slug": "learn-dish-well-enough-cook-it-eight"
+  },
+  {
+   "title": "Do the Murthal paratha run at 3am",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "FD-1043",
+   "slug": "do-murthal-paratha-run-3am"
+  },
+  {
+   "title": "Find the best chai within walking distance and defend the choice",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1044",
+   "slug": "find-best-chai-within-walking-distance-defend"
+  },
+  {
+   "title": "Eat a meal cooked by someone from a state you've never visited",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "FD-1045",
+   "slug": "eat-meal-cooked-by-someone-from-state"
+  },
+  {
+   "title": "Survive an entire week on under ₹500 of food, deliberately",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "FD-1046",
+   "slug": "survive-entire-week-under-500-food-deliberately"
+  },
+  {
+   "title": "Organise a potluck where everyone brings food from home",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1047",
+   "slug": "organise-potluck-where-everyone-brings-food-from"
+  },
+  {
+   "title": "Eat breakfast at the first hour it opens, alone, with a book",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "FD-1048",
+   "slug": "eat-breakfast-first-hour-it-opens-alone"
+  },
+  {
+   "title": "Make chai for the whole floor at 2am during exam week",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1049",
+   "slug": "make-chai-whole-floor-2am-during-exam"
+  },
+  {
+   "title": "Try the one dish everyone says is terrible and form your own view",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1050",
+   "slug": "try-dish-everyone-says-is-terrible-form"
+  },
+  {
+   "title": "Go a whole month without ordering food in",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1051",
+   "slug": "go-whole-month-without-ordering-food"
+  },
+  {
+   "title": "Learn to make your mother's version of one specific dish over a phone call",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "FD-1052",
+   "slug": "learn-make-mothers-version-specific-dish-over"
+  },
+  {
+   "title": "Eat at a place in Old Delhi that has no signboard",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "FD-1053",
+   "slug": "eat-place-old-delhi-that-has-no"
+  },
+  {
+   "title": "Have a proper sit-down dinner with someone you only know from class",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "any",
+   "spice": 2,
+   "id": "FD-1054",
+   "slug": "have-proper-sitdown-dinner-with-someone-you"
+  },
+  {
+   "title": "Bake something from scratch in a place with no oven",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1055",
+   "slug": "bake-something-from-scratch-place-with-no"
+  },
+  {
+   "title": "Have a two-hour conversation with someone you were sure you'd dislike",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1056",
+   "slug": "have-twohour-conversation-with-someone-you-were"
+  },
+  {
+   "title": "Sit at a table of strangers in the mess and stay through the meal",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "placeholder": true,
+   "id": "PP-1057",
+   "slug": "sit-table-strangers-mess-stay-through-meal"
+  },
+  {
+   "title": "Make one real friend from a batch three years apart from yours",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1058",
+   "slug": "make-real-friend-from-batch-three-years"
+  },
+  {
+   "title": "Ask someone what they're actually scared of, and answer honestly back",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1059",
+   "slug": "ask-someone-what-theyre-actually-scared-answer"
+  },
+  {
+   "title": "Tell someone you admire their work, specifically, to their face",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1060",
+   "slug": "tell-someone-you-admire-their-work-specifically"
+  },
+  {
+   "title": "Apologise properly for something from first year",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1061",
+   "slug": "apologise-properly-something-from-first-year"
+  },
+  {
+   "title": "Learn ten words of a language a friend speaks at home",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1062",
+   "slug": "learn-ten-words-language-friend-speaks-home"
+  },
+  {
+   "title": "Have dinner with a professor",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1063",
+   "slug": "have-dinner-with-professor"
+  },
+  {
+   "title": "Reconnect with the person you were close to in first year and drifted from",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1064",
+   "slug": "reconnect-with-person-you-were-close-first"
+  },
+  {
+   "title": "Be the person who introduces two people who become close",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1065",
+   "slug": "be-person-who-introduces-two-people-who"
+  },
+  {
+   "title": "Sit with someone crying in a stairwell and say nothing useful",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1066",
+   "slug": "sit-with-someone-crying-stairwell-say-nothing"
+  },
+  {
+   "title": "Ask a final-year what they wish they'd done differently",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1067",
+   "slug": "ask-finalyear-what-they-wish-theyd-done"
+  },
+  {
+   "title": "Ask a first-year what they're excited about and actually listen",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1068",
+   "slug": "ask-firstyear-what-theyre-excited-about-actually"
+  },
+  {
+   "title": "Write a real letter, on paper, to someone in your batch",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1069",
+   "slug": "write-real-letter-paper-someone-batch"
+  },
+  {
+   "title": "Say the thing you've been not saying to a friend",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "PP-1070",
+   "slug": "say-thing-youve-been-not-saying-friend"
+  },
+  {
+   "title": "Get to know one staff member as a person, not a role",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1071",
+   "slug": "get-know-staff-member-as-person-not"
+  },
+  {
+   "title": "Go to a friend's event in a field you don't understand",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1072",
+   "slug": "go-friends-event-field-you-dont-understand"
+  },
+  {
+   "title": "End a friendship that's been over for a year",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "PP-1073",
+   "slug": "end-friendship-thats-been-over-year"
+  },
+  {
+   "title": "Ask someone out with an actual plan attached, not just vibes",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "PP-1074",
+   "slug": "ask-someone-out-with-actual-plan-attached"
+  },
+  {
+   "title": "Host something in your room for six people who don't know each other",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1075",
+   "slug": "host-something-room-six-people-who-dont"
+  },
+  {
+   "title": "Publish something under your own name where anyone can read it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1076",
+   "slug": "publish-something-under-own-name-where-anyone"
+  },
+  {
+   "title": "Perform at an open mic once, badly",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CR-1077",
+   "slug": "perform-open-mic-once-badly"
+  },
+  {
+   "title": "Shoot a short film with a phone and no budget",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1078",
+   "slug": "shoot-short-film-with-phone-no-budget"
+  },
+  {
+   "title": "Learn three chords and play one song end to end",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1079",
+   "slug": "learn-three-chords-play-song-end-end"
+  },
+  {
+   "title": "Draw the same building every week for a month",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1080",
+   "slug": "draw-same-building-every-week-month"
+  },
+  {
+   "title": "Start a zine and get it into ten people's hands",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CR-1081",
+   "slug": "start-zine-get-it-into-ten-peoples"
+  },
+  {
+   "title": "Write something you'd be genuinely embarrassed for anyone to read, then read it aloud",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CR-1082",
+   "slug": "write-something-youd-be-genuinely-embarrassed-anyone"
+  },
+  {
+   "title": "Make a playlist so specific that only three people would get it",
+   "category": "creative",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1083",
+   "slug": "make-playlist-so-specific-that-only-three"
+  },
+  {
+   "title": "Ship a side project that a stranger uses",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1084",
+   "slug": "ship-side-project-that-stranger-uses"
+  },
+  {
+   "title": "Photograph one person properly, with their permission and their input",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1085",
+   "slug": "photograph-person-properly-with-their-permission-their"
+  },
+  {
+   "title": "Design a poster for someone else's event for free",
+   "category": "creative",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1086",
+   "slug": "design-poster-someone-elses-event-free"
+  },
+  {
+   "title": "Learn a dance form you have no business learning",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CR-1087",
+   "slug": "learn-dance-form-you-have-no-business"
+  },
+  {
+   "title": "Write and record one song about someone without naming them",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1088",
+   "slug": "write-record-song-about-someone-without-naming"
+  },
+  {
+   "title": "Contribute to an open source project and get the PR merged",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1089",
+   "slug": "contribute-open-source-project-get-pr-merged"
+  },
+  {
+   "title": "Direct or produce something with more than ten people involved",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CR-1090",
+   "slug": "direct-or-produce-something-with-more-than"
+  },
+  {
+   "title": "Keep a physical notebook for one full semester",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1091",
+   "slug": "keep-physical-notebook-full-semester"
+  },
+  {
+   "title": "Learn to use one piece of software properly instead of four badly",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1092",
+   "slug": "learn-use-piece-software-properly-instead-four"
+  },
+  {
+   "title": "Make something physical with your hands that survives the year",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1093",
+   "slug": "make-something-physical-with-hands-that-survives"
+  },
+  {
+   "title": "Run 5k without stopping",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1094",
+   "slug": "run-5k-without-stopping"
+  },
+  {
+   "title": "Play a sport you're visibly bad at, in public, for a full season",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 3,
+   "id": "BD-1095",
+   "slug": "play-sport-youre-visibly-bad-public-full"
+  },
+  {
+   "title": "Learn to swim properly if you can't",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1096",
+   "slug": "learn-swim-properly-if-you-cant"
+  },
+  {
+   "title": "Go to the gym for eight consecutive weeks",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1097",
+   "slug": "go-gym-eight-consecutive-weeks"
+  },
+  {
+   "title": "Play a full match of something at 6am",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1098",
+   "slug": "play-full-match-something-6am"
+  },
+  {
+   "title": "Beat someone who's better than you at exactly one thing",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1099",
+   "slug": "beat-someone-whos-better-than-you-exactly"
+  },
+  {
+   "title": "Do a full week of proper sleep during exam season",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1100",
+   "slug": "do-full-week-proper-sleep-during-exam"
+  },
+  {
+   "title": "Learn to cycle if you never did",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1101",
+   "slug": "learn-cycle-if-you-never-did"
+  },
+  {
+   "title": "Take a walk longer than two hours with no destination",
+   "category": "body_sport",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1102",
+   "slug": "take-walk-longer-than-two-hours-with"
+  },
+  {
+   "title": "Join a team sport tryout knowing you won't make it",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1103",
+   "slug": "join-team-sport-tryout-knowing-you-wont"
+  },
+  {
+   "title": "Do a trek that's genuinely hard, once",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "BD-1104",
+   "slug": "do-trek-thats-genuinely-hard-once"
+  },
+  {
+   "title": "Learn one martial art well enough to be dangerous to nobody",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1105",
+   "slug": "learn-martial-art-well-enough-be-dangerous"
+  },
+  {
+   "title": "Stretch every day for a month and notice the difference",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1106",
+   "slug": "stretch-every-day-month-notice-difference"
+  },
+  {
+   "title": "Play in an inter-batch match against people who intimidate you",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1107",
+   "slug": "play-interbatch-match-against-people-who-intimidate"
+  },
+  {
+   "title": "See a doctor about the thing you've been ignoring",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1108",
+   "slug": "see-doctor-about-thing-youve-been-ignoring"
+  },
+  {
+   "title": "Take the last metro back and figure out the rest yourself",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1109",
+   "slug": "take-last-metro-back-figure-out-rest"
+  },
+  {
+   "title": "Spend a whole day in Old Delhi with no itinerary",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1110",
+   "slug": "spend-whole-day-old-delhi-with-no"
+  },
+  {
+   "title": "Go to a bookshop in Delhi and leave with something you'd never have picked online",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1111",
+   "slug": "go-bookshop-delhi-leave-with-something-youd"
+  },
+  {
+   "title": "See live music in a room with fewer than 50 people",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1112",
+   "slug": "see-live-music-room-with-fewer-than"
+  },
+  {
+   "title": "Visit a museum in Delhi entirely alone",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1113",
+   "slug": "visit-museum-delhi-entirely-alone"
+  },
+  {
+   "title": "Take a train somewhere without booking a return",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "TR-1114",
+   "slug": "take-train-somewhere-without-booking-return"
+  },
+  {
+   "title": "Go to Nizamuddin for qawwali on a Thursday",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1115",
+   "slug": "go-nizamuddin-qawwali-thursday"
+  },
+  {
+   "title": "Do a whole Delhi day trip for under ₹300 total",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1116",
+   "slug": "do-whole-delhi-day-trip-under-300"
+  },
+  {
+   "title": "Watch a film alone in a theatre on a weekday afternoon",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1117",
+   "slug": "watch-film-alone-theatre-weekday-afternoon"
+  },
+  {
+   "title": "Get properly lost in a part of Delhi you've never been to",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1118",
+   "slug": "get-properly-lost-part-delhi-youve-never"
+  },
+  {
+   "title": "Go to a wedding you were only vaguely invited to",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1119",
+   "slug": "go-wedding-you-were-only-vaguely-invited"
+  },
+  {
+   "title": "Visit a friend's hometown during a break",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "TR-1120",
+   "slug": "visit-friends-hometown-during-break"
+  },
+  {
+   "title": "See Delhi from somewhere high, at night",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1121",
+   "slug": "see-delhi-from-somewhere-high-night"
+  },
+  {
+   "title": "Explore Sonipat itself instead of treating it as the place around campus",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1122",
+   "slug": "explore-sonipat-itself-instead-treating-it-as"
+  },
+  {
+   "title": "Take one trip with people you've known less than a month",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1123",
+   "slug": "take-trip-with-people-youve-known-less"
+  },
+  {
+   "title": "Attend a gig, play or reading purely because the poster looked good",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1124",
+   "slug": "attend-gig-play-or-reading-purely-because"
+  },
+  {
+   "title": "Do a solo overnight trip somewhere within six hours",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "TR-1125",
+   "slug": "do-solo-overnight-trip-somewhere-within-six"
+  },
+  {
+   "title": "Visit a place of worship that isn't yours, respectfully",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1126",
+   "slug": "visit-place-worship-that-isnt-yours-respectfully"
+  },
+  {
+   "title": "Send a cold email that gets a real reply",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1127",
+   "slug": "send-cold-email-that-gets-real-reply"
+  },
+  {
+   "title": "Get paid for something you'd have done for free",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1128",
+   "slug": "get-paid-something-youd-have-done-free"
+  },
+  {
+   "title": "Get rejected from something you actually wanted",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1129",
+   "slug": "get-rejected-from-something-you-actually-wanted"
+  },
+  {
+   "title": "Do an internship in a field you might hate, to find out",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1130",
+   "slug": "do-internship-field-you-might-hate-find"
+  },
+  {
+   "title": "Learn what your parents actually earn and what things actually cost",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1131",
+   "slug": "learn-what-parents-actually-earn-what-things"
+  },
+  {
+   "title": "Track every rupee you spend for one month",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1132",
+   "slug": "track-every-rupee-you-spend-month"
+  },
+  {
+   "title": "Negotiate something, anything, once",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1133",
+   "slug": "negotiate-something-anything-once"
+  },
+  {
+   "title": "Build a portfolio page that isn't embarrassing",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1134",
+   "slug": "build-portfolio-page-that-isnt-embarrassing"
+  },
+  {
+   "title": "Ask someone three years ahead of you exactly how they got where they are",
+   "category": "career_money",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1135",
+   "slug": "ask-someone-three-years-ahead-you-exactly"
+  },
+  {
+   "title": "Start something that fails, publicly",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CM-1136",
+   "slug": "start-something-that-fails-publicly"
+  },
+  {
+   "title": "Learn one skill your degree does not cover",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1137",
+   "slug": "learn-skill-degree-does-not-cover"
+  },
+  {
+   "title": "Do freelance work for a client who is not a friend",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1138",
+   "slug": "do-freelance-work-client-who-is-not"
+  },
+  {
+   "title": "Save enough to pay for one trip entirely yourself",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1139",
+   "slug": "save-enough-pay-trip-entirely-yourself"
+  },
+  {
+   "title": "Sit in on a pitch, an interview or a negotiation as an observer",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1140",
+   "slug": "sit-pitch-interview-or-negotiation-as-observer"
+  },
+  {
+   "title": "Say no to an opportunity because it isn't right, not because you're scared",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1141",
+   "slug": "say-no-opportunity-because-it-isnt-right"
+  },
+  {
+   "title": "Apply to the thing you're underqualified for",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1142",
+   "slug": "apply-thing-youre-underqualified"
+  },
+  {
+   "title": "Teach something to someone who has no access to it otherwise",
+   "category": "service",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SV-1143",
+   "slug": "teach-something-someone-who-has-no-access"
+  },
+  {
+   "title": "Donate blood",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SV-1144",
+   "slug": "donate-blood"
+  },
+  {
+   "title": "Do a full day of volunteer work with no photos taken",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SV-1145",
+   "slug": "do-full-day-volunteer-work-with-no"
+  },
+  {
+   "title": "Fix something on campus that's been broken and annoying everyone",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1146",
+   "slug": "fix-something-campus-thats-been-broken-annoying"
+  },
+  {
+   "title": "Leave a place better than you found it, deliberately, once a week for a month",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1147",
+   "slug": "leave-place-better-than-you-found-it"
+  },
+  {
+   "title": "Give away everything you haven't touched in a year",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1148",
+   "slug": "give-away-everything-you-havent-touched-year"
+  },
+  {
+   "title": "Cover a shift, a duty or a deadline for someone without being asked",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1149",
+   "slug": "cover-shift-duty-or-deadline-someone-without"
+  },
+  {
+   "title": "Mentor a first-year through their first exam season",
+   "category": "service",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1150",
+   "slug": "mentor-firstyear-through-their-first-exam-season"
+  },
+  {
+   "title": "Learn basic first aid properly",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SV-1151",
+   "slug": "learn-basic-first-aid-properly"
+  },
+  {
+   "title": "Speak up when something unfair happens in front of you",
+   "category": "service",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "SV-1152",
+   "slug": "speak-up-when-something-unfair-happens-front"
+  },
+  {
+   "title": "Write a genuinely useful review, guide or doc that helps the next batch",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1153",
+   "slug": "write-genuinely-useful-review-guide-or-doc"
+  },
+  {
+   "title": "Thank the person who made your last year easier, in words, specifically",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SV-1154",
+   "slug": "thank-person-who-made-last-year-easier"
+  },
+  {
+   "title": "Eat a full meal alone in public without looking at a screen",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1155",
+   "slug": "eat-full-meal-alone-public-without-looking"
+  },
+  {
+   "title": "Spend an entire weekend without making plans with anyone",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1156",
+   "slug": "spend-entire-weekend-without-making-plans-with"
+  },
+  {
+   "title": "Read a book in one sitting",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1157",
+   "slug": "read-book-sitting"
+  },
+  {
+   "title": "Write down what you actually think about something, for nobody",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1158",
+   "slug": "write-down-what-you-actually-think-about"
+  },
+  {
+   "title": "Delete the app that's costing you two hours a day, for a month",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1159",
+   "slug": "delete-app-thats-costing-you-two-hours"
+  },
+  {
+   "title": "Sit somewhere for an hour doing genuinely nothing",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1160",
+   "slug": "sit-somewhere-hour-doing-genuinely-nothing"
+  },
+  {
+   "title": "Go see a film alone and don't tell anyone",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "AL-1161",
+   "slug": "go-see-film-alone-dont-tell-anyone"
+  },
+  {
+   "title": "Write a letter to yourself to open on graduation day",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1162",
+   "slug": "write-letter-yourself-open-graduation-day"
+  },
+  {
+   "title": "Learn to be okay with an evening where nothing is happening",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1163",
+   "slug": "learn-be-okay-with-evening-where-nothing"
+  },
+  {
+   "title": "Go to therapy or counselling once, just to see",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AL-1164",
+   "slug": "go-therapy-or-counselling-once-just-see"
+  },
+  {
+   "title": "Take one photo a day for a month, only of things nobody else would photograph",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1165",
+   "slug": "take-photo-day-month-only-things-nobody"
+  },
+  {
+   "title": "Change your mind publicly about something you argued hard for",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "AL-1166",
+   "slug": "change-mind-publicly-about-something-you-argued"
+  },
+  {
+   "title": "Have a conversation that starts at midnight and ends at sunrise",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1167",
+   "slug": "have-conversation-that-starts-midnight-ends-sunrise"
+  },
+  {
+   "title": "Do an actual Thursday night plan instead of talking about one",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1168",
+   "slug": "do-actual-thursday-night-plan-instead-talking"
+  },
+  {
+   "title": "Be awake for the exact moment the campus goes quiet",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1169",
+   "slug": "be-awake-exact-moment-campus-goes-quiet"
+  },
+  {
+   "title": "Play a game with strangers in a common room after 1am",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1170",
+   "slug": "play-game-with-strangers-common-room-after"
+  },
+  {
+   "title": "Watch a full film on a laptop with six people crammed on one bed",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1171",
+   "slug": "watch-full-film-laptop-with-six-people"
+  },
+  {
+   "title": "Have a proper argument about something that doesn't matter, at 3am",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1172",
+   "slug": "have-proper-argument-about-something-that-doesnt"
+  },
+  {
+   "title": "Do a night walk around campus with one person and no phones",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1173",
+   "slug": "do-night-walk-around-campus-with-person"
+  },
+  {
+   "title": "Pull one all-nighter that is not for academic reasons",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1174",
+   "slug": "pull-allnighter-that-is-not-academic-reasons"
+  },
+  {
+   "title": "Cook something on a hotplate at 2am and share it",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1175",
+   "slug": "cook-something-hotplate-2am-share-it"
+  },
+  {
+   "title": "Sing badly in a corridor at an hour where someone will complain",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 3,
+   "id": "NT-1176",
+   "slug": "sing-badly-corridor-hour-where-someone-will"
+  },
+  {
+   "title": "Watch a meteor shower or an eclipse with people who care about it",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1177",
+   "slug": "watch-meteor-shower-or-eclipse-with-people"
+  },
+  {
+   "title": "Stay up all night to finish something and actually finish it",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1178",
+   "slug": "stay-up-all-night-finish-something-actually"
+  },
+  {
+   "title": "Leave something behind on campus that outlasts you",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1179",
+   "slug": "leave-something-behind-campus-that-outlasts-you"
+  },
+  {
+   "title": "Hand over a club or role to someone better than you were at it",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1180",
+   "slug": "hand-over-club-or-role-someone-better"
+  },
+  {
+   "title": "Write the guide you wish you'd had in first year",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1181",
+   "slug": "write-guide-you-wish-youd-had-first"
+  },
+  {
+   "title": "Have a last conversation with your favourite professor, properly",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1182",
+   "slug": "have-last-conversation-with-favourite-professor-properly"
+  },
+  {
+   "title": "Do the thing you've said you'd do since first year, in your final semester",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1183",
+   "slug": "do-thing-youve-said-youd-do-since"
+  },
+  {
+   "title": "Take one photo with every person who mattered",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1184",
+   "slug": "take-photo-with-every-person-who-mattered"
+  },
+  {
+   "title": "Tell three people what they meant to you before you leave",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "LG-1185",
+   "slug": "tell-three-people-what-they-meant-you"
+  },
+  {
+   "title": "Visit every place on campus one last time, alone, in one afternoon",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1186",
+   "slug": "visit-every-place-campus-last-time-alone"
+  },
+  {
+   "title": "Leave a note somewhere on campus for whoever finds it next",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1187",
+   "slug": "leave-note-somewhere-campus-whoever-finds-it"
+  },
+  {
+   "title": "Finish a project you started in second year and abandoned",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "LG-1188",
+   "slug": "finish-project-you-started-second-year-abandoned"
+  },
+  {
+   "title": "Come back after graduating and show someone else around",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1189",
+   "slug": "come-back-after-graduating-show-someone-else"
+  },
+  {
+   "title": "Give the advice you'd want to hear to a first-year who didn't ask",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1190",
+   "slug": "give-advice-youd-want-hear-firstyear-who"
+  },
+  {
+   "title": "Wear something absurd to a completely normal class",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1191",
+   "slug": "wear-something-absurd-completely-normal-class"
+  },
+  {
+   "title": "Start a rumour about yourself that is flattering and false",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1192",
+   "slug": "start-rumour-about-yourself-that-is-flattering"
+  },
+  {
+   "title": "Applaud alone at the end of a lecture",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1193",
+   "slug": "applaud-alone-end-lecture"
+  },
+  {
+   "title": "Bring a full home-cooked thali to a lecture hall and eat it slowly",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1194",
+   "slug": "bring-full-homecooked-thali-lecture-hall-eat"
+  },
+  {
+   "title": "Organise a completely pointless tournament and take it extremely seriously",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1195",
+   "slug": "organise-completely-pointless-tournament-take-it-extremely"
+  },
+  {
+   "title": "Give an entirely improvised presentation on a topic someone hands you",
+   "category": "chaos",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1196",
+   "slug": "give-entirely-improvised-presentation-topic-someone-hands"
+  },
+  {
+   "title": "Swap wardrobes with a friend for a day",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1197",
+   "slug": "swap-wardrobes-with-friend-day"
+  },
+  {
+   "title": "Send one extremely earnest message to a group chat that runs on irony",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CH-1198",
+   "slug": "send-extremely-earnest-message-group-chat-that"
+  },
+  {
+   "title": "Speak only in questions for an entire meal",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1199",
+   "slug": "speak-only-questions-entire-meal"
+  },
+  {
+   "title": "Make a slideshow about a friend and present it to them",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1200",
+   "slug": "make-slideshow-about-friend-present-it-them"
+  },
+  {
+   "title": "Set up a folding table somewhere and offer strangers something for free",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1201",
+   "slug": "set-up-folding-table-somewhere-offer-strangers"
+  },
+  {
+   "title": "Enter a competition you are wildly unqualified for",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CH-1202",
+   "slug": "enter-competition-you-are-wildly-unqualified"
+  },
+  {
+   "title": "Learn a party trick that takes two weeks to get right",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CH-1203",
+   "slug": "learn-party-trick-that-takes-two-weeks"
+  },
+  {
+   "title": "Reply to every message for one day only with things you actually mean",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CH-1204",
+   "slug": "reply-every-message-day-only-with-things"
+  },
+  {
+   "title": "Take a formal portrait of your entire floor, badly lit and fully committed",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1205",
+   "slug": "take-formal-portrait-entire-floor-badly-lit"
+  },
+  {
+   "title": "Give someone a nickname that sticks for three years",
+   "category": "chaos",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1206",
+   "slug": "give-someone-nickname-that-sticks-three-years"
+  },
+  {
+   "title": "Do a full day where you say yes to every reasonable thing offered",
+   "category": "chaos",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1207",
+   "slug": "do-full-day-where-you-say-yes"
+  },
+  {
+   "title": "Start a tradition on your floor and keep it alive for a semester",
+   "category": "chaos",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1208",
+   "slug": "start-tradition-floor-keep-it-alive-semester"
+  },
+  {
+   "title": "Sit in the front row of a class for an entire semester",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1209",
+   "slug": "sit-front-row-class-entire-semester"
+  },
+  {
+   "title": "Find out what the oldest thing on campus is",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1210",
+   "slug": "find-out-what-oldest-thing-campus-is"
+  },
+  {
+   "title": "Attend an event organised by a club you have never heard of",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1211",
+   "slug": "attend-event-organised-by-club-you-have"
+  },
+  {
+   "title": "Go an entire day without entering your own room",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1212",
+   "slug": "go-entire-day-without-entering-own-room"
+  },
+  {
+   "title": "Read the noticeboard properly instead of walking past it",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1213",
+   "slug": "read-noticeboard-properly-instead-walking-past-it"
+  },
+  {
+   "title": "Sit in on a club audition for something you cannot do",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1214",
+   "slug": "sit-club-audition-something-you-cannot-do"
+  },
+  {
+   "title": "Be first in the queue for something, once",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1215",
+   "slug": "be-first-queue-something-once"
+  },
+  {
+   "title": "Learn which windows on campus have the best view and rank them",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1216",
+   "slug": "learn-which-windows-campus-have-best-view"
+  },
+  {
+   "title": "Attend a departmental seminar meant for postgraduates",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1217",
+   "slug": "attend-departmental-seminar-meant-postgraduates"
+  },
+  {
+   "title": "Watch a full sports match your friends are playing in",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1218",
+   "slug": "watch-full-sports-match-friends-are-playing"
+  },
+  {
+   "title": "Find the spot on campus with the strongest wifi and guard the secret",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1219",
+   "slug": "find-spot-campus-with-strongest-wifi-guard"
+  },
+  {
+   "title": "Go to the first day of a semester and the last day of the same semester in the same clothes",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1220",
+   "slug": "go-first-day-semester-last-day-same"
+  },
+  {
+   "title": "Learn the campus by walking it in the rain with no umbrella",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1221",
+   "slug": "learn-campus-by-walking-it-rain-with"
+  },
+  {
+   "title": "Attend the same event two years running and notice what changed",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1222",
+   "slug": "attend-same-event-two-years-running-notice"
+  },
+  {
+   "title": "Take a class that meets at eight in the morning and never skip it",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1223",
+   "slug": "take-class-that-meets-eight-morning-never"
+  },
+  {
+   "title": "Find the noticeboard nobody reads and put something worth reading on it",
+   "category": "campus_ritual",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1224",
+   "slug": "find-noticeboard-nobody-reads-put-something-worth"
+  },
+  {
+   "title": "Sit through a debate on a motion you have no opinion on",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1225",
+   "slug": "sit-through-debate-motion-you-have-no"
+  },
+  {
+   "title": "Learn the names of the three buildings you never enter",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "CP-1226",
+   "slug": "learn-names-three-buildings-you-never-enter"
+  },
+  {
+   "title": "Go to an exhibition or showcase on campus on its opening day",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1227",
+   "slug": "go-exhibition-or-showcase-campus-its-opening"
+  },
+  {
+   "title": "Spend a full evening in a common room you have never used",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1228",
+   "slug": "spend-full-evening-common-room-you-have"
+  },
+  {
+   "title": "Watch the campus empty out on the last day before a break",
+   "category": "campus_ritual",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CP-1229",
+   "slug": "watch-campus-empty-out-last-day-before"
+  },
+  {
+   "title": "Stay on campus through an entire break",
+   "category": "campus_ritual",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CP-1230",
+   "slug": "stay-campus-through-entire-break"
+  },
+  {
+   "title": "Read every word of one course syllabus before week one",
+   "category": "academic",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1231",
+   "slug": "read-every-word-course-syllabus-before-week"
+  },
+  {
+   "title": "Write an essay you actually want to write, not the one that scores",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AK-1232",
+   "slug": "write-essay-you-actually-want-write-not"
+  },
+  {
+   "title": "Email an author whose paper you read and ask one real question",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AK-1233",
+   "slug": "email-author-whose-paper-you-read-ask"
+  },
+  {
+   "title": "Take an incomplete idea to a professor before it is ready",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1234",
+   "slug": "take-incomplete-idea-professor-before-it-is"
+  },
+  {
+   "title": "Learn to use the library catalogue properly, not just the search bar",
+   "category": "academic",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1235",
+   "slug": "learn-use-library-catalogue-properly-not-just"
+  },
+  {
+   "title": "Read a foundational text in a field that is not yours",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1236",
+   "slug": "read-foundational-text-field-that-is-not"
+  },
+  {
+   "title": "Attend every single lecture of one course without exception",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1237",
+   "slug": "attend-every-single-lecture-course-without-exception"
+  },
+  {
+   "title": "Write a literature review nobody assigned you",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1238",
+   "slug": "write-literature-review-nobody-assigned-you"
+  },
+  {
+   "title": "Give a presentation without reading off the slides",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1239",
+   "slug": "give-presentation-without-reading-off-slides"
+  },
+  {
+   "title": "Learn to cite properly so you never think about it again",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1240",
+   "slug": "learn-cite-properly-so-you-never-think"
+  },
+  {
+   "title": "Ask for an extension before you need one, not after",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1241",
+   "slug": "ask-extension-before-you-need-not-after"
+  },
+  {
+   "title": "Redo one assignment properly after you got the grade back",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AK-1242",
+   "slug": "redo-assignment-properly-after-you-got-grade"
+  },
+  {
+   "title": "Find the one paper that changes how you think about your major",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1243",
+   "slug": "find-paper-that-changes-how-you-think"
+  },
+  {
+   "title": "Sit in the library for six hours and actually work for four of them",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1244",
+   "slug": "sit-library-six-hours-actually-work-four"
+  },
+  {
+   "title": "Take notes by hand for a full course and see if it changes anything",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1245",
+   "slug": "take-notes-by-hand-full-course-see"
+  },
+  {
+   "title": "Explain your thesis to someone who has no background in it",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1246",
+   "slug": "explain-thesis-someone-who-has-no-background"
+  },
+  {
+   "title": "Read a book your professor mentioned in passing",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1247",
+   "slug": "read-book-professor-mentioned-passing"
+  },
+  {
+   "title": "Sit an exam having genuinely prepared, once, to know the difference",
+   "category": "academic",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AK-1248",
+   "slug": "sit-exam-having-genuinely-prepared-once-know"
+  },
+  {
+   "title": "Learn the history of your own department",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1249",
+   "slug": "learn-history-own-department"
+  },
+  {
+   "title": "Find a study spot that is not the library and make it yours",
+   "category": "academic",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1250",
+   "slug": "find-study-spot-that-is-not-library"
+  },
+  {
+   "title": "Take a course pass or fail purely to learn it without fear",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AK-1251",
+   "slug": "take-course-pass-or-fail-purely-learn"
+  },
+  {
+   "title": "Write down what you believed at the start of a course and check at the end",
+   "category": "academic",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AK-1252",
+   "slug": "write-down-what-you-believed-start-course"
+  },
+  {
+   "title": "Cook a full meal for one person who is having a bad week",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1253",
+   "slug": "cook-full-meal-person-who-is-having"
+  },
+  {
+   "title": "Find the best thing on the menu at the place everyone dismisses",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "FD-1254",
+   "slug": "find-best-thing-menu-place-everyone-dismisses"
+  },
+  {
+   "title": "Eat a vegetarian week if you do not, or the opposite if you do",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "FD-1255",
+   "slug": "eat-vegetarian-week-if-you-do-not"
+  },
+  {
+   "title": "Learn to make one thing at three in the morning with no equipment",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1256",
+   "slug": "learn-make-thing-three-morning-with-no"
+  },
+  {
+   "title": "Sit at breakfast for an hour on a day you could have slept in",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1257",
+   "slug": "sit-breakfast-hour-day-you-could-have"
+  },
+  {
+   "title": "Eat something you were certain you would hate",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "FD-1258",
+   "slug": "eat-something-you-were-certain-you-would"
+  },
+  {
+   "title": "Bring back food from your hometown and feed six people with it",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1259",
+   "slug": "bring-back-food-from-hometown-feed-six"
+  },
+  {
+   "title": "Learn what everyone on your floor cannot eat and cook around it",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1260",
+   "slug": "learn-what-everyone-floor-cannot-eat-cook"
+  },
+  {
+   "title": "Do a blind taste test of the three places everyone argues about",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1261",
+   "slug": "do-blind-taste-test-three-places-everyone"
+  },
+  {
+   "title": "Have tea with someone every week for a semester, same day, same time",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1262",
+   "slug": "have-tea-with-someone-every-week-semester"
+  },
+  {
+   "title": "Eat alone at a restaurant with a table for one, in Delhi",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "FD-1263",
+   "slug": "eat-alone-restaurant-with-table-delhi"
+  },
+  {
+   "title": "Learn to make good coffee without a machine",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1264",
+   "slug": "learn-make-good-coffee-without-machine"
+  },
+  {
+   "title": "Go a week without caffeine during a normal, non-exam week",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "FD-1265",
+   "slug": "go-week-without-caffeine-during-normal-nonexam"
+  },
+  {
+   "title": "Feed someone who has been surviving on packet noodles for a week",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1266",
+   "slug": "feed-someone-who-has-been-surviving-packet"
+  },
+  {
+   "title": "Find the cheapest genuinely good meal within two kilometres",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "FD-1267",
+   "slug": "find-cheapest-genuinely-good-meal-within-two"
+  },
+  {
+   "title": "Eat breakfast at midnight and dinner at dawn, once",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1268",
+   "slug": "eat-breakfast-midnight-dinner-dawn-once"
+  },
+  {
+   "title": "Learn the recipe your grandmother will not write down",
+   "category": "food",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "FD-1269",
+   "slug": "learn-recipe-grandmother-will-not-write-down"
+  },
+  {
+   "title": "Host a dinner where nobody is allowed to use a phone",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1270",
+   "slug": "host-dinner-where-nobody-is-allowed-use"
+  },
+  {
+   "title": "Make chai badly for someone who makes it well and take the criticism",
+   "category": "food",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1271",
+   "slug": "make-chai-badly-someone-who-makes-it"
+  },
+  {
+   "title": "Eat a meal in complete silence with someone you like",
+   "category": "food",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "FD-1272",
+   "slug": "eat-meal-complete-silence-with-someone-you"
+  },
+  {
+   "title": "Learn what someone in your batch is genuinely good at that nobody knows",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1273",
+   "slug": "learn-what-someone-batch-is-genuinely-good"
+  },
+  {
+   "title": "Sit with someone through a bad night without offering solutions",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1274",
+   "slug": "sit-with-someone-through-bad-night-without"
+  },
+  {
+   "title": "Introduce yourself first to a person you have shared three classes with",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1275",
+   "slug": "introduce-yourself-first-person-you-have-shared"
+  },
+  {
+   "title": "Ask someone about their hometown until you could describe it",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1276",
+   "slug": "ask-someone-about-their-hometown-until-you"
+  },
+  {
+   "title": "Have a conversation with someone whose politics you find difficult",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "PP-1277",
+   "slug": "have-conversation-with-someone-whose-politics-you"
+  },
+  {
+   "title": "Be honest with a friend about something they are doing badly",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "PP-1278",
+   "slug": "be-honest-with-friend-about-something-they"
+  },
+  {
+   "title": "Let someone help you with something you would normally hide",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "PP-1279",
+   "slug": "let-someone-help-you-with-something-you"
+  },
+  {
+   "title": "Sit with a group you would normally avoid and stay past the awkward part",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1280",
+   "slug": "sit-with-group-you-would-normally-avoid"
+  },
+  {
+   "title": "Call a school friend you have not spoken to in a year",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1281",
+   "slug": "call-school-friend-you-have-not-spoken"
+  },
+  {
+   "title": "Call your parents on a day nothing is wrong",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1282",
+   "slug": "call-parents-day-nothing-is-wrong"
+  },
+  {
+   "title": "Ask a sibling something you have never asked them",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1283",
+   "slug": "ask-sibling-something-you-have-never-asked"
+  },
+  {
+   "title": "Be the first person to arrive at someone else's event",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1284",
+   "slug": "be-first-person-arrive-someone-elses-event"
+  },
+  {
+   "title": "Remember one person's birthday without a reminder",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1285",
+   "slug": "remember-persons-birthday-without-reminder"
+  },
+  {
+   "title": "Sit next to a different person in every class for a month",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1286",
+   "slug": "sit-next-different-person-every-class-month"
+  },
+  {
+   "title": "Find out what your closest friend is actually afraid of",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1287",
+   "slug": "find-out-what-closest-friend-is-actually"
+  },
+  {
+   "title": "Forgive someone without telling them you have",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1288",
+   "slug": "forgive-someone-without-telling-them-you-have"
+  },
+  {
+   "title": "Ask for help from someone you are slightly intimidated by",
+   "category": "people",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1289",
+   "slug": "ask-help-from-someone-you-are-slightly"
+  },
+  {
+   "title": "Sit with someone from a batch above and ask about their worst semester",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1290",
+   "slug": "sit-with-someone-from-batch-above-ask"
+  },
+  {
+   "title": "Learn to greet someone in the language they grew up speaking",
+   "category": "people",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "PP-1291",
+   "slug": "learn-greet-someone-language-they-grew-up"
+  },
+  {
+   "title": "Say yes to a plan you would normally decline",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "PP-1292",
+   "slug": "say-yes-plan-you-would-normally-decline"
+  },
+  {
+   "title": "Tell a friend the specific thing you learned from them",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "PP-1293",
+   "slug": "tell-friend-specific-thing-you-learned-from"
+  },
+  {
+   "title": "Spend a whole evening with someone without discussing academics",
+   "category": "people",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "PP-1294",
+   "slug": "spend-whole-evening-with-someone-without-discussing"
+  },
+  {
+   "title": "Write one thousand words about a place you know well",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1295",
+   "slug": "write-thousand-words-about-place-you-know"
+  },
+  {
+   "title": "Learn one editing technique and use it until it is invisible",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1296",
+   "slug": "learn-editing-technique-use-it-until-it"
+  },
+  {
+   "title": "Make a thing in one sitting and refuse to improve it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1297",
+   "slug": "make-thing-sitting-refuse-improve-it"
+  },
+  {
+   "title": "Illustrate something for someone else's project",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1298",
+   "slug": "illustrate-something-someone-elses-project"
+  },
+  {
+   "title": "Record an interview with someone on campus and keep it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1299",
+   "slug": "record-interview-with-someone-campus-keep-it"
+  },
+  {
+   "title": "Build something useful that solves an annoyance only you have",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1300",
+   "slug": "build-something-useful-that-solves-annoyance-only"
+  },
+  {
+   "title": "Learn to write a decent email in three lines",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1301",
+   "slug": "learn-write-decent-email-three-lines"
+  },
+  {
+   "title": "Make a map of something that has never been mapped",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1302",
+   "slug": "make-map-something-that-has-never-been"
+  },
+  {
+   "title": "Take a photograph you would print and put on a wall",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1303",
+   "slug": "take-photograph-you-would-print-put-wall"
+  },
+  {
+   "title": "Write something under a name that is not yours and never claim it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1304",
+   "slug": "write-something-under-name-that-is-not"
+  },
+  {
+   "title": "Finish the creative project you abandoned in first year",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1305",
+   "slug": "finish-creative-project-you-abandoned-first-year"
+  },
+  {
+   "title": "Collaborate with someone whose taste you do not share",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CR-1306",
+   "slug": "collaborate-with-someone-whose-taste-you-do"
+  },
+  {
+   "title": "Learn one instrument well enough to accompany someone else",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CR-1307",
+   "slug": "learn-instrument-well-enough-accompany-someone-else"
+  },
+  {
+   "title": "Design something for a cause you actually care about, for free",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1308",
+   "slug": "design-something-cause-you-actually-care-about"
+  },
+  {
+   "title": "Submit work to something that will probably reject it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1309",
+   "slug": "submit-work-something-that-will-probably-reject"
+  },
+  {
+   "title": "Keep a one-line-a-day record for a full semester",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1310",
+   "slug": "keep-onelineaday-record-full-semester"
+  },
+  {
+   "title": "Learn to give feedback that is specific and not cruel",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CR-1311",
+   "slug": "learn-give-feedback-that-is-specific-not"
+  },
+  {
+   "title": "Read your own writing aloud to one person",
+   "category": "creative",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CR-1312",
+   "slug": "read-own-writing-aloud-person"
+  },
+  {
+   "title": "Make something for a person who will never know you made it",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CR-1313",
+   "slug": "make-something-person-who-will-never-know"
+  },
+  {
+   "title": "Learn one thing about how a craft you admire is actually done",
+   "category": "creative",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CR-1314",
+   "slug": "learn-thing-about-how-craft-you-admire"
+  },
+  {
+   "title": "Walk ten thousand steps every day for two weeks",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1315",
+   "slug": "walk-ten-thousand-steps-every-day-two"
+  },
+  {
+   "title": "Learn to do one pull-up if you cannot do any",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1316",
+   "slug": "learn-do-pullup-if-you-cannot-do"
+  },
+  {
+   "title": "Play a game of anything against someone twice your age",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1317",
+   "slug": "play-game-anything-against-someone-twice-age"
+  },
+  {
+   "title": "Wake up at six for a week and notice what happens",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1318",
+   "slug": "wake-up-six-week-notice-what-happens"
+  },
+  {
+   "title": "Learn to fall properly, in any sport",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1319",
+   "slug": "learn-fall-properly-any-sport"
+  },
+  {
+   "title": "Play the sport you quit as a child, once",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1320",
+   "slug": "play-sport-you-quit-as-child-once"
+  },
+  {
+   "title": "Run in the rain on purpose",
+   "category": "body_sport",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1321",
+   "slug": "run-rain-purpose"
+  },
+  {
+   "title": "Learn a warm-up routine and do it properly every time",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1322",
+   "slug": "learn-warmup-routine-do-it-properly-every"
+  },
+  {
+   "title": "Play a full game with people much better than you and finish it",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1323",
+   "slug": "play-full-game-with-people-much-better"
+  },
+  {
+   "title": "Track your sleep honestly for two weeks",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1324",
+   "slug": "track-sleep-honestly-two-weeks"
+  },
+  {
+   "title": "Learn to cook one meal that is not beige",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1325",
+   "slug": "learn-cook-meal-that-is-not-beige"
+  },
+  {
+   "title": "Take one full rest day with no guilt",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1326",
+   "slug": "take-full-rest-day-with-no-guilt"
+  },
+  {
+   "title": "Get your eyes tested if you have been squinting for a year",
+   "category": "body_sport",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1327",
+   "slug": "get-eyes-tested-if-you-have-been"
+  },
+  {
+   "title": "Learn to breathe properly while running",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1328",
+   "slug": "learn-breathe-properly-while-running"
+  },
+  {
+   "title": "Do something physical outdoors before eight in the morning, once a week for a month",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1329",
+   "slug": "do-something-physical-outdoors-before-eight-morning"
+  },
+  {
+   "title": "Learn to sit still for ten minutes",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1330",
+   "slug": "learn-sit-still-ten-minutes"
+  },
+  {
+   "title": "Beat your own time at anything, measured",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "BD-1331",
+   "slug": "beat-own-time-anything-measured"
+  },
+  {
+   "title": "Cycle somewhere far enough that coming back is a problem",
+   "category": "body_sport",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "BD-1332",
+   "slug": "cycle-somewhere-far-enough-that-coming-back"
+  },
+  {
+   "title": "Learn the rules of a sport you only pretend to understand",
+   "category": "body_sport",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1333",
+   "slug": "learn-rules-sport-you-only-pretend-understand"
+  },
+  {
+   "title": "Stop drinking anything but water for two weeks",
+   "category": "body_sport",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "BD-1334",
+   "slug": "stop-drinking-anything-but-water-two-weeks"
+  },
+  {
+   "title": "Take a bus instead of a cab and see where it goes",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1335",
+   "slug": "take-bus-instead-cab-see-where-it"
+  },
+  {
+   "title": "Visit a Delhi neighbourhood only because you liked the name",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1336",
+   "slug": "visit-delhi-neighbourhood-only-because-you-liked"
+  },
+  {
+   "title": "Spend an afternoon in a Delhi park with a book and nothing else",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1337",
+   "slug": "spend-afternoon-delhi-park-with-book-nothing"
+  },
+  {
+   "title": "Go to a bookshop in Delhi and buy nothing, deliberately",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1338",
+   "slug": "go-bookshop-delhi-buy-nothing-deliberately"
+  },
+  {
+   "title": "See a play in Delhi in a language you do not speak",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1339",
+   "slug": "see-play-delhi-language-you-do-not"
+  },
+  {
+   "title": "Take the metro to the end of a line you have never finished",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1340",
+   "slug": "take-metro-end-line-you-have-never"
+  },
+  {
+   "title": "Find a monument in Delhi that has no queue",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1341",
+   "slug": "find-monument-delhi-that-has-no-queue"
+  },
+  {
+   "title": "Walk ten kilometres across a city in one day",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "TR-1342",
+   "slug": "walk-ten-kilometres-across-city-day"
+  },
+  {
+   "title": "Go somewhere for exactly one thing and come straight back",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1343",
+   "slug": "go-somewhere-exactly-thing-come-straight-back"
+  },
+  {
+   "title": "Visit a market you have only ordered from online",
+   "category": "delhi_ncr",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1344",
+   "slug": "visit-market-you-have-only-ordered-from"
+  },
+  {
+   "title": "Take a trip planned entirely by someone else",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1345",
+   "slug": "take-trip-planned-entirely-by-someone-else"
+  },
+  {
+   "title": "Travel somewhere by train in general seating at least once",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1346",
+   "slug": "travel-somewhere-by-train-general-seating-least"
+  },
+  {
+   "title": "Go to the hills in the wrong season",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1347",
+   "slug": "go-hills-wrong-season"
+  },
+  {
+   "title": "Visit a working place that is not a tourist site: a press, a workshop, a market at dawn",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1348",
+   "slug": "visit-working-place-that-is-not-tourist"
+  },
+  {
+   "title": "Spend a whole day somewhere without taking a single photo",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1349",
+   "slug": "spend-whole-day-somewhere-without-taking-single"
+  },
+  {
+   "title": "Go somewhere purely because a stranger recommended it",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1350",
+   "slug": "go-somewhere-purely-because-stranger-recommended-it"
+  },
+  {
+   "title": "Watch the sun set from a rooftop in a city that is not yours",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "TR-1351",
+   "slug": "watch-sun-set-from-rooftop-city-that"
+  },
+  {
+   "title": "Take one trip where nobody has a plan and nobody is in charge",
+   "category": "delhi_ncr",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "TR-1352",
+   "slug": "take-trip-where-nobody-has-plan-nobody"
+  },
+  {
+   "title": "Go home unannounced",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "TR-1353",
+   "slug": "go-home-unannounced"
+  },
+  {
+   "title": "Visit the campus of a university that is nothing like yours",
+   "category": "delhi_ncr",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 1,
+   "id": "TR-1354",
+   "slug": "visit-campus-university-that-is-nothing-like"
+  },
+  {
+   "title": "Write a cover letter you would actually want to receive",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1355",
+   "slug": "write-cover-letter-you-would-actually-want"
+  },
+  {
+   "title": "Read one annual report of a company you find interesting",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1356",
+   "slug": "read-annual-report-company-you-find-interesting"
+  },
+  {
+   "title": "Ask someone what their job is actually like on a Wednesday",
+   "category": "career_money",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1357",
+   "slug": "ask-someone-what-their-job-is-actually"
+  },
+  {
+   "title": "Find out what a role you want actually pays",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1358",
+   "slug": "find-out-what-role-you-want-actually"
+  },
+  {
+   "title": "Do one piece of work you would put in a portfolio, unpaid, on purpose",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1359",
+   "slug": "do-piece-work-you-would-put-portfolio"
+  },
+  {
+   "title": "Apply to ten things in one week and stop refreshing your inbox",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1360",
+   "slug": "apply-ten-things-week-stop-refreshing-inbox"
+  },
+  {
+   "title": "Learn to read a payslip",
+   "category": "career_money",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1361",
+   "slug": "learn-read-payslip"
+  },
+  {
+   "title": "Open and understand one investment account",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1362",
+   "slug": "open-understand-investment-account"
+  },
+  {
+   "title": "Sell something you made to a stranger",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1363",
+   "slug": "sell-something-you-made-stranger"
+  },
+  {
+   "title": "Do a month where every rupee you spend has a reason",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1364",
+   "slug": "do-month-where-every-rupee-you-spend"
+  },
+  {
+   "title": "Ask a professor for a reference in person rather than by email",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CM-1365",
+   "slug": "ask-professor-reference-person-rather-than-by"
+  },
+  {
+   "title": "Redo your CV so a stranger could understand it in twenty seconds",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1366",
+   "slug": "redo-cv-so-stranger-could-understand-it"
+  },
+  {
+   "title": "Have one conversation with someone doing the job you think you want",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1367",
+   "slug": "have-conversation-with-someone-doing-job-you"
+  },
+  {
+   "title": "Quit something that is not working before it finishes",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CM-1368",
+   "slug": "quit-something-that-is-not-working-before"
+  },
+  {
+   "title": "Learn what your degree costs per hour of class",
+   "category": "career_money",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1369",
+   "slug": "learn-what-degree-costs-per-hour-class"
+  },
+  {
+   "title": "Take on one piece of work you do not yet know how to do",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1370",
+   "slug": "take-piece-work-you-do-not-yet"
+  },
+  {
+   "title": "Turn down something safe for something interesting, once",
+   "category": "career_money",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CM-1371",
+   "slug": "turn-down-something-safe-something-interesting-once"
+  },
+  {
+   "title": "Send a follow-up after the silence, once",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1372",
+   "slug": "send-followup-after-silence-once"
+  },
+  {
+   "title": "Pay for one meal for the people who helped you get something",
+   "category": "career_money",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "CM-1373",
+   "slug": "pay-meal-people-who-helped-you-get"
+  },
+  {
+   "title": "Write down what you want to be doing in five years and put a date on it",
+   "category": "career_money",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "CM-1374",
+   "slug": "write-down-what-you-want-be-doing"
+  },
+  {
+   "title": "Help someone move out at the end of a semester",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1375",
+   "slug": "help-someone-move-out-end-semester"
+  },
+  {
+   "title": "Return something you borrowed a long time ago",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "SV-1376",
+   "slug": "return-something-you-borrowed-long-time-ago"
+  },
+  {
+   "title": "Teach one skill you have to a group, for free, once",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1377",
+   "slug": "teach-skill-you-have-group-free-once"
+  },
+  {
+   "title": "Sit on a committee nobody wants to be on",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1378",
+   "slug": "sit-committee-nobody-wants-be"
+  },
+  {
+   "title": "Do the unglamorous half of an event nobody thanks you for",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1379",
+   "slug": "do-unglamorous-half-event-nobody-thanks-you"
+  },
+  {
+   "title": "Write a proper reference or recommendation for a junior",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1380",
+   "slug": "write-proper-reference-or-recommendation-junior"
+  },
+  {
+   "title": "Report a safety problem instead of assuming someone else did",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1381",
+   "slug": "report-safety-problem-instead-assuming-someone-else"
+  },
+  {
+   "title": "Take notes for someone who was ill and get them right",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1382",
+   "slug": "take-notes-someone-who-was-ill-get"
+  },
+  {
+   "title": "Learn what support exists on campus so you can point someone to it",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1383",
+   "slug": "learn-what-support-exists-campus-so-you"
+  },
+  {
+   "title": "Stay behind and clean up after something you did not organise",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1384",
+   "slug": "stay-behind-clean-up-after-something-you"
+  },
+  {
+   "title": "Give away a book you loved with a note in the front",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1385",
+   "slug": "give-away-book-you-loved-with-note"
+  },
+  {
+   "title": "Check on the person who has gone quiet",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "SV-1386",
+   "slug": "check-person-who-has-gone-quiet"
+  },
+  {
+   "title": "Learn to say no in a way that does not leave someone stranded",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SV-1387",
+   "slug": "learn-say-no-way-that-does-not"
+  },
+  {
+   "title": "Contribute to something that will still exist after you leave",
+   "category": "service",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1388",
+   "slug": "contribute-something-that-will-still-exist-after"
+  },
+  {
+   "title": "Learn one person's story who works on campus and would never be asked",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1389",
+   "slug": "learn-persons-story-who-works-campus-would"
+  },
+  {
+   "title": "Be the person who books the room and sends the reminder",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1390",
+   "slug": "be-person-who-books-room-sends-reminder"
+  },
+  {
+   "title": "Answer a first-year's question fully instead of vaguely",
+   "category": "service",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1391",
+   "slug": "answer-firstyears-question-fully-instead-vaguely"
+  },
+  {
+   "title": "Fix a piece of documentation that is wrong and is wasting people's time",
+   "category": "service",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SV-1392",
+   "slug": "fix-piece-documentation-that-is-wrong-is"
+  },
+  {
+   "title": "Spend a full hour without input of any kind",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1393",
+   "slug": "spend-full-hour-without-input-any-kind"
+  },
+  {
+   "title": "Write down the thing you are avoiding, in one sentence",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1394",
+   "slug": "write-down-thing-you-are-avoiding-sentence"
+  },
+  {
+   "title": "Take yourself somewhere you would only go with company",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1395",
+   "slug": "take-yourself-somewhere-you-would-only-go"
+  },
+  {
+   "title": "Turn off every notification for a week",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AL-1396",
+   "slug": "turn-off-every-notification-week"
+  },
+  {
+   "title": "Reread something you wrote two years ago",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1397",
+   "slug": "reread-something-you-wrote-two-years-ago"
+  },
+  {
+   "title": "Make a decision without asking anyone first",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1398",
+   "slug": "make-decision-without-asking-anyone-first"
+  },
+  {
+   "title": "Spend an evening doing exactly what you would do if nobody could see",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AL-1399",
+   "slug": "spend-evening-doing-exactly-what-you-would"
+  },
+  {
+   "title": "Learn to enjoy one thing that is entirely uncool",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1400",
+   "slug": "learn-enjoy-thing-that-is-entirely-uncool"
+  },
+  {
+   "title": "Sit with a bad mood without trying to fix it for one hour",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1401",
+   "slug": "sit-with-bad-mood-without-trying-fix"
+  },
+  {
+   "title": "Take one walk with no music and no phone",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1402",
+   "slug": "take-walk-with-no-music-no-phone"
+  },
+  {
+   "title": "Write down five things you believe and check whether you actually do",
+   "category": "solitude",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AL-1403",
+   "slug": "write-down-five-things-you-believe-check"
+  },
+  {
+   "title": "Spend one evening a week alone, on purpose, for a month",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1404",
+   "slug": "spend-evening-week-alone-purpose-month"
+  },
+  {
+   "title": "Stop performing for one full day",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "AL-1405",
+   "slug": "stop-performing-full-day"
+  },
+  {
+   "title": "Notice one thing on your usual route you have never looked at",
+   "category": "solitude",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AL-1406",
+   "slug": "notice-thing-usual-route-you-have-never"
+  },
+  {
+   "title": "Learn what you actually think about the thing everyone agrees on",
+   "category": "solitude",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "AL-1407",
+   "slug": "learn-what-you-actually-think-about-thing"
+  },
+  {
+   "title": "Be awake to hear the first bird on campus",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1408",
+   "slug": "be-awake-hear-first-bird-campus"
+  },
+  {
+   "title": "Have a long conversation on a staircase because nobody wants to end it",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1409",
+   "slug": "have-long-conversation-staircase-because-nobody-wants"
+  },
+  {
+   "title": "Play music out loud at an hour where it becomes a shared decision",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1410",
+   "slug": "play-music-out-loud-hour-where-it"
+  },
+  {
+   "title": "Finish a season of something in one night with one other person",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1411",
+   "slug": "finish-season-something-night-with-other-person"
+  },
+  {
+   "title": "Do a two in the morning grocery or snack run on foot",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1412",
+   "slug": "do-two-morning-grocery-or-snack-run"
+  },
+  {
+   "title": "Sit outside long enough that the temperature changes",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1413",
+   "slug": "sit-outside-long-enough-that-temperature-changes"
+  },
+  {
+   "title": "Have the conversation about what everyone is actually going to do after",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1414",
+   "slug": "have-conversation-about-what-everyone-is-actually"
+  },
+  {
+   "title": "Learn a card game properly at an unreasonable hour",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1415",
+   "slug": "learn-card-game-properly-unreasonable-hour"
+  },
+  {
+   "title": "Write something at three in the morning and read it at noon",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1416",
+   "slug": "write-something-three-morning-read-it-noon"
+  },
+  {
+   "title": "Walk someone back to their room the long way",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1417",
+   "slug": "walk-someone-back-their-room-long-way"
+  },
+  {
+   "title": "Be the person still awake when someone needs someone awake",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1418",
+   "slug": "be-person-still-awake-when-someone-needs"
+  },
+  {
+   "title": "Watch a film nobody in the room has seen, chosen at random",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1419",
+   "slug": "watch-film-nobody-room-has-seen-chosen"
+  },
+  {
+   "title": "Stay up for a result, a launch, or a match happening in another timezone",
+   "category": "night",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "NT-1420",
+   "slug": "stay-up-result-launch-or-match-happening"
+  },
+  {
+   "title": "Have one night where the plan falls apart and it turns out better",
+   "category": "night",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "NT-1421",
+   "slug": "have-night-where-plan-falls-apart-it"
+  },
+  {
+   "title": "Write down what you would tell yourself in first year",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "LG-1422",
+   "slug": "write-down-what-you-would-tell-yourself"
+  },
+  {
+   "title": "Pass on the resource everyone had to find the hard way",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1423",
+   "slug": "pass-resource-everyone-had-find-hard-way"
+  },
+  {
+   "title": "Have one last meal at the place you ate at most",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1424",
+   "slug": "have-last-meal-place-you-ate-most"
+  },
+  {
+   "title": "Introduce your parents to the friend who got you through it",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1425",
+   "slug": "introduce-parents-friend-who-got-you-through"
+  },
+  {
+   "title": "Return to the first place on campus you ever sat down",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1426",
+   "slug": "return-first-place-campus-you-ever-sat"
+  },
+  {
+   "title": "Settle one thing you have been avoiding before you leave",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "LG-1427",
+   "slug": "settle-thing-you-have-been-avoiding-before"
+  },
+  {
+   "title": "Give away everything you cannot carry to people who need it",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1428",
+   "slug": "give-away-everything-you-cannot-carry-people"
+  },
+  {
+   "title": "Record one voice note describing this year while it is still happening",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1429",
+   "slug": "record-voice-note-describing-this-year-while"
+  },
+  {
+   "title": "Make sure the thing you built has someone to run it",
+   "category": "legacy",
+   "difficulty": 3,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1430",
+   "slug": "make-sure-thing-you-built-has-someone"
+  },
+  {
+   "title": "Thank a professor properly, in writing, once",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "LG-1431",
+   "slug": "thank-professor-properly-writing-once"
+  },
+  {
+   "title": "Take the photograph you will actually want in ten years, not the one for posting",
+   "category": "legacy",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1432",
+   "slug": "take-photograph-you-will-actually-want-ten"
+  },
+  {
+   "title": "Walk out of your last exam and go straight somewhere with someone",
+   "category": "legacy",
+   "difficulty": 1,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "LG-1433",
+   "slug": "walk-out-last-exam-go-straight-somewhere"
+  },
+  {
+   "title": "Wear formal clothes to something that absolutely does not require them",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1434",
+   "slug": "wear-formal-clothes-something-that-absolutely-does"
+  },
+  {
+   "title": "Compliment ten strangers in a day and mean all of them",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1435",
+   "slug": "compliment-ten-strangers-day-mean-all-them"
+  },
+  {
+   "title": "Create an award and give it to someone with a ceremony",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1436",
+   "slug": "create-award-give-it-someone-with-ceremony"
+  },
+  {
+   "title": "Take the long way everywhere for one entire day",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CH-1437",
+   "slug": "take-long-way-everywhere-entire-day"
+  },
+  {
+   "title": "Learn a completely useless fact and work it into three conversations",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1438",
+   "slug": "learn-completely-useless-fact-work-it-into"
+  },
+  {
+   "title": "Run a completely serious poll about something completely trivial",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1439",
+   "slug": "run-completely-serious-poll-about-something-completely"
+  },
+  {
+   "title": "Narrate someone else's morning like a documentary, with permission",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1440",
+   "slug": "narrate-someone-elses-morning-like-documentary-with"
+  },
+  {
+   "title": "Write a formal letter of complaint about something absurd",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1441",
+   "slug": "write-formal-letter-complaint-about-something-absurd"
+  },
+  {
+   "title": "Bring a chair to a place that has no chairs and sit in it",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1442",
+   "slug": "bring-chair-place-that-has-no-chairs"
+  },
+  {
+   "title": "Start a rumour that a completely fictional tradition exists, then hold it",
+   "category": "chaos",
+   "difficulty": 3,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1443",
+   "slug": "start-rumour-that-completely-fictional-tradition-exists"
+  },
+  {
+   "title": "Give a toast at a meal that is not an occasion",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1444",
+   "slug": "give-toast-meal-that-is-not-occasion"
+  },
+  {
+   "title": "Learn to introduce two people so well they both feel flattered",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "CH-1445",
+   "slug": "learn-introduce-two-people-so-well-they"
+  },
+  {
+   "title": "Do something at a scale that is obviously excessive for the occasion",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1446",
+   "slug": "do-something-scale-that-is-obviously-excessive"
+  },
+  {
+   "title": "Answer one question far more honestly than it deserved",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 3,
+   "id": "CH-1447",
+   "slug": "answer-question-far-more-honestly-than-it"
+  },
+  {
+   "title": "Bring an entire cake to a normal weekday for no reason",
+   "category": "chaos",
+   "difficulty": 1,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 2,
+   "id": "CH-1448",
+   "slug": "bring-entire-cake-normal-weekday-no-reason"
+  },
+  {
+   "title": "Have a full conversation in a language you barely speak",
+   "category": "chaos",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "anywhere",
+   "spice": 3,
+   "id": "CH-1449",
+   "slug": "have-full-conversation-language-you-barely-speak"
+  },
+  {
+   "title": "Learn to touch type properly",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1450",
+   "slug": "learn-touch-type-properly"
+  },
+  {
+   "title": "Learn to swim one length of every stroke",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1451",
+   "slug": "learn-swim-length-every-stroke"
+  },
+  {
+   "title": "Learn to drive",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1452",
+   "slug": "learn-drive"
+  },
+  {
+   "title": "Learn to cook five meals well enough to never think about them",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1453",
+   "slug": "learn-cook-five-meals-well-enough-never"
+  },
+  {
+   "title": "Learn to iron a shirt properly",
+   "category": "skills",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1454",
+   "slug": "learn-iron-shirt-properly"
+  },
+  {
+   "title": "Learn to sew a button back on",
+   "category": "skills",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1455",
+   "slug": "learn-sew-button-back"
+  },
+  {
+   "title": "Learn one keyboard shortcut a week for a semester",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1456",
+   "slug": "learn-keyboard-shortcut-week-semester"
+  },
+  {
+   "title": "Learn to read a contract before signing it",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1457",
+   "slug": "learn-read-contract-before-signing-it"
+  },
+  {
+   "title": "Learn to swim, drive, or cook if you can only pick one and pick it now",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1458",
+   "slug": "learn-swim-drive-or-cook-if-you"
+  },
+  {
+   "title": "Learn one thing your parents do that you have never learned",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1459",
+   "slug": "learn-thing-parents-do-that-you-have"
+  },
+  {
+   "title": "Learn to give a five-minute talk with no slides",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "SK-1460",
+   "slug": "learn-give-fiveminute-talk-with-no-slides"
+  },
+  {
+   "title": "Learn a language to the point of one real conversation",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1461",
+   "slug": "learn-language-point-real-conversation"
+  },
+  {
+   "title": "Learn to fix one thing instead of replacing it",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1462",
+   "slug": "learn-fix-thing-instead-replacing-it"
+  },
+  {
+   "title": "Learn to take criticism without explaining yourself first",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1463",
+   "slug": "learn-take-criticism-without-explaining-yourself-first"
+  },
+  {
+   "title": "Learn to swim in open water if you only swim in pools",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "any",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1464",
+   "slug": "learn-swim-open-water-if-you-only"
+  },
+  {
+   "title": "Learn basic self-defence properly, not from a video",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1465",
+   "slug": "learn-basic-selfdefence-properly-not-from-video"
+  },
+  {
+   "title": "Learn to navigate a city without a map application",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "any",
+   "locale": "ncr",
+   "spice": 2,
+   "id": "SK-1466",
+   "slug": "learn-navigate-city-without-map-application"
+  },
+  {
+   "title": "Learn to whistle, click, or do the thing you never managed as a child",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1467",
+   "slug": "learn-whistle-click-or-do-thing-you"
+  },
+  {
+   "title": "Learn to run a meeting that ends on time",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "group",
+   "locale": "campus",
+   "spice": 1,
+   "id": "SK-1468",
+   "slug": "learn-run-meeting-that-ends-time"
+  },
+  {
+   "title": "Learn to read a balance sheet",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "SK-1469",
+   "slug": "learn-read-balance-sheet"
+  },
+  {
+   "title": "Learn to swim through a full week of your own bad mood without breaking anything",
+   "category": "skills",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "SK-1470",
+   "slug": "learn-swim-through-full-week-own-bad"
+  },
+  {
+   "title": "Learn one card trick well enough that nobody catches it",
+   "category": "skills",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "SK-1471",
+   "slug": "learn-card-trick-well-enough-that-nobody"
+  },
+  {
+   "title": "Do your own laundry properly for a full semester",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AD-1472",
+   "slug": "do-own-laundry-properly-full-semester"
+  },
+  {
+   "title": "Get every document you need in one folder that you can find",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1473",
+   "slug": "get-every-document-you-need-folder-that"
+  },
+  {
+   "title": "Fill out one form correctly the first time",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AD-1474",
+   "slug": "fill-out-form-correctly-first-time"
+  },
+  {
+   "title": "Register to vote",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1475",
+   "slug": "register-vote"
+  },
+  {
+   "title": "Back up everything you would cry about losing",
+   "category": "admin_life",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1476",
+   "slug": "back-up-everything-you-would-cry-about"
+  },
+  {
+   "title": "Clean your room properly, once, including under things",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AD-1477",
+   "slug": "clean-room-properly-once-including-under-things"
+  },
+  {
+   "title": "Set up a password manager and stop reusing that one password",
+   "category": "admin_life",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1478",
+   "slug": "set-up-password-manager-stop-reusing-that"
+  },
+  {
+   "title": "Get a dental check-up",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1479",
+   "slug": "get-dental-checkup"
+  },
+  {
+   "title": "Read the terms of one thing you signed up for",
+   "category": "admin_life",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1480",
+   "slug": "read-terms-thing-you-signed-up"
+  },
+  {
+   "title": "Sort out the thing that has been on your list since first year",
+   "category": "admin_life",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AD-1481",
+   "slug": "sort-out-thing-that-has-been-list"
+  },
+  {
+   "title": "Learn how your health insurance actually works",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1482",
+   "slug": "learn-how-health-insurance-actually-works"
+  },
+  {
+   "title": "Unsubscribe from everything that is not worth an email",
+   "category": "admin_life",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1483",
+   "slug": "unsubscribe-from-everything-that-is-not-worth"
+  },
+  {
+   "title": "Reply to the message you have been leaving unread for a month",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 2,
+   "id": "AD-1484",
+   "slug": "reply-message-you-have-been-leaving-unread"
+  },
+  {
+   "title": "Learn where everything on campus actually is: the clinic, the office, the desk",
+   "category": "admin_life",
+   "difficulty": 1,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "placeholder": true,
+   "id": "AD-1485",
+   "slug": "learn-where-everything-campus-actually-is-clinic"
+  },
+  {
+   "title": "Keep one deadline calendar that you actually look at",
+   "category": "admin_life",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "anywhere",
+   "spice": 1,
+   "id": "AD-1486",
+   "slug": "keep-deadline-calendar-that-you-actually-look"
+  },
+  {
+   "title": "Throw out the things you have kept for no reason",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AD-1487",
+   "slug": "throw-out-things-you-have-kept-no"
+  },
+  {
+   "title": "Get a photograph of yourself that you would actually use",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "duo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AD-1488",
+   "slug": "get-photograph-yourself-that-you-would-actually"
+  },
+  {
+   "title": "Learn to pack for a weekend in ten minutes",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AD-1489",
+   "slug": "learn-pack-weekend-ten-minutes"
+  },
+  {
+   "title": "Pay back everything you owe people in small amounts",
+   "category": "admin_life",
+   "difficulty": 2,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 2,
+   "id": "AD-1490",
+   "slug": "pay-back-everything-you-owe-people-small"
+  },
+  {
+   "title": "Set one recurring thing in your week and protect it for a semester",
+   "category": "admin_life",
+   "difficulty": 3,
+   "group_size": "solo",
+   "locale": "campus",
+   "spice": 1,
+   "id": "AD-1491",
+   "slug": "set-recurring-thing-week-protect-it-semester"
+  }
+ ]
+}

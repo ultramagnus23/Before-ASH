@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* ══ tokens ══ ported 1:1 from before-ash/prototype.html — do not drift,
+   EXCEPT --color-ink-faint, deliberately darkened in P7's contrast audit
+   (BUILD-PROMPT.md §11): the prototype's original oklch(0.635 0.016 262)
+   measures 2.92:1 on --color-page, failing WCAG AA even for large text
+   (3:1 floor), let alone the body-text usage it actually gets throughout
+   this app (category labels, timestamps, visibility badges). The new
+   value clears 4.5:1 on both --color-page and --color-page-sunk. See
+   tests/e2e/accessibility.spec.ts for the axe-core check this was found
+   by (well, would have been — this was caught by manually computing real
+   WCAG contrast ratios, not by running that test live). ══ */
+@theme {
+  --color-cover: oklch(0.238 0.045 258);
+  --color-cover-deep: oklch(0.176 0.038 258);
+  --color-cover-raised: oklch(0.288 0.046 258);
+  --color-foil: oklch(0.808 0.062 88);
+  --color-foil-dim: oklch(0.62 0.045 88);
+  --color-page: oklch(0.945 0.012 92);
+  --color-page-sunk: oklch(0.908 0.018 88);
+  --color-rule: oklch(0.782 0.018 92);
+  --color-rule-fine: oklch(0.855 0.014 92);
+  --color-ink: oklch(0.262 0.028 262);
+  --color-ink-mid: oklch(0.468 0.02 262);
+  --color-ink-faint: oklch(0.5 0.016 262); /* was 0.635 — see comment above */
+  --color-stamp-vermilion: oklch(0.56 0.19 28); /* brand/stamp-ink color only — NOT for text, see --color-error below */
+  --color-stamp-teal: oklch(0.512 0.102 197);
+  --color-stamp-violet: oklch(0.482 0.128 305);
+  --color-stamp-ochre: oklch(0.618 0.13 74);
+  --color-void: oklch(0.128 0.03 258);
+
+  /* Error/destructive TEXT colors, distinct from --color-stamp-vermilion.
+     The stamp ink is a fixed brand color used on stamp badges (a graphic
+     element, not held to text-contrast rules) — reusing it directly for
+     error message text measured 4.36:1 on --color-page (fails AA) and
+     3.24:1 on --color-cover (fails badly). Two variants because the app
+     has both a light-page register and a dark-cover register; pick
+     whichever matches the surrounding background. */
+  --color-error: oklch(0.5 0.19 28); /* 5.64:1 on --color-page */
+  --color-error-on-dark: oklch(0.78 0.14 28); /* 7.66:1 on --color-cover/--color-void */
+
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Public Sans", system-ui, sans-serif;
+  --font-mono: "Courier Prime", ui-monospace, monospace;
+
+  --text-s-minus-2: 0.694rem;
+  --text-s-minus-1: 0.833rem;
+  --text-s-0: 1rem;
+  --text-s-1: 1.333rem;
+  --text-s-2: 1.777rem;
+  --text-s-3: 2.369rem;
+  --text-s-4: 3.157rem;
+  --text-s-5: 4.209rem;
+
+  --ease-passport: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+ * Four stamp inks map to categories by group — assigned once here, never
+ * inline, so the mapping stays auditable in one place. See lib/stamps.ts
+ * for the category -> ink lookup consumed by components.
+ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-void);
+    color: var(--color-page);
+    font-family: var(--font-body);
+    font-size: var(--text-s-0);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-foil);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.15s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Guilloche security print — same SVG data-uri as the prototype, at 5.5% opacity */
+.guilloche::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><g fill='none' stroke='%232b3550' stroke-width='.6'><ellipse cx='120' cy='120' rx='108' ry='40'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(20 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(40 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(60 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(80 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(100 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(120 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(140 120 120)'/><ellipse cx='120' cy='120' rx='108' ry='40' transform='rotate(160 120 120)'/></g></svg>");
+  background-size: 340px 340px;
+}
+
+.buckram-emboss {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 3px, oklch(1 0 0 / 0.012) 3px 4px),
+    repeating-linear-gradient(90deg, transparent 0 3px, oklch(1 0 0 / 0.012) 3px 4px);
+}
+
+/*
+ * ══ the stamp ══ P4's signature interaction, ported 1:1 from
+ * prototype.html's .mark / .stamp rules. Category -> ink assignment lives
+ * in lib/stamps.ts, not here — this file only draws whatever ink class it's
+ * given.
+ */
+.stamp-mark {
+  width: 24px;
+  height: 24px;
+  touch-action: none;
+}
+.stamp-mark circle {
+  fill: none;
+  stroke-width: 1.5;
+}
+.stamp-mark .ring {
+  stroke: var(--color-rule);
+}
+.stamp-mark .arc {
+  stroke: var(--color-foil-dim);
+  stroke-linecap: round;
+  stroke-dasharray: 59.7;
+  stroke-dashoffset: 59.7;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.stamp-mark.holding .arc {
+  transition: stroke-dashoffset 420ms linear;
+  stroke-dashoffset: 0;
+}
+.stamp-mark .dot {
+  fill: var(--color-rule);
+  opacity: 0;
+}
+.stamp-row-done .stamp-mark .ring {
+  stroke: var(--color-ink-faint);
+}
+.stamp-row-done .stamp-mark .dot {
+  opacity: 1;
+  fill: var(--color-ink-mid);
+}
+
+.stamp-badge {
+  position: absolute;
+  right: -6px;
+  top: 0.35rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.35);
+  transition:
+    opacity 140ms var(--ease-passport),
+    transform 140ms var(--ease-passport);
+  border: 1.5px solid currentColor;
+  padding: 0.3rem 0.6rem 0.25rem;
+  text-align: center;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(circle at 30% 20%, oklch(0 0 0 / 0.78), oklch(0 0 0 / 1) 70%);
+  mask-image: radial-gradient(circle at 30% 20%, oklch(0 0 0 / 0.78), oklch(0 0 0 / 1) 70%);
+}
+.stamp-badge::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px solid currentColor;
+  opacity: 0.5;
+}
+.stamp-row-done .stamp-badge {
+  opacity: 0.88;
+  transform: scale(1) rotate(var(--stamp-rotate));
+}
+.ink-vermilion {
+  color: var(--color-stamp-vermilion);
+}
+.ink-teal {
+  color: var(--color-stamp-teal);
+}
+.ink-violet {
+  color: var(--color-stamp-violet);
+}
+.ink-ochre {
+  color: var(--color-stamp-ochre);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The hold duration is functional, not decorative — it's the actual
+     "how long do I hold this" signal — so it keeps its real timing even
+     though every other transition above gets shortened by the !important
+     rule in @layer base. The !important here is required to actually win
+     against that rule — a plain declaration would lose regardless of
+     source order or specificity. Only the stamp's entrance drops its
+     scale-pop; it still lands at its final rotation, just without the
+     bounce. */
+  .stamp-mark.holding .arc {
+    transition: stroke-dashoffset 420ms linear !important;
+  }
+  .stamp-row-done .stamp-badge {
+    transform: rotate(var(--stamp-rotate));
+  }
+}

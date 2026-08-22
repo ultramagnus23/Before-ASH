@@ -1,0 +1,15 @@
+-- §7.1's report-abuse design needs a state that means "still publicly
+-- visible, but flagged for admin attention" — distinct from 'held', which
+-- already means "pulled from public view" per the existing RLS policy
+-- (list_items_select_public_approved only allows review_state='approved').
+-- Without this, "reports that don't meet the auto-hide bar escalate to the
+-- admin queue instead of auto-hiding" has no way to keep the content
+-- visible while still surfacing it to a reviewer.
+--
+-- This file ONLY adds the enum value. Postgres requires a newly added enum
+-- value to not be used in the same transaction that added it (pre-PG12 this
+-- fails outright; PG12+ relaxed it but only across transactions, not within
+-- one). db/migrate.ts applies each file as its own statement/transaction,
+-- so the actual USE of 'flagged' lives in 0006_safety_p6.sql, applied after
+-- this one commits.
+alter type review_state add value if not exists 'flagged';
