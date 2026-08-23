@@ -32,7 +32,7 @@ export function CoverForm({ allowedDomain }: { allowedDomain: string }) {
         <button
           type="submit"
           disabled={pending || !consent}
-          className="bg-page text-cover-deep font-semibold px-6 py-3.5 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="bg-page text-cover-deep font-semibold px-6 py-3.5 transition-[background-color,transform] duration-150 hover:bg-foil active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-page disabled:active:translate-y-0"
         >
           {pending ? "Sending…" : "Open it"}
         </button>

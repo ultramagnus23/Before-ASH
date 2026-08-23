@@ -9,8 +9,9 @@ export default function ClaimHandlePage() {
   const [state, formAction, pending] = useActionState(claimHandle, initialState);
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
+    <main className="cover-shell guilloche relative min-h-screen flex items-center justify-center px-4">
       <form action={formAction} className="w-full max-w-sm">
+        <p className="font-mono text-s-minus-1 tracking-[0.16em] uppercase text-foil-dim mb-3">You&rsquo;re in.</p>
         <h1 className="font-display font-extrabold text-s-2 text-page mb-2">Pick a handle</h1>
         <p className="text-page/60 text-s-minus-1 mb-6">
           Lowercase, numbers, underscores. 3 to 20 characters. This is how
@@ -31,7 +32,7 @@ export default function ClaimHandlePage() {
         <button
           type="submit"
           disabled={pending}
-          className="bg-page text-cover-deep font-semibold px-6 py-3 disabled:opacity-50"
+          className="bg-page text-cover-deep font-semibold px-6 py-3 transition-[background-color,transform] duration-150 hover:bg-foil active:translate-y-px disabled:opacity-50 disabled:hover:bg-page disabled:active:translate-y-0"
         >
           {pending ? "Claiming…" : "Claim it"}
         </button>

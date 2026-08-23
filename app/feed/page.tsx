@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getFeedPage } from "@/lib/queries/list-items";
 import { FeedList } from "./feed-list";
 import { AppNav } from "@/app/app-nav";
@@ -32,6 +33,12 @@ export default async function FeedPage() {
               Public and anonymous items wait for review before they show up
               here — nothing appears until that's cleared.
             </p>
+            <Link
+              href="/list"
+              className="inline-block mt-5 border border-ink px-4 py-2 font-mono text-s-minus-1 font-semibold transition-colors duration-150 hover:bg-ink hover:text-page"
+            >
+              Go stamp something
+            </Link>
           </div>
         ) : (
           <FeedList initialItems={firstPage.items} initialCursor={firstPage.nextCursor} />

@@ -91,6 +91,21 @@
   }
 }
 
+/*
+ * ══ the cover atmosphere ══ dark surround + foil glow at top, ported from
+ * prototype.html's .shell. --color-cover-raised existed as a token but was
+ * never actually applied anywhere in the shipped app — the cover and
+ * onboarding screens fell back to a flat two-stop gradient, losing the
+ * "passport held up to low light" glow the prototype had. This class is
+ * for any full-bleed dark screen, not just the landing page, so that
+ * feeling isn't unique to one route.
+ */
+.cover-shell {
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--color-cover-raised), transparent 60%),
+    linear-gradient(var(--color-cover), var(--color-cover-deep));
+}
+
 /* Guilloche security print — same SVG data-uri as the prototype, at 5.5% opacity */
 .guilloche::before {
   content: "";
@@ -123,6 +138,13 @@
   width: 24px;
   height: 24px;
   touch-action: none;
+  transition: transform 150ms var(--ease-passport);
+}
+.stamp-mark:not(:disabled):hover {
+  transform: scale(1.08);
+}
+.stamp-mark:not(:disabled):hover .ring {
+  stroke: var(--color-foil-dim);
 }
 .stamp-mark circle {
   fill: none;

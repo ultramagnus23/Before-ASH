@@ -88,6 +88,16 @@ export default async function ListPage() {
             <p className="font-display font-medium text-s-2 leading-[1.15] max-w-[22ch]">
               Nothing here yet.
             </p>
+            <p className="text-ink-mid mt-3 max-w-[40ch]">
+              Two ways in: pick something from the index, or write down a
+              thing you&rsquo;ve been meaning to do above.
+            </p>
+            <Link
+              href="/explore"
+              className="inline-block mt-5 border border-ink px-4 py-2 font-mono text-s-minus-1 font-semibold transition-colors duration-150 hover:bg-ink hover:text-page"
+            >
+              Browse the index
+            </Link>
           </div>
         ) : (
           <ToastProvider>

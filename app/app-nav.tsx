@@ -17,8 +17,13 @@ export function AppNav({ active }: { active: string }) {
       aria-label="Main"
       className="sticky top-0 z-20 flex items-center gap-1 px-4 sm:px-8 py-3 bg-cover/90 backdrop-blur-sm border-b border-foil/20"
     >
-      <span className="font-display font-extrabold text-s-minus-1 tracking-[0.16em] uppercase text-foil mr-auto whitespace-nowrap">
-        Before ASH
+      <span className="mr-auto whitespace-nowrap leading-tight">
+        <span className="block font-display font-extrabold text-s-minus-1 tracking-[0.16em] uppercase text-foil">
+          Before ASH
+        </span>
+        <span className="block font-display text-s-minus-2 tracking-[0.3em] uppercase text-foil-dim">
+          Ashoka · Sonipat
+        </span>
       </span>
       {LINKS.map((link) => (
         <Link

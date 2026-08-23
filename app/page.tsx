@@ -7,7 +7,7 @@ export default async function CoverPage() {
   const ticker = await getTickerPreview();
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-cover via-cover to-cover-deep">
+    <main className="cover-shell min-h-screen flex flex-col">
       <div className="guilloche relative w-full max-w-[64ch] mx-auto px-4 py-24">
         <div className="h-px bg-gradient-to-r from-foil to-transparent mb-10" />
         <h1 className="font-display font-extrabold text-[clamp(2.6rem,9vw,4.209rem)] leading-[0.94] tracking-[-0.035em] text-page">
