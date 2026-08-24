@@ -1,12 +1,27 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
-import { emailSchema, handleSchema, bioSchema } from "@/lib/validation";
+import { createClient, createServiceRoleClient } from "@/lib/supabase/server";
+import { emailSchema, handleSchema, bioSchema, ASHOKA_EMAIL_ERROR } from "@/lib/validation";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 const POLICY_VERSION = process.env.POLICY_VERSION ?? "unversioned";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const ALLOWED_EMAIL_DOMAIN = process.env.ALLOWED_EMAIL_DOMAIN ?? "ashoka.edu.in";
+
+// Checked here, not in the Zod schema, because it needs a DB read against
+// demo_access_emails (db/migrations/0010) — a real table now instead of a
+// hardcoded literal, specifically so adding another pitch/demo account is
+// "add a row in Supabase's Table Editor," not "edit code, redeploy." The
+// signup trigger checks the same table server-side regardless, so this is
+// still defense-in-depth, not the only thing standing between a random
+// email and an account.
+async function isAllowedEmail(email: string): Promise<boolean> {
+  if (email.endsWith(`@${ALLOWED_EMAIL_DOMAIN}`)) return true;
+  const supabase = createServiceRoleClient();
+  const { data } = await supabase.from("demo_access_emails").select("email").eq("email", email).maybeSingle();
+  return Boolean(data);
+}
 
 export type RequestLinkState = { error?: string; sent?: boolean };
 
@@ -25,6 +40,10 @@ export async function requestMagicLink(
   const parsed = emailSchema.safeParse(formData.get("email"));
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid email." };
+  }
+
+  if (!(await isAllowedEmail(parsed.data))) {
+    return { error: ASHOKA_EMAIL_ERROR };
   }
 
   const supabase = await createClient();
