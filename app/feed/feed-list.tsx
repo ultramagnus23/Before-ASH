@@ -18,7 +18,7 @@ export function FeedList({
 
   return (
     <>
-      <ul className="list-none">
+      <ul className="plate-rows list-none">
         {items.map((item) => (
           <FeedRow key={item.id} item={item} />
         ))}

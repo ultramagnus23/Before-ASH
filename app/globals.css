@@ -65,6 +65,20 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /*
+   * ══ light/dark: a deliberate decision, not an omission ══ (WORK-PROMPT-v3
+   * Phase 3 item 5). This app commits to the fixed navy/foil dark chrome
+   * always, with no prefers-color-scheme branch and no toggle. Reasoning:
+   * the material metaphor is "a passport held up to low light" — that's
+   * not a color scheme, it's the object. A light variant would mean a
+   * second, different object (a passport photographed in daylight isn't
+   * the same photo with the exposure raised), and BUILD-PROMPT.md's own
+   * reference (prototype.html) only specifies the dark register. The
+   * pages/plates WITHIN the passport (list, explore, feed, etc.) already
+   * read as light paper — that contrast against the dark cover/void IS the
+   * light/dark relationship this app has, and it's fixed by the object,
+   * not by the viewer's OS setting.
+   */
   body {
     background: var(--color-void);
     color: var(--color-page);
@@ -232,5 +246,176 @@
   }
   .stamp-row-done .stamp-badge {
     transform: rotate(var(--stamp-rotate));
+  }
+}
+
+/*
+ * ══ plate system ══ WORK-PROMPT-v3 Phase 3 item 1. Every page's content
+ * well (the cream `<article>`) is one plate in the same physical document —
+ * these classes are the *difference* between a data page, an index page, a
+ * visa page and so on, layered ON TOP of the shared plate look each page
+ * already has (bg-page, rounded corners, the drop shadow). Nothing here
+ * introduces a new color or a new type scale — only rule weight/style,
+ * spacing, and one small signature mark per page type, all built from
+ * tokens already declared in @theme above.
+ */
+
+/* /list — the data page. A boxed double rule under the eyebrow, the way a
+   passport's biodata page frames its own header before the fields start. */
+.plate--data .plate-eyebrow {
+  border-bottom-width: 3px;
+  border-bottom-style: double;
+}
+
+/* /explore — the index. A dashed rule reads as a directory/ledger tab
+   strip rather than a single declarative statement. */
+.plate--index .plate-eyebrow {
+  border-bottom-style: dashed;
+}
+
+/* /feed — the wire. A dotted eyebrow (a telex/ticker feel) plus a left
+   rule on each entry instead of the full-width underline every other
+   page's rows use — a wire reads top-to-bottom as a fed strip, not a
+   table. */
+.plate--wire .plate-eyebrow {
+  border-bottom-style: dotted;
+}
+.wire-row {
+  border-bottom: none !important;
+  border-left: 2px solid var(--color-rule);
+  padding-left: 0.9rem !important;
+}
+
+/* /q/[slug] — the visa page. A faint decorative ring in the corner, the
+   shape of the stamp mark but static — an endorsement already on file for
+   this one destination, not a rule strip. */
+.plate--visa {
+  position: relative;
+}
+.plate--visa::after {
+  content: "";
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1.5px solid var(--color-rule);
+  border-radius: 50%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* /u/[handle] — the bearer page. Generous top space and a bordered
+   portrait frame around the deterministic generated-avatar mark
+   (lib/avatar.ts), the passport's actual photo box — never a real photo,
+   per BUILD-PROMPT.md's "no photos, anywhere, in v1". */
+.plate--bearer {
+  padding-top: 3.25rem;
+}
+.portrait-frame {
+  border: 1.5px solid var(--color-rule);
+  padding: 3px;
+  width: fit-content;
+}
+
+/* /boards — the register. A heavier top rule per section (a ledger's
+   section divider) and a short baseline under each entry standing in for
+   a signature line — boards are a *shared* page, co-signed by whoever's on
+   it. */
+.register-section {
+  border-top: 3px solid var(--color-ink);
+  padding-top: 0.9rem;
+}
+.signature-line {
+  border-bottom: 1px dashed var(--color-rule);
+  width: 8rem;
+  margin-top: 0.4rem;
+}
+
+/*
+ * ══ motion ══ WORK-PROMPT-v3 Phase 3 item 3. --ease-passport existed but
+ * was used almost nowhere outside the stamp. Every rule below describes
+ * something paper or ink does — settling into place, rows dropping in like
+ * items filed onto a page, the sheet tilting slightly under a pointer, the
+ * security print drifting a hair on scroll — nothing decorative that isn't
+ * one of those. All degrade under prefers-reduced-motion below.
+ */
+
+@keyframes plate-settle {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.plate-enter {
+  animation: plate-settle 420ms var(--ease-passport) both;
+}
+
+@keyframes row-file-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Staggered like items being filed onto the page one after another, not
+   all at once — capped at the first 12 rows (anything past that is below
+   the fold on first paint anyway, so animating it is wasted motion). */
+.plate-rows > :nth-child(1) { animation: row-file-in 320ms var(--ease-passport) both 0ms; }
+.plate-rows > :nth-child(2) { animation: row-file-in 320ms var(--ease-passport) both 25ms; }
+.plate-rows > :nth-child(3) { animation: row-file-in 320ms var(--ease-passport) both 50ms; }
+.plate-rows > :nth-child(4) { animation: row-file-in 320ms var(--ease-passport) both 75ms; }
+.plate-rows > :nth-child(5) { animation: row-file-in 320ms var(--ease-passport) both 100ms; }
+.plate-rows > :nth-child(6) { animation: row-file-in 320ms var(--ease-passport) both 125ms; }
+.plate-rows > :nth-child(7) { animation: row-file-in 320ms var(--ease-passport) both 150ms; }
+.plate-rows > :nth-child(8) { animation: row-file-in 320ms var(--ease-passport) both 175ms; }
+.plate-rows > :nth-child(9) { animation: row-file-in 320ms var(--ease-passport) both 200ms; }
+.plate-rows > :nth-child(10) { animation: row-file-in 320ms var(--ease-passport) both 225ms; }
+.plate-rows > :nth-child(11) { animation: row-file-in 320ms var(--ease-passport) both 250ms; }
+.plate-rows > :nth-child(12) { animation: row-file-in 320ms var(--ease-passport) both 275ms; }
+
+/* The sheet responding to a pointer — set by a tiny client component
+   (app/plate-tilt.tsx) writing --tilt-x/--tilt-y as the pointer moves, kept
+   under 1.5deg so it reads as paper with a little give, not a 3D toy. */
+.plate-tilt {
+  transform: perspective(1400px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 260ms var(--ease-passport);
+  will-change: transform;
+}
+
+/* The guilloche drifting a hair on scroll — scroll-driven animation is a
+   progressive enhancement (Chrome/Edge today; every other browser just
+   keeps the static pattern the .guilloche rule already draws), gated in
+   its own @supports block so nothing here can break where it's unsupported. */
+@supports (animation-timeline: scroll()) {
+  @keyframes guilloche-drift {
+    from { background-position: 0 0; }
+    to { background-position: 18px 26px; }
+  }
+  .guilloche::before {
+    animation: guilloche-drift auto linear;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate-enter,
+  .plate-rows > li {
+    animation: none !important;
+  }
+  .plate-tilt {
+    transform: none !important;
+  }
+  @supports (animation-timeline: scroll()) {
+    .guilloche::before {
+      animation: none !important;
+    }
   }
 }

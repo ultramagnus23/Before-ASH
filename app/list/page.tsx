@@ -8,6 +8,7 @@ import { ListRow } from "./row";
 import { ToastProvider } from "./toast";
 import { DeleteAccountButton } from "./delete-account-button";
 import { AppNav } from "@/app/app-nav";
+import { PlateTilt } from "@/app/plate-tilt";
 import { isAnonymousReviewEnabled, isAnonymousPaused } from "@/lib/moderation/anonymous-review";
 import { getWeeklyFeaturedQuest } from "@/lib/queries/featured";
 import Link from "next/link";
@@ -48,8 +49,8 @@ export default async function ListPage() {
     <>
       <AppNav active="/list" />
       <main className="min-h-screen flex justify-center px-4 py-8 sm:py-12">
-      <article className="guilloche relative w-full max-w-[72ch] bg-page text-ink px-5 sm:px-9 pt-10 rounded-[2px_5px_5px_2px] shadow-[0_26px_60px_-24px_oklch(0.128_0.03_258/0.85)]">
-        <div className="flex justify-between items-baseline font-mono text-s-minus-1 text-ink-faint uppercase tracking-wide pb-2 border-b border-rule">
+      <PlateTilt className="plate-enter plate--data guilloche relative w-full max-w-[72ch] bg-page text-ink px-5 sm:px-9 pt-10 rounded-[2px_5px_5px_2px] shadow-[0_26px_60px_-24px_oklch(0.128_0.03_258/0.85)]">
+        <div className="plate-eyebrow flex justify-between items-baseline font-mono text-s-minus-1 text-ink-faint uppercase tracking-wide pb-2 border-b border-rule">
           <span>Page 01 - My list</span>
           <span>
             {doneCount} stamped / {items.length}
@@ -59,10 +60,15 @@ export default async function ListPage() {
         <h1 className="font-display font-extrabold text-s-3 leading-[1.02] tracking-[-0.02em] mt-6 mb-1">
           Your list, @{profile?.handle}
         </h1>
-        <p className="text-ink-mid max-w-[52ch] mb-7">
+        <p className="text-ink-mid max-w-[52ch] mb-2">
           Add from the <Link href="/explore" className="underline">index</Link> or write your own below.
           Press and hold the mark to stamp something. It should take a
           second. That's deliberate.
+        </p>
+        <p className="mb-7">
+          <Link href="/list/passport" className="font-mono text-s-minus-1 text-ink-faint underline hover:text-ink">
+            View your passport
+          </Link>
         </p>
 
         {featured && (
@@ -101,7 +107,7 @@ export default async function ListPage() {
           </div>
         ) : (
           <ToastProvider>
-            <ul className="list-none mt-4">
+            <ul className="plate-rows list-none mt-4">
               {items.map((item) => (
                 <ListRow key={item.id} item={item} anonEnabled={anonEnabled && !anonStatus.paused} />
               ))}
@@ -120,7 +126,7 @@ export default async function ListPage() {
           </Link>
         </div>
         <DeleteAccountButton />
-      </article>
+      </PlateTilt>
       </main>
     </>
   );

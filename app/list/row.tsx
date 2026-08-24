@@ -65,31 +65,47 @@ export function ListRow({ item, anonEnabled }: { item: OwnListItem; anonEnabled:
     });
   }
 
-  function startHold(e: React.PointerEvent) {
-    if (isDone) return;
-    e.preventDefault();
+  // Shared by pointer and keyboard — guarded on timerRef so a repeated
+  // keydown event (browsers auto-repeat while a key is held) can't restart
+  // the timer and re-trigger the 420ms window.
+  function startHold() {
+    if (isDone || timerRef.current) return;
     setHolding(true);
     timerRef.current = setTimeout(() => {
       setHolding(false);
+      timerRef.current = null;
       doStamp();
     }, HOLD_DURATION_MS);
   }
 
   function cancelHold() {
     setHolding(false);
-    if (timerRef.current) clearTimeout(timerRef.current);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
   }
 
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key !== "Enter" || isDone) return;
+  function handlePointerDown(e: React.PointerEvent) {
+    if (isDone) return;
     e.preventDefault();
-    // Holding a key down doesn't have well-defined semantics across
-    // browsers and screen readers, so the keyboard equivalent substitutes
-    // an explicit confirmation for the press-and-hold gesture instead of
-    // trying to time a keypress duration.
-    if (window.confirm("Stamp this one?")) {
-      doStamp();
-    }
+    startHold();
+  }
+
+  // Enter/Space held down drives the exact same 420ms arc-fill as a
+  // pointer hold — previously this fell back to window.confirm(), a native
+  // modal with no visual feedback that broke the passport's material
+  // illusion. Holding a physical key still only fires one keyup on
+  // release, so cancelHold() on keyup mirrors onPointerUp correctly.
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if ((e.key !== "Enter" && e.key !== " ") || isDone) return;
+    e.preventDefault();
+    startHold();
+  }
+
+  function handleKeyUp(e: React.KeyboardEvent) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    cancelHold();
   }
 
   return (
@@ -107,11 +123,12 @@ export function ListRow({ item, anonEnabled }: { item: OwnListItem; anonEnabled:
         aria-label={isDone ? `Stamped: ${item.title}` : `Hold to stamp: ${item.title}`}
         disabled={isDone || pending}
         className={`stamp-mark${holding ? " holding" : ""} mt-0.5`}
-        onPointerDown={startHold}
+        onPointerDown={handlePointerDown}
         onPointerUp={cancelHold}
         onPointerLeave={cancelHold}
         onPointerCancel={cancelHold}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
       >
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
           <circle className="ring" cx="12" cy="12" r="9.5" />
@@ -121,9 +138,9 @@ export function ListRow({ item, anonEnabled }: { item: OwnListItem; anonEnabled:
       </button>
 
       <div>
-        <h3 className={`font-display font-medium text-s-1 leading-[1.24] transition-colors duration-200 ${isDone ? "text-ink" : "text-ink-mid"}`}>
+        <h2 className={`font-display font-medium text-s-1 leading-[1.24] transition-colors duration-200 ${isDone ? "text-ink" : "text-ink-mid"}`}>
           {item.title}
-        </h3>
+        </h2>
         <div className="font-mono text-s-minus-1 text-ink-faint tracking-wide mt-1">
           {CATEGORY_LABEL[item.category] ?? item.category}
         </div>

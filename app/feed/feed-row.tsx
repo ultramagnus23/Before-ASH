@@ -25,7 +25,7 @@ export function FeedRow({ item }: { item: PublicListItem }) {
   if (blocked) return null;
 
   return (
-    <li className="py-[1.15rem] border-b border-rule-fine">
+    <li className="wire-row py-[1.15rem]">
       <div className="font-mono text-s-minus-1 text-ink-faint tracking-wide mb-1.5">
         <span className="text-ink-mid">{who}</span> stamped
       </div>
@@ -35,7 +35,7 @@ export function FeedRow({ item }: { item: PublicListItem }) {
           {item.title}
         </Link>
       ) : (
-        <h4 className="font-display font-medium text-s-1 leading-[1.24] text-ink">{item.title}</h4>
+        <h2 className="font-display font-medium text-s-1 leading-[1.24] text-ink">{item.title}</h2>
       )}
 
       {item.proof && <p className="mt-1.5 text-ink-mid italic">"{item.proof}"</p>}
