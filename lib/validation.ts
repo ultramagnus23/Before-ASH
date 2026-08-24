@@ -3,12 +3,20 @@ import { isReservedHandle } from "./auth/reserved-handles";
 
 const ALLOWED_EMAIL_DOMAIN = process.env.ALLOWED_EMAIL_DOMAIN ?? "ashoka.edu.in";
 
+// Narrow, explicit exception for demo/pitch accounts — mirrors the same
+// hardcoded exception in db/migrations/0009_demo_admin_email_exception.sql,
+// which is the enforcement that actually matters (this app-layer check is
+// defense-in-depth, same relationship the domain check itself has to its
+// own DB trigger). Add more addresses to this list AND the SQL list, not
+// just one — they're independent checks that happen to agree today.
+const ALLOWED_EMAIL_EXCEPTIONS = new Set(["suhsuhbros@gmail.com"]);
+
 export const emailSchema = z
   .string()
   .trim()
   .toLowerCase()
   .email()
-  .refine((email) => email.endsWith(`@${ALLOWED_EMAIL_DOMAIN}`), {
+  .refine((email) => email.endsWith(`@${ALLOWED_EMAIL_DOMAIN}`) || ALLOWED_EMAIL_EXCEPTIONS.has(email), {
     message: `Ashoka addresses only (@${ALLOWED_EMAIL_DOMAIN}).`,
   });
 
