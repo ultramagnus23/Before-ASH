@@ -560,7 +560,7 @@ None of this changes what the app does — every fix here is either a type-safet
       ~20 type errors and 2 test bugs that had been sitting invisibly
       across every prior phase
 
-## A real bug found by the rate-limit fail-open fix, and one still open
+## Two real bugs found by the rate-limit fail-open fix, plus a broader one still open
 
 Re-running the e2e suite after seeding the catalog surfaced a second real
 bug in `lib/rate-limit.ts`, distinct from the "Upstash unconfigured" one
@@ -576,19 +576,56 @@ existed one layer up in `lib/ai/remix-cache.ts` (`import { redis } from
 "@/lib/rate-limit"` at its own top level); fixed the same way, with cache
 read/write failures now degrading to "no cache" instead of throwing.
 
-Still open: `add-to-list.spec.ts` and `mark-done.spec.ts` fail even after
-that fix, and even against a clean `next build` + `next start` (ruling out
-dev-mode HMR as the cause) — confirmed by reproducing manually in a real
-browser tab. The mutation itself succeeds (the item is genuinely in the
-list — visible on manual page reload), but the client-side fetch for the
-server action gets `net::ERR_ABORTED` before `useActionState` ever resolves,
-so `pending` stays `true` forever and the button sits on "Adding…"
-indefinitely. Playwright's own trace shows the same request with
-`response.status: -1` — never completed, not just slow. This looks like the
-RSC stream for the server-action response getting cut short somewhere
-between server and client, not a data or auth bug — worth a closer look at
-whatever's riding along in that same response (the automatic re-render of
-`/list` that `revalidatePath` triggers) before assuming it's this app's code
-versus a Next 15.5.23 + `@supabase/ssr` interaction. Not blocking manual use
-of the app; blocking only the two "must never break" e2e gates from going
-green in CI as-is.
+Resolved: the intermittent `mark-done.spec.ts` stuck-on-"Adding…" hang (and
+the earlier `net::ERR_ABORTED` / `response.status: -1` trace noted above)
+traced to `checkRateLimit`, not the RSC stream. `addCustomItem` is the only
+"must never break" mutation that calls it (`markDone` and `addFromCatalog`
+never do); with Upstash unconfigured, `getLimiters()`'s `Redis.fromEnv()`
+client retried the doomed request 5 times with exponential backoff — a
+deterministic, measured ~4.3–4.8s — before `checkRateLimit`'s `catch` could
+fail open. That's on top of real getUser/insert latency, so total time
+routinely landed at ~5.1–5.2s: just past Playwright's default 5s assertion
+window and past a real user's patience, with no thrown error since the
+fail-open path is designed to swallow it silently. `markDone`/`addFromCatalog`
+never showed this because they skip `checkRateLimit` entirely *and* their
+components use `useOptimistic` to flip the UI before the server call
+resolves, masking any backend latency regardless of cause.
+
+Fixed in `lib/rate-limit.ts` by constructing the Redis client with
+`retry: false` — an unreachable/misconfigured Upstash is exactly the
+fail-open case `checkRateLimit` exists for, so retrying before giving up
+just delayed a decision already made. Confirmed live: `checkRateLimit`
+dropped from ~4.7s to ~0.4–0.5s, and 7 consecutive `mark-done.spec.ts` runs
+passed cleanly afterward (0/7 before the fix, on this same warmed server).
+Not a substitute for the `UPSTASH_REDIS_REST_URL`/`TOKEN` checklist item
+above — real credentials still needed before launch so this route is
+actually rate-limited — but the fail-open path is now fast regardless of
+whether that's ever done.
+
+**Retracting my own earlier "not a Next.js streaming bug" claim.** After
+deploying to Vercel (`before-ash.vercel.app`) and manually walking the
+boards flow with real accounts, `net::ERR_ABORTED` on a Server Action's own
+POST reproduced again — twice, independently, on `createBoard` and
+`inviteMember`. Neither calls `checkRateLimit`; `createBoard` additionally
+does a client-side `router.push()` after the action resolves, `inviteMember`
+does not navigate at all — so this isn't the rate-limit tax, and it isn't
+navigation-specific either. In both cases the mutation genuinely succeeded
+server-side (the new board existed on reload; the invite showed up as
+"contributor (pending)" in the member list, meaning `revalidatePath` had
+already landed) — but the calling component's own `await inviteMember(...)`
+/ `await createBoard(...)` promise never resolved, leaving the button stuck
+("Creating…", or on `inviteMember`, silently reverting to "Invite" without
+ever showing "Sent."). Confirmed intermittent, not deterministic:
+`createBoard` hung on attempt 1 and succeeded cleanly on attempt 2 against
+the same deployment; `inviteMember` hung 2/2 times in a scripted run. This
+is exactly the mechanism the original note above speculated about — a
+Next.js 15.5.23 Server Actions + `revalidatePath` interaction, specific to
+the deployed (Vercel) environment, not reproduced in local `next dev` in
+any of this session's testing. The rate-limit fix above was a real fix for
+what it targeted, but it was likely also, coincidentally, a *mitigation*
+for this broader issue on `addCustomItem` specifically — cutting ~4.3s off
+every call shrinks whatever timing window triggers the abort, without
+removing the underlying mechanism. Still open; needs investigation beyond
+this session's scope (candidates: Next.js patch version, Vercel function
+region vs. Supabase project region latency, `@supabase/ssr` cookie-handling
+under Vercel's edge/serverless split) rather than an app-code guess-fix.

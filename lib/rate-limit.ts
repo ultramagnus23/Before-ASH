@@ -29,7 +29,15 @@ let limiters: Record<RateLimitNameInternal, Ratelimit> | undefined;
 
 function getLimiters() {
   if (limiters) return limiters;
-  redis = Redis.fromEnv();
+  // retry: false — an unreachable/misconfigured Upstash is exactly the
+  // "fail open" case checkRateLimit() below is built for, so retrying
+  // before giving up just delays the fail-open outcome that was already
+  // decided. Without this, the SDK's default 5 retries with exponential
+  // backoff (~4.3s total) run before every failure, meaning every
+  // addCustomItem call in an environment without Upstash configured pays a
+  // ~4.3s tax it never needed to — found live via the mark-done e2e test's
+  // "Add it" step intermittently missing short assertion windows.
+  redis = Redis.fromEnv({ retry: false });
   limiters = {
     // §7.1: max 5 reports filed per user per day, across all content.
     reportsPerDay: new Ratelimit({
@@ -88,7 +96,7 @@ function getLimiters() {
 // key-value cache, but the client construction/env-var story is identical.
 // Lazy for the same reason as getLimiters(): must not throw at import time.
 export function getRedis(): Redis {
-  if (!redis) redis = Redis.fromEnv();
+  if (!redis) redis = Redis.fromEnv({ retry: false });
   return redis;
 }
 
