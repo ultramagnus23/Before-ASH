@@ -621,11 +621,41 @@ the same deployment; `inviteMember` hung 2/2 times in a scripted run. This
 is exactly the mechanism the original note above speculated about — a
 Next.js 15.5.23 Server Actions + `revalidatePath` interaction, specific to
 the deployed (Vercel) environment, not reproduced in local `next dev` in
-any of this session's testing. The rate-limit fix above was a real fix for
-what it targeted, but it was likely also, coincidentally, a *mitigation*
-for this broader issue on `addCustomItem` specifically — cutting ~4.3s off
-every call shrinks whatever timing window triggers the abort, without
-removing the underlying mechanism. Still open; needs investigation beyond
-this session's scope (candidates: Next.js patch version, Vercel function
-region vs. Supabase project region latency, `@supabase/ssr` cookie-handling
-under Vercel's edge/serverless split) rather than an app-code guess-fix.
+any of this session's testing (0/10 scripted `createBoard` reps stuck
+locally). The rate-limit fix above was a real fix for what it targeted, but
+it was likely also, coincidentally, a *mitigation* for this broader issue on
+`addCustomItem` specifically — cutting ~4.3s off every call shrinks
+whatever timing window triggers the abort, without removing the underlying
+mechanism.
+
+**Root-caused: Vercel function region vs. Supabase project region.**
+`vercel project inspect` showed the deployed functions running in `iad1`
+(US East, Vercel's default). `middleware.ts` runs `supabase.auth.getUser()`
+on every request; middleware executes on Vercel's Edge Runtime, which runs
+near the requester, so it's fast regardless of function region — but every
+Server Action (`createBoard`, `inviteMember`, etc.) makes its own 2-3
+sequential Supabase round trips from inside the `iad1` Node function
+itself, and this project's Supabase instance is clearly India-hosted (a
+plain `curl -I` against `NEXT_PUBLIC_SUPABASE_URL` returns
+`CF-RAY: ...-DEL`; a direct request from this session's own machine — which
+gets `CF-RAY: ...-DEL` too — measured `time_total` of 48-73ms). US East to
+India is a ~200-250ms one-way hop; 2-3 sequential round trips inside one
+`iad1` function invocation plausibly pushed total request time into
+whatever window triggers the client-side abort — `createBoard` and
+`inviteMember` both make multiple sequential Supabase calls (auth check,
+then insert(s)), while `markDone`/`addFromCatalog`/`addCustomItem` (after
+the rate-limit fix) make fewer, keeping them further from that edge.
+
+**Fixed** by pinning the deployment to `bom1` (Mumbai) in `vercel.json`'s
+`regions` field, matching the Supabase project's actual region instead of
+Vercel's US-East default. Confirmed via `X-Vercel-Id: bom1::...` on the
+live response. Re-ran the exact same scripted reproduction that hung on
+`iad1` — **20/20 clean** on `bom1` (10 `createBoard` + 10 `inviteMember`),
+with `createBoard` settling in a consistent ~1.2-1.7s (vs. multi-second/
+stuck on `iad1`) and `inviteMember` in ~370-520ms, both now in the same
+range as local `next dev` numbers against the same Supabase project. The
+full e2e suite (`mark-done.spec.ts`, `add-to-list.spec.ts`) still passes
+against the `bom1` deployment. This was genuinely an infrastructure
+misconfiguration, not an application bug — `vercel.json` had no `regions`
+field at all before this, so the project silently defaulted to `iad1` on
+first deploy.
