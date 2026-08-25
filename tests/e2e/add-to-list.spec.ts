@@ -64,8 +64,18 @@ test.describe("add-to-list (core path, must never break)", () => {
     await page.waitForURL("**/list", { timeout: 15_000 });
 
     await page.goto(`${baseURL}/explore`);
-    const firstRow = page.locator("li", { has: page.getByRole("button", { name: "Add it" }) }).first();
-    const questTitle = await firstRow.locator("h4").textContent();
+    // Was `.locator("li", { has: getByRole("button", { name: "Add it" }) })`
+    // — a self-invalidating filter: the moment the click below replaces
+    // that button with "Added." text, the row stops matching its own
+    // `has:` predicate, so re-evaluating firstRow afterward silently
+    // re-resolves to the SECOND row instead of the one actually clicked.
+    // Confirmed live: the app's optimistic UI update was working
+    // correctly the whole time (the traced DOM snapshot showed "Added."
+    // on the first row at the moment the assertion below "failed") — this
+    // was a test bug, not a product bug. Every /explore row has an "Add
+    // it" button on first render, so plain positional selection is fine.
+    const firstRow = page.locator("li").first();
+    const questTitle = await firstRow.locator("h2").textContent();
 
     await firstRow.getByRole("button", { name: "Add it" }).click();
     // Optimistic: flips to "Added." immediately, before any network round trip resolves.
