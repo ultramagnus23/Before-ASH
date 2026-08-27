@@ -45,7 +45,20 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  const isPublic = PUBLIC_ROUTES.has(path) || path.startsWith("/auth/") || path.startsWith("/_next");
+  // /q/[slug] and /u/[handle] are the app's shareable pages — a quest link
+  // and a profile link, respectively — and neither app/q/[slug]/page.tsx nor
+  // app/u/[handle]/page.tsx requires a signed-in user (the former makes the
+  // AddButton/ownRow lookup conditional on `user`; the latter never checks
+  // auth at all). Without this, anyone sent a /q/ or /u/ link who isn't
+  // already signed in bounced straight back to "/" — the exact "the link
+  // doesn't work" failure this app can least afford, since "a page other
+  // people can copy from" (the landing page's own pitch) is the point.
+  const isPublic =
+    PUBLIC_ROUTES.has(path) ||
+    path.startsWith("/auth/") ||
+    path.startsWith("/_next") ||
+    path.startsWith("/q/") ||
+    path.startsWith("/u/");
 
   if (!user && !isPublic) {
     const redirectUrl = new URL("/", request.url);
@@ -71,5 +84,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest).*)"],
+  // Anything under /public (icons, fonts, robots.txt, etc.) was falling
+  // through this matcher and getting treated as a protected route — a
+  // signed-out request for /icons/icon.svg got redirected to "/" with
+  // ?next=/icons/icon.svg instead of being served, which is why static
+  // assets (and any asset-shaped link) looked broken for anyone not
+  // logged in. Excluding common public file extensions alongside the
+  // existing Next.js internals fixes that.
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json|woff|woff2)$).*)",
+  ],
 };

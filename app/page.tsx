@@ -4,7 +4,12 @@ import { getCategories } from "@/lib/queries/explore";
 
 const ALLOWED_EMAIL_DOMAIN = process.env.ALLOWED_EMAIL_DOMAIN ?? "ashoka.edu.in";
 
-export default async function CoverPage() {
+export default async function CoverPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
   const [ticker, categories] = await Promise.all([getTickerPreview(), getCategories()]);
   const realCategories = categories.filter((c) => c.key !== "all");
 
@@ -12,6 +17,16 @@ export default async function CoverPage() {
     <main className="cover-shell min-h-screen flex flex-col">
       <div className="plate-enter guilloche relative w-full max-w-[64ch] mx-auto px-4 py-24">
         <div className="h-px bg-gradient-to-r from-foil to-transparent mb-10" />
+        {next && (
+          // Signed-out visitors land here via middleware.ts's auth gate
+          // whenever they follow a link to a protected route (e.g. clicking
+          // "Index" in the nav). Without this, the redirect is silent and
+          // the app just looks like the link did nothing — this makes the
+          // gate visible instead of invisible.
+          <p className="mb-8 font-mono text-s-minus-1 text-foil bg-white/5 border border-foil/25 px-4 py-3">
+            Sign in below to continue to <span className="text-page">{next}</span>.
+          </p>
+        )}
         <h1 className="font-display font-extrabold text-[clamp(2.6rem,9vw,4.209rem)] leading-[0.94] tracking-[-0.035em] text-page">
           Things worth doing<span className="block text-foil">before you leave.</span>
         </h1>
