@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { one } from "@/lib/supabase/embed";
 
 /*
  * §13.3: shared boards. Completion/stamping never lives here — a board
@@ -22,8 +23,9 @@ export async function getMyBoards(userId: string): Promise<MyBoard[]> {
 
   if (error) throw error;
   return (data ?? [])
-    .filter((row: any) => row.board)
-    .map((row: any) => ({
+    .map((row) => ({ role: row.role, board: one(row.board) }))
+    .filter((row): row is { role: BoardRole; board: NonNullable<typeof row.board> } => Boolean(row.board))
+    .map((row) => ({
       id: row.board.id,
       name: row.board.name,
       description: row.board.description,
@@ -44,8 +46,9 @@ export async function getPendingInvites(userId: string): Promise<PendingInvite[]
 
   if (error) throw error;
   return (data ?? [])
-    .filter((row: any) => row.board)
-    .map((row: any) => ({
+    .map((row) => ({ id: row.id, role: row.role, board: one(row.board), inviter: one(row.inviter) }))
+    .filter((row): row is typeof row & { board: NonNullable<typeof row.board> } => Boolean(row.board))
+    .map((row) => ({
       boardMemberId: row.id,
       boardId: row.board.id,
       boardName: row.board.name,
@@ -123,18 +126,18 @@ export async function getBoardItems(boardId: string, userId: string): Promise<Bo
 
   if (error) throw error;
 
-  return (data ?? []).map((row: any) => ({
+  return (data ?? []).map((row) => ({
     id: row.id,
     questId: row.quest_id,
-    title: row.quest?.title ?? row.custom_title ?? "",
+    title: one(row.quest)?.title ?? row.custom_title ?? "",
     category: row.category,
-    addedByHandle: row.adder?.handle ?? "",
+    addedByHandle: one(row.adder)?.handle ?? "",
     isOwn: row.added_by === userId,
-    posts: (row.item_posts ?? []).map((p: any) => ({
+    posts: (row.item_posts ?? []).map((p) => ({
       id: p.id,
       kind: p.kind,
       body: p.body,
-      authorHandle: p.author?.handle ?? "",
+      authorHandle: one(p.author)?.handle ?? "",
       isOwn: p.author_id === userId,
     })),
   }));
@@ -150,10 +153,10 @@ export async function getBoardMembers(boardId: string): Promise<BoardMemberRow[]
     .eq("board_id", boardId);
 
   if (error) throw error;
-  return (data ?? []).map((row: any) => ({
+  return (data ?? []).map((row) => ({
     id: row.id,
     userId: row.user_id,
-    handle: row.profile?.handle ?? "",
+    handle: one(row.profile)?.handle ?? "",
     role: row.role,
     status: row.status,
   }));
@@ -170,10 +173,10 @@ export async function getBoardJoinRequests(boardId: string): Promise<BoardJoinRe
     .eq("status", "pending");
 
   if (error) throw error;
-  return (data ?? []).map((row: any) => ({
+  return (data ?? []).map((row) => ({
     id: row.id,
     userId: row.user_id,
-    handle: row.requester?.handle ?? "",
+    handle: one(row.requester)?.handle ?? "",
     message: row.message,
   }));
 }

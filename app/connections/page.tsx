@@ -26,7 +26,7 @@ export default async function ConnectionsPage() {
           Connections
         </h1>
         <p className="text-ink-mid mb-8">
-          "I'm in" only reveals anything once both sides accept. Revocable
+          &quot;I&apos;m in&quot; only reveals anything once both sides accept. Revocable
           any time, by either side.
         </p>
 
@@ -67,7 +67,7 @@ export default async function ConnectionsPage() {
             <ul className="list-none">
               {outgoing.map((c) => (
                 <li key={c.id} className="py-3 border-b border-rule-fine text-ink-mid">
-                  You said you're in on <span className="italic">{c.itemTitle}</span>. Waiting on them to accept.
+                  You said you&apos;re in on <span className="italic">{c.itemTitle}</span>. Waiting on them to accept.
                 </li>
               ))}
             </ul>

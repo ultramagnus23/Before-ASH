@@ -17,7 +17,7 @@ export function JoinRequestList({ requests }: { requests: BoardJoinRequestRow[] 
           <li key={req.id} className="py-1.5 border-b border-rule-fine">
             <p className="text-s-minus-1">
               @{req.handle}
-              {req.message && <span className="text-ink-mid italic"> — "{req.message}"</span>}
+              {req.message && <span className="text-ink-mid italic"> — &quot;{req.message}&quot;</span>}
             </p>
             <div className="flex gap-4 mt-1 font-mono text-s-minus-2">
               <button

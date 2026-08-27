@@ -46,7 +46,7 @@ export function CoverForm({ allowedDomain }: { allowedDomain: string }) {
           className="mt-0.5"
         />
         <span>
-          I've read the <a href="/terms" className="underline">Terms</a>,{" "}
+          I&apos;ve read the <a href="/terms" className="underline">Terms</a>,{" "}
           <a href="/privacy" className="underline">Privacy</a>, and{" "}
           <a href="/grievance" className="underline">Community rules</a>. Send
           me a link.

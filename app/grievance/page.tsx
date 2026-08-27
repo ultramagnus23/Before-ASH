@@ -9,13 +9,13 @@ export default function GrievancePage() {
       <div className="border border-stamp-vermilion/40 p-4 mb-8 font-mono text-s-minus-1 text-ink-mid">
         TODO before launch: replace the bracketed placeholder below with a
         real name and a monitored contact. A DPDP-compliant grievance
-        process requires a real, reachable person — this can't ship as a
+        process requires a real, reachable person — this can&apos;t ship as a
         placeholder.
       </div>
 
       <section className="mb-8">
         <h2 className="font-display font-semibold text-s-1 mb-2">The two questions every review answers</h2>
-        <p className="text-ink-mid mb-3">Whether it's an automatic check or a human one, every review is answering:</p>
+        <p className="text-ink-mid mb-3">Whether it&apos;s an automatic check or a human one, every review is answering:</p>
         <ol className="list-decimal pl-5 text-ink-mid space-y-1.5">
           <li>Does this break a rule?</li>
           <li>Could three people on this campus work out who wrote it? If yes for an anonymous post, it gets
@@ -29,12 +29,12 @@ export default function GrievancePage() {
           Named posts pass an automatic check (a filter for the obvious stuff, then a language-model
           classifier) before anyone but you sees them — usually instant. Anonymous posts additionally need a
           human to read them, because a person deserves a second look before something with no name attached
-          goes out under the campus's account. That takes up to 48 hours in the ordinary case; if it's taking
-          longer than 5 days, we'll tell you and offer to publish it under your name instead, but it never
+          goes out under the campus&apos;s account. That takes up to 48 hours in the ordinary case; if it&apos;s taking
+          longer than 5 days, we&apos;ll tell you and offer to publish it under your name instead, but it never
           gets auto-approved just because time passed.
         </p>
         <p className="text-ink-mid">
-          There's exactly one moderator right now. If the anonymous queue is backed up, anonymous posting
+          There&apos;s exactly one moderator right now. If the anonymous queue is backed up, anonymous posting
           pauses sitewide until it clears — named posting is unaffected either way.
         </p>
       </section>
@@ -44,7 +44,7 @@ export default function GrievancePage() {
         <p className="text-ink-mid mb-3">
           A rejected post stays private to you with a stated reason. A post that gets auto-hidden after
           reports is reversible — it goes to the same queue as anything else waiting on review, and you can
-          file one free-text appeal that jumps it to the front of that queue. We'll never tell you who
+          file one free-text appeal that jumps it to the front of that queue. We&apos;ll never tell you who
           reported you.
         </p>
       </section>
@@ -52,7 +52,7 @@ export default function GrievancePage() {
       <section className="mb-8">
         <h2 className="font-display font-semibold text-s-1 mb-2">Identity reveal</h2>
         <p className="text-ink-mid">
-          An anonymous post's author can only be unmasked by the moderator, only with a written reason of real
+          An anonymous post&apos;s author can only be unmasked by the moderator, only with a written reason of real
           substance (not a one-line justification), and every reveal is permanently logged in a record that
           cannot be edited or deleted afterward, by anyone, including us.
         </p>
@@ -65,8 +65,8 @@ export default function GrievancePage() {
           <strong>[YOUR CONTACT EMAIL HERE]</strong>.
         </p>
         <p className="text-ink-mid">
-          Response time: within 5 working days. If you don't hear back in that window, something's gone
-          wrong on our end — try again, it isn't being ignored on purpose.
+          Response time: within 5 working days. If you don&apos;t hear back in that window, something&apos;s gone
+          wrong on our end — try again, it isn&apos;t being ignored on purpose.
         </p>
       </section>
     </main>

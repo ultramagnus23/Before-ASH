@@ -1,5 +1,6 @@
 import "server-only";
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import { one } from "@/lib/supabase/embed";
 
 /*
  * The cover page (app/page.tsx) is the one page a logged-out visitor can
@@ -28,9 +29,11 @@ export async function getTickerPreview(limit = 4): Promise<TickerEntry[]> {
 
   if (error || !data) return [];
 
-  return data.map((row: any) => {
-    const title = row.quest?.title ?? row.custom_title ?? "";
-    const who = row.visibility === "anonymous" ? "Someone" : row.owner?.handle ? `@${row.owner.handle}` : "Someone";
+  return data.map((row) => {
+    const quest = one(row.quest);
+    const owner = one(row.owner);
+    const title = quest?.title ?? row.custom_title ?? "";
+    const who = row.visibility === "anonymous" ? "Someone" : owner?.handle ? `@${owner.handle}` : "Someone";
     return {
       text: `${who} stamped "${title}"`,
       visibility: row.visibility,

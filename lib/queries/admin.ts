@@ -18,12 +18,24 @@ export type ReviewQueueItem = {
   priorRejectionCount: number;
 };
 
+type ReviewQueueRow = {
+  list_item_id: string;
+  text: string;
+  category: string;
+  visibility: "anonymous" | "public";
+  review_state: "pending_human" | "held" | "flagged";
+  created_at: string;
+  appealed_at: string | null;
+  account_age_bucket: "<1mo" | "1-6mo" | "6mo+";
+  prior_rejection_count: number;
+};
+
 export async function getReviewQueue(): Promise<ReviewQueueItem[]> {
   const supabase = createServiceRoleClient();
   const { data, error } = await supabase.from("review_queue").select("*");
   if (error) throw error;
 
-  return (data ?? []).map((row: any) => ({
+  return ((data ?? []) as ReviewQueueRow[]).map((row) => ({
     listItemId: row.list_item_id,
     text: row.text,
     category: row.category,

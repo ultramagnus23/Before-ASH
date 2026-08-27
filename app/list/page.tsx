@@ -63,7 +63,7 @@ export default async function ListPage() {
         <p className="text-ink-mid max-w-[52ch] mb-2">
           Add from the <Link href="/explore" className="underline">index</Link> or write your own below.
           Press and hold the mark to stamp something. It should take a
-          second. That's deliberate.
+          second. That&apos;s deliberate.
         </p>
         <p className="mb-7">
           <Link href="/list/passport" className="font-mono text-s-minus-1 text-ink-faint underline hover:text-ink">

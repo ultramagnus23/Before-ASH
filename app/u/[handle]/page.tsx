@@ -53,7 +53,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ handle
             {items.map((item) => (
               <li key={item.id} className="py-3 border-b border-rule-fine">
                 <h3 className="font-display font-medium text-s-0 text-ink">{item.title}</h3>
-                {item.proof && <p className="text-ink-mid italic mt-1">"{item.proof}"</p>}
+                {item.proof && <p className="text-ink-mid italic mt-1">&quot;{item.proof}&quot;</p>}
               </li>
             ))}
           </ul>

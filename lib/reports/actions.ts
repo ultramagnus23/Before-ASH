@@ -4,6 +4,7 @@ import { createClient, createServiceRoleClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { one } from "@/lib/supabase/embed";
 
 const reasonSchema = z.string().trim().min(3, "Say a little more.").max(500);
 
@@ -67,9 +68,9 @@ async function evaluateReportThreshold(listItemId: string) {
   const distinctReasons = new Set(reports.map((r) => r.reason.trim().toLowerCase()).filter(Boolean));
 
   const ages = reports
-    .map((r: any) => r.reporter?.created_at)
-    .filter(Boolean)
-    .map((d: string) => new Date(d).getTime());
+    .map((r) => one(r.reporter)?.created_at)
+    .filter((d): d is string => Boolean(d))
+    .map((d) => new Date(d).getTime());
   const ageSpread = ages.length > 0 ? Math.max(...ages) - Math.min(...ages) : 0;
   const reportersLookOrganic = ageSpread > SUSPICIOUS_ACCOUNT_AGE_SPREAD_MS;
 

@@ -38,7 +38,7 @@ export function FeedRow({ item }: { item: PublicListItem }) {
         <h2 className="font-display font-medium text-s-1 leading-[1.24] text-ink">{item.title}</h2>
       )}
 
-      {item.proof && <p className="mt-1.5 text-ink-mid italic">"{item.proof}"</p>}
+      {item.proof && <p className="mt-1.5 text-ink-mid italic">&quot;{item.proof}&quot;</p>}
 
       {!item.isOwnItem && (
         <div className="flex flex-wrap gap-4 mt-2.5">

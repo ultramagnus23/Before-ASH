@@ -63,7 +63,7 @@ export default function AdminVerifyPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
       <form onSubmit={handleVerify} className="max-w-sm w-full">
-        <h1 className="font-display font-extrabold text-s-2 mb-2">Confirm it's you</h1>
+        <h1 className="font-display font-extrabold text-s-2 mb-2">Confirm it&apos;s you</h1>
         <p className="text-ink-mid text-s-minus-1 mb-6">
           Admin sessions re-verify periodically. Enter the code from your
           authenticator app.

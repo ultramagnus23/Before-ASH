@@ -41,6 +41,28 @@ export type PublicListItem = {
 const OWN_COLUMNS =
   "id, quest_id, custom_title, category, visibility, review_state, note, proof, completed_at, appealed_at, created_at, quest:quests(title), item_posts(body, links, review_state, kind)";
 
+// OWN_COLUMNS is a variable, not a literal passed directly to .select(), so
+// Supabase's select-string type inference can't run against it at all — the
+// row type would otherwise collapse to `any`. quest is a to-one FK (this
+// file's serializer only ever reads a single title off it); item_posts is
+// the one genuinely to-many relation in this file (an item can carry both
+// a blog and a comment post).
+type OwnListRow = {
+  id: string;
+  quest_id: string | null;
+  custom_title: string | null;
+  category: string;
+  visibility: "private" | "anonymous" | "public";
+  review_state: string;
+  note: string | null;
+  proof: string | null;
+  completed_at: string | null;
+  appealed_at: string | null;
+  created_at: string;
+  quest: { title: string } | null;
+  item_posts: { body: string; links: { label: string; url: string }[]; review_state: string; kind: string }[];
+};
+
 // Explicitly does not select `note` — this is the whole point of the file.
 const PUBLIC_COLUMNS =
   "id, category, custom_title, proof, completed_at, visibility, owner_id, quest:quests(id,title,slug), owner:profiles(handle)";
@@ -58,7 +80,7 @@ export async function getOwnList(userId: string): Promise<OwnListItem[]> {
 
   if (error) throw error;
 
-  return (data ?? []).map((row: any) => ({
+  return ((data ?? []) as unknown as OwnListRow[]).map((row) => ({
     id: row.id,
     questId: row.quest_id,
     customTitle: row.custom_title,
@@ -72,7 +94,7 @@ export async function getOwnList(userId: string): Promise<OwnListItem[]> {
     appealedAt: row.appealed_at,
     createdAt: row.created_at,
     blogPost: (() => {
-      const blog = (row.item_posts ?? []).find((p: any) => p.kind === "blog");
+      const blog = (row.item_posts ?? []).find((p) => p.kind === "blog");
       return blog ? { body: blog.body, links: blog.links ?? [], reviewState: blog.review_state } : null;
     })(),
   }));

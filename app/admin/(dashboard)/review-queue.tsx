@@ -53,7 +53,7 @@ export function ReviewQueue({ items: initialItems }: { items: ReviewQueueItem[] 
   }, [current, pending, rejecting, revealing]);
 
   if (!current) {
-    return <p className="text-ink-faint font-mono text-s-minus-1">Queue's empty.</p>;
+    return <p className="text-ink-faint font-mono text-s-minus-1">Queue&apos;s empty.</p>;
   }
 
   return (

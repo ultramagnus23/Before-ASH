@@ -3,6 +3,22 @@ import { createClient } from "@/lib/supabase/server";
 import { callModel } from "@/lib/ai/call-model";
 import { rankQuests, diversifyByDifficulty } from "@/lib/ranking/rank-quests";
 
+// The raw snake_case shape returned by the quests table and by the
+// search_quests_semantic/search_quests_trigram RPCs — both untyped (no
+// Database generic on the Supabase client, and RPC return types aren't
+// inferred from the select-string parser at all). This is the shape every
+// row-mapping function in this file actually receives.
+type QuestRow = {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  difficulty: number;
+  group_size: string;
+  locale: string;
+  spice: number;
+};
+
 export type ExploreQuest = {
   id: string;
   slug: string;
@@ -67,7 +83,7 @@ const PAGE_SIZE = 60;
 async function fetchSearchRows(
   supabase: Awaited<ReturnType<typeof createClient>>,
   trimmed: string
-): Promise<{ rows: any[]; orderedBy: "relevance-semantic" | "relevance-wording" } | null> {
+): Promise<{ rows: QuestRow[]; orderedBy: "relevance-semantic" | "relevance-wording" } | null> {
   const useSemantic = trimmed.length >= SEMANTIC_MIN_LENGTH && process.env.AI_ENABLED === "true";
 
   if (useSemantic) {
@@ -120,7 +136,7 @@ export async function searchQuests(filters: ExploreFilters): Promise<ExploreResu
       ),
   ]);
 
-  const toExploreQuest = (row: any): ExploreQuest => ({
+  const toExploreQuest = (row: QuestRow): ExploreQuest => ({
     id: row.id,
     slug: row.slug,
     title: row.title,
@@ -236,10 +252,10 @@ export async function getRelatedQuests(questId: string, embedding: string | null
   ]);
   if (error || !neighbors) return [];
 
-  return neighbors
-    .filter((row: any) => row.id !== questId)
+  return (neighbors as QuestRow[])
+    .filter((row) => row.id !== questId)
     .slice(0, 5)
-    .map((row: any) => ({
+    .map((row) => ({
       id: row.id,
       slug: row.slug,
       title: row.title,

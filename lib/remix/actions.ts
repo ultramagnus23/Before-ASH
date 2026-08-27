@@ -45,7 +45,7 @@ export async function remixQuest(text: string, intensity: 1 | 2 | 3): Promise<Re
     if (result.task !== "remix") throw new Error("Unexpected callModel result shape.");
     await setCachedRemix(parsedText.data, parsedIntensity.data, result.variants);
     return { variants: result.variants };
-  } catch (err) {
+  } catch {
     return { error: "Remix isn't available right now." };
   }
 }

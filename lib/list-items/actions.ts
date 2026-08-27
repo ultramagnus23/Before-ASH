@@ -6,6 +6,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { runModerationPipeline } from "@/lib/moderation/pipeline";
 import { isAnonymousReviewEnabled, checkAnonymousEligibility, isAnonymousPaused } from "@/lib/moderation/anonymous-review";
+import { one } from "@/lib/supabase/embed";
 
 const customItemSchema = z.object({
   title: z.string().trim().min(3, "A few more words than that.").max(140),
@@ -257,7 +258,7 @@ export async function setVisibility(
     return { reviewState: current.review_state };
   }
 
-  const text = (current as any).quest?.title ?? current.custom_title ?? "";
+  const text = one(current.quest)?.title ?? current.custom_title ?? "";
 
   if (parsed.data === "anonymous") {
     if (!isAnonymousReviewEnabled()) {

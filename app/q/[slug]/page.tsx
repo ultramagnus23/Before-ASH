@@ -77,7 +77,7 @@ export default async function QuestPage({ params }: { params: Promise<{ slug: st
         </h2>
 
         {items.length === 0 ? (
-          <p className="text-ink-faint text-s-minus-1">No one's stamped this publicly yet.</p>
+          <p className="text-ink-faint text-s-minus-1">No one&apos;s stamped this publicly yet.</p>
         ) : (
           <ul className="plate-rows list-none">
             {items.map((item) => (
@@ -85,7 +85,7 @@ export default async function QuestPage({ params }: { params: Promise<{ slug: st
                 <div className="font-mono text-s-minus-1 text-ink-faint">
                   {item.visibility === "anonymous" ? "Anonymous" : item.ownerHandle ? `@${item.ownerHandle}` : "Someone"}
                 </div>
-                {item.proof && <p className="text-ink-mid italic mt-1">"{item.proof}"</p>}
+                {item.proof && <p className="text-ink-mid italic mt-1">&quot;{item.proof}&quot;</p>}
               </li>
             ))}
           </ul>

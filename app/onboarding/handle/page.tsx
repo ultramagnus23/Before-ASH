@@ -16,7 +16,7 @@ export default function ClaimHandlePage() {
         <p className="text-page/60 text-s-minus-1 mb-6">
           Lowercase, numbers, underscores. 3 to 20 characters. This is how
           people find you if you ever go public on something — you can stay
-          private forever if you'd rather.
+          private forever if you&apos;d rather.
         </p>
         <input
           name="handle"

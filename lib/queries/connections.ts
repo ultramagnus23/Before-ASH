@@ -39,7 +39,31 @@ const SELECT_COLUMNS = `
   interested:profiles!interested_id(handle)
 `;
 
-function itemTitleFrom(row: any): string {
+// SELECT_COLUMNS is reused across three queries (one with an extra `owner`
+// field appended), so it can't be inlined as a literal at each call site.
+// Supabase's select-string inference does still partially run against it
+// (it's a literal template string), but every column comes out typed `any`
+// and every embedded relation infers as an array even though quest_id,
+// interested_id, etc. are all to-one FKs — both known inference gaps
+// without generated schema types (see lib/supabase/embed.ts's `one()` for
+// the array-vs-object half of this, which doesn't apply here since the
+// leaf fields are `any` regardless). This is the honest shape of what
+// SELECT_COLUMNS actually returns at runtime.
+type ConnectionQueryRow = {
+  id: string;
+  list_item_id: string;
+  owner_id: string;
+  interested_id: string;
+  owner_accepted: boolean;
+  interested_accepted: boolean;
+  revoked_at: string | null;
+  created_at: string;
+  list_item: { visibility: string; custom_title: string | null; quest: { title: string } | null } | null;
+  interested: { handle: string } | null;
+  owner?: { handle: string } | null; // only present on the SELECT_COLUMNS + owner:... query below
+};
+
+function itemTitleFrom(row: ConnectionQueryRow): string {
   return row.list_item?.quest?.title ?? row.list_item?.custom_title ?? "";
 }
 
@@ -57,7 +81,7 @@ export async function getIncomingRequests(userId: string): Promise<ConnectionRow
 
   // The owner deciding whether to accept needs to see who's asking — that
   // was never the hidden part of this feature (see module comment).
-  return (data ?? []).map((row: any) => ({
+  return ((data ?? []) as unknown as ConnectionQueryRow[]).map((row) => ({
     id: row.id,
     listItemId: row.list_item_id,
     itemTitle: itemTitleFrom(row),
@@ -88,7 +112,7 @@ export async function getOutgoingRequests(userId: string): Promise<ConnectionRow
   // Owner's identity stays hidden here even to a technically-privileged
   // query, on purpose — this function is what feeds the "pending" list for
   // the person who asked, and they haven't earned the reveal yet.
-  return (data ?? []).map((row: any) => ({
+  return ((data ?? []) as unknown as ConnectionQueryRow[]).map((row) => ({
     id: row.id,
     listItemId: row.list_item_id,
     itemTitle: itemTitleFrom(row),
@@ -119,7 +143,7 @@ export async function getActiveConnections(userId: string): Promise<ConnectionRo
 
   // Both sides accepted — the reveal has happened. Show the counterpart's
   // handle regardless of which side the current user is on.
-  return (data ?? []).map((row: any) => ({
+  return ((data ?? []) as unknown as ConnectionQueryRow[]).map((row) => ({
     id: row.id,
     listItemId: row.list_item_id,
     itemTitle: itemTitleFrom(row),

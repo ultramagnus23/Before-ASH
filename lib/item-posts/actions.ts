@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { itemPostSchema } from "@/lib/validation";
 import { runModerationPipeline } from "@/lib/moderation/pipeline";
+import { one } from "@/lib/supabase/embed";
 import { z } from "zod";
 
 export type SetBlogPostResult = { error?: string; reviewState?: string };
@@ -170,7 +171,7 @@ export async function deleteBoardPost(postId: string): Promise<{ error?: string 
   const { error } = await supabase.from("item_posts").delete().eq("id", postId);
   if (error) return { error: "Couldn't delete that." };
 
-  const boardId = (post as any)?.board_item?.board_id;
+  const boardId = one(post?.board_item)?.board_id;
   if (boardId) revalidatePath(`/boards/${boardId}`);
   return {};
 }

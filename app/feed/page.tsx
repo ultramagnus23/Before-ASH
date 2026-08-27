@@ -32,7 +32,7 @@ export default async function FeedPage() {
             </p>
             <p className="text-ink-mid mt-3 max-w-[40ch]">
               Public and anonymous items wait for review before they show up
-              here — nothing appears until that's cleared.
+              here — nothing appears until that&apos;s cleared.
             </p>
             <Link
               href="/list"
