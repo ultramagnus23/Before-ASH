@@ -8,7 +8,10 @@ type CookieToSet = { name: string; value: string; options: CookieOptions };
 // signed-in-only routes. /admin's additional MFA-recency check is enforced
 // in app/admin/layout.tsx (P6), not here — this file only does
 // "signed in or not."
-const PUBLIC_ROUTES = new Set(["/", "/privacy", "/terms", "/grievance"]);
+// /vote is readable by anyone (voting itself still requires signing in —
+// enforced in lib/quest-votes/actions.ts and by RLS, not here), same as the
+// /q and /u shareable pages handled below.
+const PUBLIC_ROUTES = new Set(["/", "/privacy", "/terms", "/grievance", "/vote"]);
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });

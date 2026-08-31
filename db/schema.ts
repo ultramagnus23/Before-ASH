@@ -325,3 +325,20 @@ export const boardJoinRequests = pgTable("board_join_requests", {
   status: joinRequestStatusEnum("status").notNull().default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [uniqueIndex("board_join_requests_unique_pair").on(t.boardId, t.userId)]);
+
+// ─── quest_votes ─────────────────────────────────────────────────────────
+// "Coolest side quest" voting on the CATALOG itself (/vote), distinct from
+// `reactions`, which respects a specific person's completed list_item. A
+// vote says "this quest is a great idea," independent of whether the voter
+// has it on their own list — that's deliberately a different signal from
+// quest_open_counts()'s "how many people actually committed to it," and
+// /vote shows both side by side.
+export const questVotes = pgTable("quest_votes", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  questId: text("quest_id").notNull().references(() => quests.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  uniqueIndex("quest_votes_unique_pair").on(t.questId, t.userId),
+  index("quest_votes_quest_idx").on(t.questId),
+]);
