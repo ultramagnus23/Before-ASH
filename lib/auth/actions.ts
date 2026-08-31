@@ -4,6 +4,7 @@ import { createClient, createServiceRoleClient } from "@/lib/supabase/server";
 import { emailSchema, handleSchema, bioSchema, ASHOKA_EMAIL_ERROR } from "@/lib/validation";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { PROFILE_COOKIE_MAX_AGE } from "./complete-session";
 
 const POLICY_VERSION = process.env.POLICY_VERSION ?? "unversioned";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -77,6 +78,23 @@ export async function claimHandle(
   } = await supabase.auth.getUser();
   if (!user) redirect("/");
 
+  // Self-heal for a user who already has a profile but landed here anyway
+  // (e.g. bwa_has_profile was missing for some reason) — redirect straight
+  // through instead of letting them resubmit their own handle and hit the
+  // confusing "That handle is taken" error below for a handle that's
+  // already theirs.
+  const { data: existingProfile } = await supabase.from("profiles").select("id").eq("id", user.id).maybeSingle();
+  if (existingProfile) {
+    const cookieStore = await cookies();
+    cookieStore.set("bwa_has_profile", "1", {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: PROFILE_COOKIE_MAX_AGE,
+    });
+    redirect("/list");
+  }
+
   const parsed = handleSchema.safeParse(formData.get("handle"));
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid handle." };
@@ -96,7 +114,12 @@ export async function claimHandle(
   }
 
   const cookieStore = await cookies();
-  cookieStore.set("bwa_has_profile", "1", { httpOnly: true, sameSite: "lax", path: "/" });
+  cookieStore.set("bwa_has_profile", "1", {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: PROFILE_COOKIE_MAX_AGE,
+  });
 
   redirect("/list");
 }

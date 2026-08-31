@@ -1,42 +1,38 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { PROFILE_COOKIE_MAX_AGE } from "@/lib/auth/complete-session";
+import { ClaimHandleForm } from "./claim-handle-form";
 
-import { useActionState } from "react";
-import { claimHandle, type ClaimHandleState } from "@/lib/auth/actions";
+// Server-side profile check, not just middleware's bwa_has_profile cookie
+// hint — that cookie was previously session-only (no maxAge), so a
+// returning user with a still-valid Supabase session but a browser that
+// had fully closed since their last visit landed here with a profile that
+// already exists. Redirecting straight through here means that's no
+// longer a dead end even if the cookie is ever missing for some other
+// reason in the future.
+export default async function OnboardingHandlePage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/");
 
-const initialState: ClaimHandleState = {};
-
-export default function ClaimHandlePage() {
-  const [state, formAction, pending] = useActionState(claimHandle, initialState);
+  const { data: profile } = await supabase.from("profiles").select("id").eq("id", user.id).maybeSingle();
+  if (profile) {
+    const cookieStore = await cookies();
+    cookieStore.set("bwa_has_profile", "1", {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: PROFILE_COOKIE_MAX_AGE,
+    });
+    redirect("/list");
+  }
 
   return (
     <main className="cover-shell guilloche relative min-h-screen flex items-center justify-center px-4">
-      <form action={formAction} className="w-full max-w-sm">
-        <p className="font-mono text-s-minus-1 tracking-[0.16em] uppercase text-foil-dim mb-3">You&rsquo;re in.</p>
-        <h1 className="font-display font-extrabold text-s-2 text-page mb-2">Pick a handle</h1>
-        <p className="text-page/60 text-s-minus-1 mb-6">
-          Lowercase, numbers, underscores. 3 to 20 characters. This is how
-          people find you if you ever go public on something — you can stay
-          private forever if you&apos;d rather.
-        </p>
-        <input
-          name="handle"
-          required
-          minLength={3}
-          maxLength={20}
-          pattern="[a-z0-9_]+"
-          placeholder="your_handle"
-          autoFocus
-          className="w-full bg-white/5 text-page border border-foil/34 px-4 py-3 font-mono text-s-0 mb-3"
-        />
-        {state.error && <p className="text-error-on-dark text-s-minus-1 mb-3">{state.error}</p>}
-        <button
-          type="submit"
-          disabled={pending}
-          className="bg-page text-cover-deep font-semibold px-6 py-3 transition-[background-color,transform] duration-150 hover:bg-foil active:translate-y-px disabled:opacity-50 disabled:hover:bg-page disabled:active:translate-y-0"
-        >
-          {pending ? "Claiming…" : "Claim it"}
-        </button>
-      </form>
+      <ClaimHandleForm />
     </main>
   );
 }
