@@ -28,3 +28,8 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Perf run artifacts — the scripts are committed, their output is not.
+perf-out/
+perf-session.json
+lh-*.json
