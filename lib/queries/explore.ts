@@ -1,7 +1,7 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { callModel } from "@/lib/ai/call-model";
-import { rankQuests, diversifyByDifficulty } from "@/lib/ranking/rank-quests";
+import { rankQuests, diversifyByCategory } from "@/lib/ranking/rank-quests";
 
 // The raw snake_case shape returned by the quests table and by the
 // search_quests_semantic/search_quests_trigram RPCs — both untyped (no
@@ -187,7 +187,7 @@ export async function searchQuests(filters: ExploreFilters): Promise<ExploreResu
   const { data, error } = await query.order("id");
   const allRows = error ? [] : (data ?? []);
 
-  const ranked = diversifyByDifficulty(
+  const ranked = diversifyByCategory(
     rankQuests(allRows, { openCounts, ownedQuestIds })
   );
 

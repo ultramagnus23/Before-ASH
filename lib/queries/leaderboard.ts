@@ -69,10 +69,18 @@ export async function getLeaderboard(): Promise<Leaderboard> {
       hasVoted: myVotes.has(q.id),
       alreadyAdded: myItems.has(q.id),
     }))
-    // Votes first, then real commitment as the tiebreaker, then a stable
-    // id sort so an all-zero board isn't a different arbitrary order on
-    // every request.
-    .sort((a, b) => b.voteCount - a.voteCount || b.addCount - a.addCount || a.id.localeCompare(b.id));
+    // Votes first, then real commitment. Edge is the third key rather than
+    // id: with an all-zero board, an id sort put the admin_life block
+    // ("AD-" ids) on top, so a page titled "coolest side quests" opened on
+    // doing your laundry and filing documents. id stays as the final key so
+    // the order is still deterministic rather than reshuffling per request.
+    .sort(
+      (a, b) =>
+        b.voteCount - a.voteCount ||
+        b.addCount - a.addCount ||
+        b.spice - a.spice ||
+        a.id.localeCompare(b.id)
+    );
 
   return {
     quests: ranked.slice(0, BOARD_SIZE),
