@@ -5,6 +5,13 @@ import { useEffect, useRef, useState, useTransition } from "react";
 
 const DEBOUNCE_MS = 350;
 
+// Was "Search, or describe what you're after", which invited the
+// whole-sentence queries only the semantic path could serve — and that
+// path is unreachable in production (LLM_API_URL points at a local Ollama
+// Vercel can't resolve), so those queries fell through to keyword
+// matching and returned little. See the note in page.tsx.
+const SEARCH_PLACEHOLDER = "Search by keyword — chai, delhi, 3am";
+
 export function SearchBox({ defaultValue }: { defaultValue: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,7 +57,7 @@ export function SearchBox({ defaultValue }: { defaultValue: string }) {
         name="q"
         value={value}
         onChange={(e) => handleChange(e.target.value)}
-        placeholder="Search, or describe what you're after"
+        placeholder={SEARCH_PLACEHOLDER}
         aria-label="Search the index"
         className="w-full border-b border-rule bg-transparent py-2 text-s-0"
       />

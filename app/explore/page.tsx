@@ -107,9 +107,19 @@ export default async function ExplorePage({
         <h1 className="font-display font-extrabold text-s-3 leading-[1.02] tracking-[-0.02em] mt-6 mb-1">
           The index
         </h1>
+        {/*
+          Was "Search finds meaning, not just matching words — try a whole
+          sentence." That describes the semantic path, which is unreachable
+          in production: LLM_API_URL points at a local Ollama that Vercel
+          can't resolve, so every live search falls back to keyword
+          matching. The copy promised something only ever true on a dev
+          machine. This describes what search actually does on the
+          deployed site; restore the old line if a reachable embedding
+          endpoint is ever configured.
+        */}
         <p className="text-ink-mid max-w-[52ch] mb-6">
-          491 things, seeded. Search finds meaning, not just matching words —
-          try a whole sentence.
+          491 things, seeded. Search by keyword, or filter your way down —
+          the more specific the word, the better this works.
         </p>
 
         <div className="flex items-center justify-between gap-4 mb-5">
