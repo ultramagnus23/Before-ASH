@@ -70,6 +70,28 @@ const PUBLIC_COLUMNS =
 // Exported only so tests/unit/serializers.test.ts can assert on it directly.
 export const PUBLIC_COLUMNS_FOR_TEST = PUBLIC_COLUMNS;
 
+// The ROW-level half of this file's second layer.
+//
+// Every public reader below used to filter only on `completed_at` and leave
+// visibility entirely to RLS. That is not equivalent: RLS grants an owner
+// their OWN rows unconditionally (`list_items_select_own`), so a user's
+// private, never-reviewed items appeared to that user in surfaces that are
+// supposed to show campus activity — /feed rendered a fixture user's 20
+// private, `review_state='draft'` completions under their own handle.
+//
+// Not a cross-user leak (`list_items_select_public_approved` still blocks
+// everyone else, so BUILD-PROMPT.md non-negotiable #1 held), but wrong, and
+// wrong in the direction that makes an empty feed look populated to the one
+// person who can't tell the difference.
+//
+// These predicates deliberately mirror `list_items_select_public_approved`
+// exactly, so a public reader returns the same rows for the owner as it does
+// for a stranger. 'flagged' is excluded because RLS excludes it — see the
+// note in the README about ListRow's "Visible to campus" copy for flagged
+// items, which that policy already contradicts and which is a separate fix.
+const PUBLIC_VISIBILITIES = ["public", "anonymous"] as const;
+const PUBLIC_REVIEW_STATE = "approved";
+
 export async function getOwnList(userId: string): Promise<OwnListItem[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -151,13 +173,14 @@ export async function getFeedPage(cursor: string | null, limit = 20): Promise<Fe
   const supabase = await createClient();
   const viewerId = await currentViewerId(supabase);
 
-  // RLS already restricts this to visibility in ('public','anonymous') AND
-  // review_state = 'approved', per db/migrations/0001_rls.sql, and already
-  // excludes rows from blocked/blocking users. The column selection here is
-  // a second, independent layer against the same note/owner-stripping rule.
+  // RLS excludes rows from blocked/blocking users, which is not re-stated
+  // here. Visibility and review state ARE re-stated, because RLS alone lets
+  // an owner see their own private rows — see PUBLIC_VISIBILITIES above.
   let query = supabase
     .from("list_items")
     .select(PUBLIC_COLUMNS)
+    .in("visibility", PUBLIC_VISIBILITIES)
+    .eq("review_state", PUBLIC_REVIEW_STATE)
     .not("completed_at", "is", null)
     .order("completed_at", { ascending: false })
     .limit(limit + 1);
@@ -195,6 +218,7 @@ export async function getPublicItemsByOwnerHandle(handle: string): Promise<Publi
     .select(PUBLIC_COLUMNS)
     .eq("owner_id", profile.id)
     .eq("visibility", "public")
+    .eq("review_state", PUBLIC_REVIEW_STATE)
     .not("completed_at", "is", null)
     .order("completed_at", { ascending: false });
 
@@ -210,6 +234,8 @@ export async function getPublicItemsByQuestId(questId: string): Promise<PublicLi
     .from("list_items")
     .select(PUBLIC_COLUMNS)
     .eq("quest_id", questId)
+    .in("visibility", PUBLIC_VISIBILITIES)
+    .eq("review_state", PUBLIC_REVIEW_STATE)
     .not("completed_at", "is", null)
     .order("completed_at", { ascending: false });
 
