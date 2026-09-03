@@ -1,6 +1,7 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { callModel } from "@/lib/ai/call-model";
+import { reportDegraded } from "@/lib/ai/health";
 import { rankQuests, diversifyByCategory } from "@/lib/ranking/rank-quests";
 
 // The raw snake_case shape returned by the quests table and by the
@@ -94,9 +95,14 @@ async function fetchSearchRows(
           query_embedding: `[${result.embedding.join(",")}]`,
         });
         if (!error) return { rows: data, orderedBy: "relevance-semantic" };
+        await reportDegraded("search", `semantic RPC failed: ${error.message.slice(0, 120)}`);
       }
-    } catch {
-      // falls through to trigram below
+    } catch (e) {
+      // This catch is the exact place production went quiet: LLM_API_URL
+      // pointed at localhost, every embed threw, and search silently became
+      // keyword-only for months with no log and no signal. It still falls
+      // back — degrading beats going dark — but it is no longer silent.
+      await reportDegraded("search", (e as Error).message ?? "embed failed");
     }
   }
 

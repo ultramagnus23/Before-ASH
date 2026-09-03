@@ -1,4 +1,5 @@
 import "server-only";
+import { getProvider } from "./provider";
 
 /*
  * The ONLY entry point for talking to an LLM anywhere in this codebase.
@@ -8,9 +9,12 @@ import "server-only";
  * no field on CallModelInput to put an identifier in, so passing one is a
  * compile error, not a runtime discipline someone has to remember.
  *
- * Model is an open-weight model served from LLM_API_URL (Ollama by default,
- * or any OpenAI-compatible endpoint you control). No Anthropic/OpenAI/any
- * closed-model vendor SDK is used here or anywhere else in the app.
+ * Model is an open-weight model served from LLM_API_URL. The wire format is
+ * OpenAI-compatible, which every hosted open-weights provider speaks and
+ * which Ollama also serves on its /v1 path — see providers/openai-compatible.ts
+ * for why that swap was the fix for production having no moderation at all.
+ * No Anthropic/OpenAI/any closed-model vendor SDK is used here or anywhere
+ * else in the app.
  */
 
 type CallModelInput =
@@ -48,11 +52,11 @@ function logCall(task: CallModelInput["task"]) {
 }
 
 async function moderate(text: string): Promise<ModerationScores> {
-  const prompt = [
+  const system = [
     "You are a content classifier for a university campus app. Score the",
-    "following user-submitted text on each dimension from 0 to 1. The text",
-    "may be in English, Hindi, or Hinglish/transliterated Hindi — score it",
-    "regardless of language or script.",
+    "user-submitted text on each dimension from 0 to 1. The text may be in",
+    "English, Hindi, or Hinglish/transliterated Hindi — score it regardless",
+    "of language or script.",
     "",
     "Dimensions:",
     "- names_person: does this name or unambiguously identify a specific,",
@@ -63,76 +67,32 @@ async function moderate(text: string): Promise<ModerationScores> {
     "",
     'Respond with ONLY a JSON object: {"names_person":0.0,"sexual":0.0,',
     '"harassment":0.0,"dangerous":0.0,"illegal":0.0,"discriminatory":0.0}',
-    "",
-    `Text: ${JSON.stringify(text)}`,
   ].join("\n");
 
-  const res = await fetch(`${requireEnv("LLM_API_URL")}/api/generate`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: requireEnv("LLM_MODEL_NAME"),
-      prompt,
-      format: "json",
-      stream: false,
-      options: { temperature: 0 },
-    }),
+  return getProvider().json<ModerationScores>({
+    system,
+    user: text,
+    temperature: 0,
   });
-
-  if (!res.ok) {
-    throw new Error(`Moderation call failed: ${res.status} ${await res.text()}`);
-  }
-
-  const body = (await res.json()) as { response: string };
-  const parsed = JSON.parse(body.response) as ModerationScores;
-  return parsed;
 }
 
 async function embed(text: string): Promise<number[]> {
-  const res = await fetch(`${requireEnv("LLM_API_URL")}/api/embeddings`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: requireEnv("LLM_EMBEDDING_MODEL_NAME"),
-      prompt: text,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Embedding call failed: ${res.status} ${await res.text()}`);
-  }
-
-  const body = (await res.json()) as { embedding: number[] };
-  return body.embedding;
+  return getProvider().embed(text);
 }
 
 async function remix(text: string, intensity: 1 | 2 | 3): Promise<string[]> {
-  const prompt = [
-    `Rewrite the following bucket-list item as 3 short variants at`,
-    `intensity level ${intensity} of 3 (1 = mild tweak, 3 = ambitious`,
-    `escalation). Dry, second-person, no exclamation marks, no emoji.`,
-    'Respond with ONLY a JSON array of 3 strings.',
-    "",
-    `Text: ${JSON.stringify(text)}`,
+  const system = [
+    "Rewrite the user's bucket-list item as 3 short variants at intensity",
+    `level ${intensity} of 3 (1 = mild tweak, 3 = ambitious escalation).`,
+    "Dry, second-person, no exclamation marks, no emoji.",
+    'Respond with ONLY a JSON object: {"variants":["one","two","three"]}',
   ].join("\n");
 
-  const res = await fetch(`${requireEnv("LLM_API_URL")}/api/generate`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: requireEnv("LLM_MODEL_NAME"),
-      prompt,
-      format: "json",
-      stream: false,
-    }),
+  const { variants } = await getProvider().json<{ variants: string[] }>({
+    system,
+    user: text,
   });
-
-  if (!res.ok) {
-    throw new Error(`Remix call failed: ${res.status} ${await res.text()}`);
-  }
-
-  const body = (await res.json()) as { response: string };
-  return JSON.parse(body.response) as string[];
+  return Array.isArray(variants) ? variants : [];
 }
 
 // §13.2: bulk "smart paste" — splits free-form pasted text (a Notes app
@@ -141,43 +101,28 @@ async function remix(text: string, intensity: 1 | 2 | 3): Promise<string[]> {
 // result is a proposal, never committed directly — the caller
 // (lib/import/actions.ts) always shows a preview before anything is saved.
 async function segment(text: string): Promise<string[]> {
-  const prompt = [
-    "Split the following free-form text into a list of separate,",
-    "individual to-do/bucket-list items. The text may be a Notes app list,",
-    "a chat message, or just prose — find the discrete items in it. Each",
-    "item should be a short, standalone phrase. Do not invent items that",
-    "aren't in the text. If the text is already a single item, return an",
-    "array with just that one string.",
-    'Respond with ONLY a JSON array of strings, e.g. ["item one", "item two"].',
-    "",
-    `Text: ${JSON.stringify(text)}`,
+  // Note the object wrapper on every JSON task in this file: the
+  // OpenAI-compatible `response_format: {type:"json_object"}` requires a
+  // top-level OBJECT, and providers reject or mangle a bare array. The old
+  // Ollama-native `format:"json"` allowed arrays, which is why these prompts
+  // used to ask for one.
+  const system = [
+    "Split the user's free-form text into separate, individual",
+    "to-do/bucket-list items. The text may be a Notes app list, a chat",
+    "message, or just prose — find the discrete items in it. Each item",
+    "should be a short, standalone phrase. Do not invent items that aren't",
+    "in the text. If the text is already a single item, return one item.",
+    'Respond with ONLY a JSON object: {"items":["item one","item two"]}',
   ].join("\n");
 
-  const res = await fetch(`${requireEnv("LLM_API_URL")}/api/generate`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: requireEnv("LLM_MODEL_NAME"),
-      prompt,
-      format: "json",
-      stream: false,
-      options: { temperature: 0 },
-    }),
+  const { items } = await getProvider().json<{ items: string[] }>({
+    system,
+    user: text,
+    temperature: 0,
   });
 
-  if (!res.ok) {
-    throw new Error(`Segment call failed: ${res.status} ${await res.text()}`);
-  }
-
-  const body = (await res.json()) as { response: string };
-  const parsed = JSON.parse(body.response) as string[];
-  return parsed.filter((item) => typeof item === "string" && item.trim().length > 0);
-}
-
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new Error(`${name} is required.`);
-  return value;
+  if (!Array.isArray(items)) return [];
+  return items.filter((item) => typeof item === "string" && item.trim().length > 0);
 }
 
 // Per-user quota (e.g. remix 5/day) is enforced by the CALLER against

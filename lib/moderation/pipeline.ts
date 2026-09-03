@@ -1,6 +1,7 @@
 import "server-only";
 import { runDeterministicFilter } from "./deterministic";
 import { callModel, AiDisabledError, type ModerationScores } from "@/lib/ai/call-model";
+import { reportDegraded } from "@/lib/ai/health";
 
 /*
  * The three-layer pipeline from BUILD-PROMPT.md §7, minus layer 3
@@ -59,7 +60,13 @@ export async function runModerationPipeline(
     }
     // The classifier call itself failed (network, malformed response,
     // whatever) — same fail-closed posture, not an approval.
+    //
+    // Failing closed is correct but it is not free: every publication now
+    // lands in a queue staffed by one person. That makes an unreachable
+    // endpoint an operational emergency rather than a background annoyance,
+    // so it is reported, not just logged and forgotten.
     console.error("Moderation classifier call failed, failing closed:", err);
+    await reportDegraded("moderation", (err as Error).message ?? "classifier call failed");
     return isAnonymous ? { outcome: "pending_human", scores: null } : { outcome: "held", scores: null };
   }
 
