@@ -1,5 +1,6 @@
 import "server-only";
 import { getProvider } from "./provider";
+import { EMBEDDING_DIM } from "@/db/schema";
 
 /*
  * The ONLY entry point for talking to an LLM anywhere in this codebase.
@@ -77,7 +78,21 @@ async function moderate(text: string): Promise<ModerationScores> {
 }
 
 async function embed(text: string): Promise<number[]> {
-  return getProvider().embed(text);
+  const embedding = await getProvider().embed(text);
+
+  // Width is a hard contract with the quests.embedding column, which is
+  // vector(768), and with search_quests_semantic's ::vector(768) cast.
+  // Checking here turns "someone configured a 1024-dim embedding model"
+  // into one obvious error instead of a Postgres dimension mismatch buried
+  // inside a search fallback that silently degrades to keyword matching.
+  if (embedding.length !== EMBEDDING_DIM) {
+    throw new Error(
+      `Embedding model returned ${embedding.length} dimensions, expected ${EMBEDDING_DIM}. ` +
+        `Set LLM_EMBEDDING_MODEL_NAME to a ${EMBEDDING_DIM}-dim model, or migrate the ` +
+        `vector column and re-embed every quest — the two must change together.`
+    );
+  }
+  return embedding;
 }
 
 async function remix(text: string, intensity: 1 | 2 | 3): Promise<string[]> {

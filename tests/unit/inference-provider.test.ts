@@ -96,14 +96,40 @@ describe("moderation in a production-like config", () => {
 });
 
 describe("embeddings", () => {
+  // Must match db/schema.ts's EMBEDDING_DIM — the width of the
+  // quests.embedding column. A fixture of the wrong width is now a failing
+  // test rather than a passing one, which is the point of the guard.
+  const vec = (dim: number) => Array.from({ length: dim }, (_, i) => i / dim);
+
   it("reads the OpenAI-compatible data[0].embedding shape", async () => {
+    const embedding = vec(768);
     fetchMock.mockResolvedValue(
-      new Response(JSON.stringify({ data: [{ embedding: [0.1, 0.2, 0.3] }] }), { status: 200 })
+      new Response(JSON.stringify({ data: [{ embedding }] }), { status: 200 })
     );
     const { callModel } = await import("@/lib/ai/call-model");
     const result = await callModel({ task: "embed", text: "quiet places" });
-    expect(result).toEqual({ task: "embed", embedding: [0.1, 0.2, 0.3] });
+    expect(result).toEqual({ task: "embed", embedding });
     expect(fetchMock.mock.calls[0]![0]).toBe("https://inference.example/openai/v1/embeddings");
+
+    const body = JSON.parse(fetchMock.mock.calls[0]![1].body as string);
+    // OpenAI-compatible uses `input`; Ollama-native used `prompt`. Getting
+    // this wrong is silent — the endpoint 400s and search just degrades.
+    expect(body.input).toBe("quiet places");
+    expect(body.model).toBe("test-embed-model");
+  });
+
+  it("rejects a wrong-width vector instead of corrupting the column", async () => {
+    // BAAI/bge-large-en-v1.5 (1024) in place of bge-base (768) is the
+    // realistic version of this mistake. Postgres would reject the insert,
+    // but on the QUERY side the error is swallowed by the search fallback,
+    // so semantic search would just never work and never say why.
+    fetchMock.mockResolvedValue(
+      new Response(JSON.stringify({ data: [{ embedding: vec(1024) }] }), { status: 200 })
+    );
+    const { callModel } = await import("@/lib/ai/call-model");
+    await expect(callModel({ task: "embed", text: "anything" })).rejects.toThrow(
+      /1024 dimensions, expected 768/
+    );
   });
 });
 

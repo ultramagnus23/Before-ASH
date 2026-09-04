@@ -1,22 +1,44 @@
 import "../env";
 import { db } from "../db/client";
-import { quests } from "../db/schema";
+import { quests, EMBEDDING_DIM } from "../db/schema";
 import { isNull, eq } from "drizzle-orm";
+
+/*
+ * Run with `--all` to re-embed EVERY quest, not just the ones missing a
+ * vector. That mode is required whenever LLM_EMBEDDING_MODEL_NAME changes:
+ * embeddings from two different models are not comparable even at identical
+ * width, so a mixed catalog makes semantic search return confident nonsense
+ * rather than failing. There is no way to detect this from the stored data,
+ * which is exactly why it needs to be a deliberate flag.
+ */
+const REEMBED_ALL = process.argv.includes("--all");
 
 // Standalone fetch call, not an import of lib/ai/call-model.ts, for the
 // same reason scripts/seed.ts duplicates it: that file has
 // `import "server-only"`, which throws unconditionally outside Next's
 // bundler. Keep this in sync with lib/ai/call-model.ts's embed() task if
-// that implementation ever changes.
+// that implementation ever changes — it drifted once already, when the
+// provider moved from Ollama-native to the OpenAI-compatible wire format
+// and this file kept POSTing /api/embeddings with a `prompt` field.
 async function embedForBackfill(text: string): Promise<number[]> {
-  const res = await fetch(`${requireEnv("LLM_API_URL")}/api/embeddings`, {
+  const headers: Record<string, string> = { "content-type": "application/json" };
+  const key = process.env.LLM_API_KEY?.trim();
+  if (key) headers.authorization = `Bearer ${key}`;
+
+  const base = requireEnv("LLM_API_URL").replace(/\/+$/, "");
+  const res = await fetch(`${base}/embeddings`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ model: requireEnv("LLM_EMBEDDING_MODEL_NAME"), prompt: text }),
+    headers,
+    body: JSON.stringify({ model: requireEnv("LLM_EMBEDDING_MODEL_NAME"), input: text }),
   });
   if (!res.ok) throw new Error(`Embedding call failed: ${res.status} ${await res.text()}`);
-  const body = (await res.json()) as { embedding: number[] };
-  return body.embedding;
+
+  const body = (await res.json()) as { data?: { embedding?: number[] }[] };
+  const embedding = body.data?.[0]?.embedding;
+  if (!Array.isArray(embedding) || embedding.length === 0) {
+    throw new Error("Embedding response contained no vector.");
+  }
+  return embedding;
 }
 
 function requireEnv(name: string): string {
@@ -54,6 +76,18 @@ async function main() {
   console.log(`Checking ${requireEnv("LLM_API_URL")} ...`);
   try {
     const probe = await embedForBackfill("connectivity probe");
+    // Stop before writing anything if the width is wrong. Postgres would
+    // reject each insert anyway, but one clear message beats 491 identical
+    // dimension errors, and it names the actual fix.
+    if (probe.length !== EMBEDDING_DIM) {
+      console.error(
+        `Model returned ${probe.length}-dim vectors, but quests.embedding is vector(${EMBEDDING_DIM}).`
+      );
+      console.error(
+        `Pick a ${EMBEDDING_DIM}-dim embedding model, or migrate the column and re-embed together.`
+      );
+      process.exit(1);
+    }
     console.log(`OK — embedding endpoint reachable, ${probe.length}-dim vectors.`);
   } catch (err) {
     console.error("Embedding endpoint is NOT reachable or the model isn't available:");
@@ -61,12 +95,18 @@ async function main() {
     process.exit(1);
   }
 
-  const pending = await db
-    .select({ id: quests.id, title: quests.title })
-    .from(quests)
-    .where(isNull(quests.embedding));
+  const pending = REEMBED_ALL
+    ? await db.select({ id: quests.id, title: quests.title }).from(quests)
+    : await db
+        .select({ id: quests.id, title: quests.title })
+        .from(quests)
+        .where(isNull(quests.embedding));
 
-  console.log(`${pending.length} quests missing an embedding.`);
+  console.log(
+    REEMBED_ALL
+      ? `--all: re-embedding ${pending.length} quests (replacing existing vectors).`
+      : `${pending.length} quests missing an embedding.`
+  );
   if (pending.length === 0) {
     console.log("Nothing to do.");
     process.exit(0);

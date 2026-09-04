@@ -21,7 +21,12 @@ import { sql } from "drizzle-orm";
  * regenerated together; there is no silent migration path for a dimension
  * change.
  */
-const EMBEDDING_DIM = 768;
+// Exported so the runtime embed path can assert against it. A provider that
+// returns a different width would otherwise be rejected by Postgres deep in
+// an insert, or — worse, on the query side — produce a dimension error the
+// search fallback swallows, turning "wrong embedding model" into "semantic
+// search quietly never works". See lib/ai/call-model.ts's embed().
+export const EMBEDDING_DIM = 768;
 const vector = customType<{ data: number[]; driverData: string }>({
   dataType() {
     return `vector(${EMBEDDING_DIM})`;
