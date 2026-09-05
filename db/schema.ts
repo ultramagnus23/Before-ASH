@@ -347,3 +347,64 @@ export const questVotes = pgTable("quest_votes", {
   uniqueIndex("quest_votes_unique_pair").on(t.questId, t.userId),
   index("quest_votes_quest_idx").on(t.questId),
 ]);
+
+// ─── the match mechanic (Task 1) ─────────────────────────────────────────
+// Interest in a CATALOG item, before anyone has done anything — distinct
+// from `interests` above, which is "I'm in" on a specific person's
+// completed list_item (the P5 contact-exchange flow, unchanged). This one
+// is the primary discovery path: it introduces strangers, so it is
+// deliberately not gated behind an existing connection. Blocks still win.
+export const interestStateEnum = pgEnum("interest_state", ["live", "matched", "expired", "withdrawn"]);
+export const outingGroupStateEnum = pgEnum("outing_group_state", ["active", "archived"]);
+
+// Exactly four, closed at the database. Adding a fifth requires a migration
+// and therefore a decision — the product rule is "adding one means removing
+// one", and this is where that is enforced rather than remembered.
+export const notificationTypeEnum = pgEnum("notification_type", [
+  "connection_request",
+  "connection_accepted",
+  "board_activity",
+  "match_found",
+]);
+
+export const questInterests = pgTable("quest_interests", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  questId: text("quest_id").notNull().references(() => quests.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
+  state: interestStateEnum("state").notNull().default("live"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  // Interest is transient by design: 48h, matching Tonight's horizon. There
+  // is no expiry job — anything past this simply stops matching, filtered
+  // on read, the same reasoning that kept the weekly featured quest a pure
+  // function of the ISO week rather than scheduled infrastructure.
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+}, (t) => [
+  uniqueIndex("quest_interests_unique_pair").on(t.questId, t.userId),
+  index("quest_interests_user_idx").on(t.userId, t.createdAt),
+]);
+
+export const outingGroups = pgTable("outing_groups", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  questId: text("quest_id").notNull().references(() => quests.id, { onDelete: "cascade" }),
+  state: outingGroupStateEnum("state").notNull().default("active"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const outingGroupMembers = pgTable("outing_group_members", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  groupId: uuid("group_id").notNull().references(() => outingGroups.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
+  joinedAt: timestamp("joined_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  uniqueIndex("outing_group_members_unique_pair").on(t.groupId, t.userId),
+  index("outing_group_members_user_idx").on(t.userId),
+]);
+
+export const notifications = pgTable("notifications", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
+  type: notificationTypeEnum("type").notNull(),
+  payload: jsonb("payload").notNull().default({}),
+  readAt: timestamp("read_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [index("notifications_inbox_idx").on(t.userId, t.createdAt)]);

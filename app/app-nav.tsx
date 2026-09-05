@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import { getUnreadNotificationCount } from "@/lib/queries/notifications";
 
 const LINKS = [
   { href: "/list", label: "01 List" },
@@ -44,6 +46,39 @@ export function AppNav({ active }: { active: string }) {
           {link.label}
         </Link>
       ))}
+
+      <Link
+        href="/notifications"
+        aria-current={active === "/notifications" ? "page" : undefined}
+        className={`font-mono text-s-minus-1 tracking-wide px-2 py-1.5 flex items-center gap-1.5 ${
+          active === "/notifications" ? "text-page border-b border-foil" : "text-foil-dim hover:text-foil"
+        }`}
+      >
+        Notices
+        {/* Suspended so an unread lookup can never delay the nav, which
+            renders on every route including the signed-out public pages.
+            The badge simply appears a beat later when there is one. */}
+        <Suspense fallback={null}>
+          <UnreadDot />
+        </Suspense>
+      </Link>
     </nav>
+  );
+}
+
+/*
+ * A dot, not a number. The count of unread notices is not a denominator, so
+ * §1 does not forbid it — but a number here invites "3 unread" to become a
+ * thing to clear, and the product has exactly four notification types and no
+ * inbox-zero mechanic. Presence is the whole signal.
+ */
+async function UnreadDot() {
+  const unread = await getUnreadNotificationCount();
+  if (unread === 0) return null;
+  return (
+    <span
+      aria-label="You have unread notices"
+      className="inline-block w-1.5 h-1.5 rounded-full bg-foil flex-none"
+    />
   );
 }

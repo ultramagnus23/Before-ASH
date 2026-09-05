@@ -6,6 +6,7 @@ import { DimensionFilters } from "./dimension-filters";
 import { AddButton } from "./add-button";
 import { SearchBox } from "./search-box";
 import { RemixButton } from "./remix-button";
+import { CountMeInButton } from "./count-me-in-button";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
 
@@ -182,6 +183,7 @@ export default async function ExplorePage({
                 </div>
                 <RemixButton title={quest.title} category={quest.category} />
                 <AddButton questId={quest.id} alreadyAdded={quest.alreadyAdded} />
+                <CountMeInButton questId={quest.id} initiallyIn={quest.countedIn} />
               </li>
             ))}
           </ul>

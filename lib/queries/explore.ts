@@ -30,6 +30,11 @@ export type ExploreQuest = {
   locale: string;
   spice: number;
   alreadyAdded: boolean;
+  // Whether the viewer already holds live interest ("Count me in"). Only
+  // ever true for the viewer's own interest — RLS makes another person's
+  // interest unreadable, which is the point: the catalog must never become
+  // a directory of who wants to do what.
+  countedIn: boolean;
 };
 
 export type ExploreFilters = {
@@ -117,7 +122,7 @@ export async function searchQuests(filters: ExploreFilters): Promise<ExploreResu
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [ownedQuestIds, openCounts] = await Promise.all([
+  const [ownedQuestIds, openCounts, liveInterestIds] = await Promise.all([
     user
       ? supabase
           .from("list_items")
@@ -140,6 +145,17 @@ export async function searchQuests(filters: ExploreFilters): Promise<ExploreResu
             ])
           )
       ),
+    // Parallel, not serial: this is the viewer's own live interest, needed
+    // to render "Count me in" in the right state. RLS scopes it to them.
+    user
+      ? supabase
+          .from("quest_interests")
+          .select("quest_id")
+          .eq("user_id", user.id)
+          .eq("state", "live")
+          .gt("expires_at", new Date().toISOString())
+          .then(({ data }) => new Set((data ?? []).map((r) => r.quest_id as string)))
+      : Promise.resolve(new Set<string>()),
   ]);
 
   const toExploreQuest = (row: QuestRow): ExploreQuest => ({
@@ -152,6 +168,7 @@ export async function searchQuests(filters: ExploreFilters): Promise<ExploreResu
     locale: row.locale,
     spice: row.spice,
     alreadyAdded: ownedQuestIds.has(row.id),
+    countedIn: liveInterestIds.has(row.id),
   });
 
   const trimmed = filters.query?.trim() ?? "";
