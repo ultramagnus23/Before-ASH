@@ -12,6 +12,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx db/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
+    "pretag": "tsx scripts/pretag-catalog.ts",
     "backfill:embeddings": "tsx scripts/backfill-embeddings.ts",
     "cron:purge": "tsx scripts/cron-purge-deleted-accounts.ts",
     "dev:approve-item": "tsx scripts/dev-approve-item.ts",

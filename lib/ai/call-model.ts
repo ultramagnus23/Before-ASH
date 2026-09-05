@@ -1,6 +1,8 @@
 import "server-only";
 import { getProvider } from "./provider";
 import { EMBEDDING_DIM } from "@/db/schema";
+import type { QuestTags, TagConfidence } from "@/lib/tags/dimensions";
+import { TAG_SYSTEM_PROMPT, coerceTags } from "@/lib/tags/tag-prompt";
 
 /*
  * The ONLY entry point for talking to an LLM anywhere in this codebase.
@@ -22,7 +24,8 @@ type CallModelInput =
   | { task: "moderate"; text: string }
   | { task: "embed"; text: string }
   | { task: "remix"; text: string; intensity: 1 | 2 | 3 }
-  | { task: "segment"; text: string };
+  | { task: "segment"; text: string }
+  | { task: "tag"; text: string; groupSize?: QuestTags["group_size"] };
 
 export type ModerationScores = {
   names_person: number;
@@ -37,7 +40,8 @@ type CallModelResult =
   | { task: "moderate"; scores: ModerationScores }
   | { task: "embed"; embedding: number[] }
   | { task: "remix"; variants: string[] }
-  | { task: "segment"; items: string[] };
+  | { task: "segment"; items: string[] }
+  | { task: "tag"; tags: QuestTags; confidence: TagConfidence };
 
 class AiDisabledError extends Error {
   constructor() {
@@ -140,6 +144,25 @@ async function segment(text: string): Promise<string[]> {
   return items.filter((item) => typeof item === "string" && item.trim().length > 0);
 }
 
+
+// Task 2 catalog pre-tagging. The prompt and the response coercion live in
+// lib/tags/tag-prompt.ts rather than here, because scripts/pretag-catalog.ts
+// needs them too and cannot import this file (`server-only` throws outside
+// Next's bundler). That is the exact shape of the bug that silently broke
+// scripts/backfill-embeddings.ts when the wire format changed: two copies of
+// one contract. There is one copy of this one.
+async function tag(
+  text: string,
+  groupSize: QuestTags["group_size"]
+): Promise<{ tags: QuestTags; confidence: TagConfidence }> {
+  const raw = await getProvider().json<unknown>({
+    system: TAG_SYSTEM_PROMPT,
+    user: text,
+    temperature: 0,
+  });
+  return coerceTags(raw, groupSize);
+}
+
 // Per-user quota (e.g. remix 5/day) is enforced by the CALLER against
 // Upstash before invoking this function, keyed on the request's session
 // user id — that id never enters this function, by design.
@@ -159,6 +182,8 @@ export async function callModel(input: CallModelInput): Promise<CallModelResult>
       return { task: "remix", variants: await remix(input.text, input.intensity) };
     case "segment":
       return { task: "segment", items: await segment(input.text) };
+    case "tag":
+      return { task: "tag", ...(await tag(input.text, input.groupSize ?? "any")) };
   }
 }
 

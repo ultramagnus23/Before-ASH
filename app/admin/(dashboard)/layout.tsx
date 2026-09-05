@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { checkAdminAccess } from "@/lib/admin/guard";
 
@@ -16,5 +17,20 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
   if (access.status === "needs_enrollment") redirect("/admin/enroll");
   if (access.status === "needs_verification") redirect("/admin/verify");
 
-  return <>{children}</>;
+  // Two admin surfaces now (the safety queue and the tag queue), so there
+  // has to be a way between them. Deliberately plain: this is tooling for
+  // one person, not a product surface.
+  return (
+    <div className="min-h-screen px-4 sm:px-8 py-8 bg-page text-ink">
+      <nav aria-label="Admin" className="flex gap-4 font-mono text-s-minus-1 uppercase tracking-wide mb-8">
+        <Link href="/admin" className="text-ink-mid hover:text-ink">
+          Safety queue
+        </Link>
+        <Link href="/admin/tags" className="text-ink-mid hover:text-ink">
+          Tag review
+        </Link>
+      </nav>
+      {children}
+    </div>
+  );
 }

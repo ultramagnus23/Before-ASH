@@ -7,12 +7,14 @@ import {
   boolean,
   timestamp,
   jsonb,
+  real,
   uniqueIndex,
   index,
   check,
   customType,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import type { TimeOfDay, DayOfWeek, TagConfidence } from "@/lib/tags/dimensions";
 
 /*
  * Embedding dimension matches the open-source embedding model served by
@@ -408,3 +410,42 @@ export const notifications = pgTable("notifications", {
   readAt: timestamp("read_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [index("notifications_inbox_idx").on(t.userId, t.createdAt)]);
+
+// ─── quest_tags (Task 2: the seven tag dimensions) ───────────────────────
+// Two rows at most per quest: the machine's 'proposed' guess and the
+// human's 'reviewed' truth. Only 'reviewed' is ever read by a user-facing
+// query — enforced in RLS, not just here. See
+// db/migrations/0015_quest_tags.sql for why they are separate rows.
+//
+// The array columns are declared through sql`` because drizzle-orm's
+// pgEnum().array() emits the element type, not the array type, on a
+// generated migration — and these migrations are hand-written and
+// forward-only anyway, so this file describes the database rather than
+// producing it.
+export const questTagStateEnum = pgEnum("quest_tag_state", ["proposed", "reviewed"]);
+export const tagDurationEnum = pgEnum("tag_duration", ["under_1h", "half_day", "full_day", "multi_day"]);
+export const tagSettingEnum = pgEnum("tag_setting", ["indoor", "outdoor", "either"]);
+export const tagCostBandEnum = pgEnum("tag_cost_band", ["free", "under_200", "under_1000", "over_1000"]);
+export const tagSeasonEnum = pgEnum("tag_season", ["any", "winter", "summer", "monsoon"]);
+
+export const questTags = pgTable("quest_tags", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  questId: text("quest_id").notNull().references(() => quests.id, { onDelete: "cascade" }),
+  state: questTagStateEnum("state").notNull(),
+  timeOfDay: text("time_of_day").array().notNull().$type<TimeOfDay[]>(),
+  dayOfWeek: text("day_of_week").array().notNull().$type<DayOfWeek[]>(),
+  duration: tagDurationEnum("duration").notNull(),
+  setting: tagSettingEnum("setting").notNull(),
+  costBand: tagCostBandEnum("cost_band").notNull(),
+  season: tagSeasonEnum("season").notNull(),
+  groupSize: groupSizeEnum("group_size").notNull(),
+  confidence: jsonb("confidence").notNull().default({}).$type<TagConfidence>(),
+  minConfidence: real("min_confidence").notNull().default(0),
+  model: text("model"),
+  reviewedBy: uuid("reviewed_by").references(() => profiles.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  uniqueIndex("quest_tags_quest_state_unique").on(t.questId, t.state),
+  index("quest_tags_queue_idx").on(t.minConfidence, t.questId),
+]);
