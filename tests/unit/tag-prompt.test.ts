@@ -11,8 +11,8 @@ import { TIME_OF_DAY, DAY_OF_WEEK } from "@/lib/tags/dimensions";
 
 const GOOD = {
   tags: {
-    time_of_day: ["evening"],
-    day_of_week: ["weekday"],
+    time_of_day: "evening",
+    day_of_week: "weekday",
     duration: "under_1h",
     setting: "outdoor",
     cost_band: "free",
@@ -36,13 +36,68 @@ describe("coerceTags", () => {
   });
 
   it("drops values outside the vocabulary", () => {
-    const { tags } = coerceTags({ tags: { ...GOOD.tags, time_of_day: ["evening", "dawn", "brunch"] } });
+    const { tags } = coerceTags({
+      tags: { ...GOOD.tags, time_of_day: "evening", time_of_day_also: ["dawn", "brunch"] },
+    });
     expect(tags.time_of_day).toEqual(["evening"]);
   });
 
-  it("accepts a bare string where an array belongs", () => {
+  it("unwraps a single value the model wrapped in an array", () => {
+    // The model answers `["evening"]` when asked for one value. Treating that
+    // as malformed sent every item down the fallback path and read, from the
+    // outside, exactly like the model refusing to commit -- which is what it
+    // looked like for a whole 20-item sample run.
+    const { tags, confidence } = coerceTags({
+      ...GOOD,
+      tags: { ...GOOD.tags, time_of_day: ["evening"] },
+    });
+    expect(tags.time_of_day).toEqual(["evening"]);
+    expect(confidence.time_of_day).toBe(0.9);
+  });
+
+  it("keeps array order, treating the first value as the primary", () => {
+    const { tags } = coerceTags({
+      tags: { ...GOOD.tags, time_of_day: ["evening", "afternoon"], time_of_day_also: ["morning"] },
+    });
+    expect(tags.time_of_day).toEqual(["evening", "afternoon", "morning"]);
+  });
+
+  it("falls back only when nothing in the field is usable", () => {
+    const { tags, confidence } = coerceTags({
+      ...GOOD,
+      tags: { ...GOOD.tags, time_of_day: ["teatime", "brunch"] },
+    });
+    expect(confidence.time_of_day).toBe(0);
+    expect(tags.time_of_day).toHaveLength(TIME_OF_DAY.length);
+  });
+
+  it("takes a single primary value for a multi-valued dimension", () => {
     const { tags } = coerceTags({ tags: { ...GOOD.tags, day_of_week: "weekend" } });
     expect(tags.day_of_week).toEqual(["weekend"]);
+  });
+
+  it("appends the _also values after the primary", () => {
+    const { tags } = coerceTags({
+      tags: { ...GOOD.tags, time_of_day: "evening", time_of_day_also: ["afternoon", "morning"] },
+    });
+    expect(tags.time_of_day).toEqual(["evening", "afternoon", "morning"]);
+  });
+
+  it("ignores an _also value that repeats the primary or is invalid", () => {
+    const { tags } = coerceTags({
+      tags: { ...GOOD.tags, time_of_day: "evening", time_of_day_also: ["evening", "teatime"] },
+    });
+    expect(tags.time_of_day).toEqual(["evening"]);
+  });
+
+  it("ignores _also entirely when the primary is unusable", () => {
+    // Otherwise a junk primary silently promotes a secondary guess to the
+    // headline answer, which reads as confident when it is not.
+    const { tags, confidence } = coerceTags({
+      tags: { ...GOOD.tags, time_of_day: "whenever", time_of_day_also: ["morning"] },
+    });
+    expect(confidence.time_of_day).toBe(0);
+    expect(tags.time_of_day.length).toBeGreaterThan(1);
   });
 
   it("scores an unusable dimension at zero confidence rather than failing", () => {

@@ -90,15 +90,41 @@ export function coerceTags(raw: unknown, groupSize: QuestTags["group_size"] = "a
     let ok = false;
 
     if (MULTI.has(dim)) {
-      const list = (Array.isArray(value) ? value : [value])
+      // The model answers these with ONE value; anything else it also
+      // considers acceptable comes separately under `<dim>_also`. Asking for
+      // a free multi-select produced all-four on 205 of 491 items, and
+      // adding "never choose all four" to the rubric made that 20 of 20 --
+      // negation does not steer a 7B model. So the response format does the
+      // steering instead: there is no field it can put four answers in.
+      // Accepts a bare string OR an array, because the model reliably
+      // answers `["evening"]` when asked for one value -- a committed answer
+      // in a wrapper, not a hedge. Rejecting the wrapper (an earlier version
+      // of this function did) sent every item down the fallback path and
+      // looked exactly like the model refusing to choose.
+      //
+      // Order carries meaning: the first valid value is the primary, the
+      // rest are alternates, and `<dim>_also` appends to them. Nothing here
+      // caps the count -- an item that really does span the day should say
+      // so, and scoreProposal() is what pushes an indiscriminate answer up
+      // the review queue.
+      const listed = (Array.isArray(value) ? value : [value])
         .filter((v): v is string => typeof v === "string")
         .map((v) => v.trim().toLowerCase())
         .filter((v) => allowed.includes(v));
-      const unique = [...new Set(list)];
-      ok = unique.length > 0;
-      // Never an empty array — the column forbids it, and an item with no
-      // time-of-day silently vanishes from Tonight rather than erroring.
-      out[dim] = ok ? unique : [...allowed];
+      const primary = listed[0] ?? "";
+      ok = allowed.includes(primary);
+      const extras = [
+        ...listed.slice(1),
+        ...(Array.isArray(rawTags[dim + "_also"]) ? (rawTags[dim + "_also"] as unknown[]) : [])
+          .filter((v): v is string => typeof v === "string")
+          .map((v) => v.trim().toLowerCase())
+          .filter((v) => allowed.includes(v)),
+      ].filter((v) => v !== primary);
+      // Never an empty array: the column forbids it, and an item with no
+      // time-of-day silently vanishes from Tonight rather than erroring. The
+      // _also values are dropped with it, because promoting a secondary
+      // guess to the headline answer would read as confident when it is not.
+      out[dim] = ok ? [...new Set([primary, ...extras])] : [...allowed];
     } else {
       const v = typeof value === "string" ? value.trim().toLowerCase() : "";
       ok = allowed.includes(v);

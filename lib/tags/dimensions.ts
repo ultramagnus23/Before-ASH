@@ -61,14 +61,15 @@ export type TagConfidence = Partial<Record<Dimension, number>>;
  */
 export const RUBRIC: Record<Dimension, string> = {
   time_of_day:
-    "When this can actually be done. Choose ALL that apply from: morning (6-12), " +
-    "afternoon (12-17), evening (17-22), late_night (22-6). Most things are two " +
-    "or three. Choose only late_night for things that depend on everything else " +
-    "being shut or everyone else being asleep.",
+    "The ONE time a student would most naturally do this: morning (6-12), " +
+    "afternoon (12-17), evening (17-22), or late_night (22-6). Answer with the " +
+    "single best one. Use late_night only for things that depend on everything " +
+    "else being shut.",
   day_of_week:
-    "Choose ALL that apply from: weekday, weekend. Choose only weekend for things " +
-    "needing a free full day or travel out of Sonipat. Choose only weekday for " +
-    "things that depend on classes, offices, or the mess actually running.",
+    "The ONE better day for this: weekday or weekend. Answer weekend if it needs " +
+    "a free day, travel out of Sonipat, or more than about four hours. Answer " +
+    "weekday if it depends on classes, offices, faculty, clubs, or the campus " +
+    "actually running. Pick the better one even when both would work.",
   duration:
     "How long one attempt takes, door to door, including travel. One of: " +
     "under_1h, half_day (1-4h), full_day (4-8h), multi_day (overnight or more).",
@@ -76,8 +77,11 @@ export const RUBRIC: Record<Dimension, string> = {
     "One of: indoor, outdoor, either. Use 'either' only when it genuinely works " +
     "both ways, not as a way of avoiding the choice.",
   cost_band:
-    "Rupees per person for one attempt. One of: free, under_200, under_1000, " +
-    "over_1000. Campus mess food and anything walkable is free or under_200.",
+    "Rupees per person for one attempt, INCLUDING travel. One of: free, " +
+    "under_200, under_1000, over_1000. 'free' means genuinely zero rupees -- " +
+    "walkable, on campus, nothing bought. Anything leaving Sonipat costs at " +
+    "least under_1000 in transport alone. Anything involving food or a ticket " +
+    "is not free.",
   season:
     "One of: any, winter, summer, monsoon. Use 'any' unless the Sonipat weather " +
     "genuinely rules the other seasons out — most items are 'any'.",
