@@ -102,7 +102,10 @@ export default async function ExplorePage({
       <PlateTilt className="plate-enter plate--index guilloche relative w-full max-w-[72ch] bg-page text-ink px-5 sm:px-9 pt-10 pb-6 rounded-[2px_5px_5px_2px] shadow-[0_26px_60px_-24px_oklch(0.128_0.03_258/0.85)]">
         <div className="plate-eyebrow flex justify-between items-baseline font-mono text-s-minus-1 text-ink-faint uppercase tracking-wide pb-2 border-b border-rule">
           <span>Page 02 - Index</span>
-          <span>{isSearch ? `${quests.length} shown` : `${total} total`}</span>
+          {/* No count here at all. "N shown" on a search is defensible, but
+              it sits in the same slot as the browse total and the two read
+              as one running tally of a finite set to get through. */}
+          <span>{isSearch ? "Search" : "Browse"}</span>
         </div>
 
         <h1 className="font-display font-extrabold text-s-3 leading-[1.02] tracking-[-0.02em] mt-6 mb-1">
@@ -119,8 +122,8 @@ export default async function ExplorePage({
           endpoint is ever configured.
         */}
         <p className="text-ink-mid max-w-[52ch] mb-6">
-          491 things, seeded. Search by keyword, or filter your way down —
-          the more specific the word, the better this works.
+          Search by keyword, or filter your way down — the more specific the
+          word, the better this works.
         </p>
 
         <div className="flex items-center justify-between gap-4 mb-5">
@@ -152,8 +155,7 @@ export default async function ExplorePage({
               Nothing matches that.
             </p>
             <p className="text-ink-mid mt-3 max-w-[40ch]">
-              Try fewer words, or loosen a filter — there are 491 entries in
-              here somewhere.
+              Try fewer words, or loosen a filter.
             </p>
             <Link
               href="/explore"
@@ -201,9 +203,10 @@ export default async function ExplorePage({
             ) : (
               <span aria-hidden="true">Previous</span>
             )}
-            <span>
-              Page {page} of {totalPages}
-            </span>
+            {/* "Page 3 of 25" is a catalog size with extra steps -- multiply
+                and you have the total. Previous/Next still bound the walk,
+                because they disappear at either end. */}
+            <span>Page {page}</span>
             {page < totalPages ? (
               <Link href={pageHref(page + 1)} className="text-ink hover:underline">
                 Next

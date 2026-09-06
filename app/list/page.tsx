@@ -40,8 +40,13 @@ export default async function ListPage() {
   const doneCount = items.filter((i) => i.completedAt).length;
 
   const mrzLine1 = "P<IND" + padMrz("BEFOREASH", 8) + padMrz(profile?.handle?.toUpperCase() ?? "", 30);
+  // Was BWA<done>OF<total>, which is a completion fraction hidden in a
+  // monospace font -- the passport styling made it look like set dressing,
+  // but "20 OF 60" is exactly the thing the product must never say. The
+  // document number is now the handle, which is what a passport number
+  // actually is: an identifier, not a score.
   const mrzLine2 =
-    padMrz("BWA" + String(doneCount).padStart(2, "0") + "OF" + items.length, 14) +
+    padMrz("BWA" + (profile?.handle?.toUpperCase() ?? "").replace(/[^A-Z0-9]/g, ""), 14) +
     "IND<UG<<" +
     padMrz("STAMPED" + doneCount, 20);
 
@@ -52,9 +57,10 @@ export default async function ListPage() {
       <PlateTilt className="plate-enter plate--data guilloche relative w-full max-w-[72ch] bg-page text-ink px-5 sm:px-9 pt-10 rounded-[2px_5px_5px_2px] shadow-[0_26px_60px_-24px_oklch(0.128_0.03_258/0.85)]">
         <div className="plate-eyebrow flex justify-between items-baseline font-mono text-s-minus-1 text-ink-faint uppercase tracking-wide pb-2 border-b border-rule">
           <span>Page 01 - My list</span>
-          <span>
-            {doneCount} stamped / {items.length}
-          </span>
+          {/* A count of what you have done, with nothing to measure it
+              against. The denominator is the whole problem: it turns a list
+              of things you want to do into a list of things you have not. */}
+          <span>{doneCount} stamped</span>
         </div>
 
         <h1 className="font-display font-extrabold text-s-3 leading-[1.02] tracking-[-0.02em] mt-6 mb-1">

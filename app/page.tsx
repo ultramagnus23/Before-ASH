@@ -47,7 +47,7 @@ export default async function CoverPage({
          */}
         <div className="mt-14 border-t border-foil/20 pt-6">
           <p className="font-mono text-s-minus-1 text-page/50 uppercase tracking-wide mb-4">
-            491 things, in 15 kinds
+            Things to do, in 15 kinds
           </p>
           <ul className="list-none grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2.5">
             {realCategories.map((c, i) => (

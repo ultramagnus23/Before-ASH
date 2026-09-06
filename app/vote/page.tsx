@@ -86,9 +86,8 @@ export default async function VotePage() {
           </ul>
 
           <p className="font-mono text-s-minus-2 text-ink-faint uppercase tracking-wide mt-6">
-            Top {quests.length} ·{" "}
             <Link href="/explore" className="underline hover:text-ink">
-              browse all 491
+              Browse the index
             </Link>
           </p>
         </PlateTilt>
