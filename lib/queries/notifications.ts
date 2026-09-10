@@ -40,10 +40,19 @@ function present(row: Row): { title: string; detail: string | null; href: string
   const quest = one(row.quest);
   switch (row.type) {
     case "match_found":
+      // Points at the outing, not the catalog entry. When Task 1 shipped
+      // there was no outing surface to send anyone to, so this fell back to
+      // /q/<slug> -- which told you a match happened and then dropped you
+      // somewhere with no trace of it.
       return {
         title: "Someone else is in",
         detail: quest ? `You both want to do "${quest.title}".` : "You both want to do the same thing.",
-        href: quest ? `/q/${quest.slug}` : null,
+        href:
+          typeof row.payload?.group_id === "string"
+            ? `/outings/${row.payload.group_id}`
+            : quest
+              ? `/q/${quest.slug}`
+              : null,
       };
     case "connection_request":
       return { title: "Someone asked to connect", detail: null, href: "/connections" };

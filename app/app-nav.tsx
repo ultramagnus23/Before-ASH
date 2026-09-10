@@ -3,10 +3,12 @@ import { Suspense } from "react";
 import { getUnreadNotificationCount } from "@/lib/queries/notifications";
 
 const LINKS = [
+  { href: "/tonight", label: "Tonight" },
   { href: "/list", label: "01 List" },
   { href: "/explore", label: "02 Index" },
   { href: "/feed", label: "03 Wire" },
   { href: "/vote", label: "04 Board" },
+  { href: "/outings", label: "Outings" },
   { href: "/connections", label: "Connections" },
   { href: "/boards", label: "Boards" },
 ] as const;
