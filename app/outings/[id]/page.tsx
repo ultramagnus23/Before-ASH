@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getGroupLedger } from "@/lib/queries/split";
 import { getOutingHeader } from "@/lib/queries/outings";
 import { formatPaise } from "@/lib/money/split";
@@ -9,6 +8,7 @@ import { ExpenseForm } from "./expense-form";
 import { SettleUp } from "./settle-up";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 /*
  * One outing: who's in it, what's been spent, and who owes whom.
@@ -21,10 +21,7 @@ import { PlateTilt } from "@/app/plate-tilt";
 export default async function OutingPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const [header, ledger] = await Promise.all([getOutingHeader(id), getGroupLedger(id, user.id)]);

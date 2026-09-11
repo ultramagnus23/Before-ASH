@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { callModel } from "@/lib/ai/call-model";
 import { reportDegraded } from "@/lib/ai/health";
 import { rankQuests, diversifyByCategory } from "@/lib/ranking/rank-quests";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 // The raw snake_case shape returned by the quests table and by the
 // search_quests_semantic/search_quests_trigram RPCs — both untyped (no
@@ -118,9 +119,7 @@ async function fetchSearchRows(
 
 export async function searchQuests(filters: ExploreFilters): Promise<ExploreResult> {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   const [ownedQuestIds, openCounts, liveInterestIds] = await Promise.all([
     user
@@ -288,9 +287,7 @@ export async function getRelatedQuests(questId: string, embedding: string | null
 }
 
 async function getOwnedQuestIds(supabase: Awaited<ReturnType<typeof createClient>>): Promise<Set<string>> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) return new Set();
   const { data } = await supabase.from("list_items").select("quest_id").eq("owner_id", user.id).not("quest_id", "is", null);
   return new Set((data ?? []).map((r) => r.quest_id));

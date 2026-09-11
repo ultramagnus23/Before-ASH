@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getMyOutings } from "@/lib/queries/outings";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 /*
  * The outings you're in.
@@ -14,10 +14,7 @@ import { PlateTilt } from "@/app/plate-tilt";
  * This is that missing surface, and it is where split-cost lives.
  */
 export default async function OutingsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const outings = await getMyOutings();

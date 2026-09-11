@@ -1,4 +1,3 @@
-import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import { getBoardDetail, getBoardItems, getBoardMembers, getBoardJoinRequests } from "@/lib/queries/boards";
 import { getCategories } from "@/lib/queries/explore";
@@ -8,16 +7,14 @@ import { BoardItemCard } from "./board-item-card";
 import { MemberList } from "./member-list";
 import { InviteForm } from "./invite-form";
 import { JoinRequestList } from "./join-request-list";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 const CAN_CONTRIBUTE = ["owner", "editor", "contributor"];
 const CAN_ADMIN = ["owner", "editor"];
 
 export default async function BoardDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const board = await getBoardDetail(id, user.id);

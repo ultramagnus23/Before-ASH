@@ -25,10 +25,27 @@ export function SearchBox({ defaultValue }: { defaultValue: string }) {
     setValue(defaultValue);
   }, [defaultValue]);
 
+  // A debounce with no cleanup fires after unmount: type, navigate away
+  // inside 350ms, and a router.push lands from a component that no longer
+  // exists, yanking the reader back to /explore. This is the cancellation
+  // the perf pass was after -- there is no fetch here to abort, because
+  // search is a server navigation rather than a client request.
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   function navigate(next: string) {
     const params = new URLSearchParams(searchParams);
     if (next) params.set("q", next);
     else params.delete("q");
+
+    // Nothing to do if this is already the query being displayed. Without
+    // this, blurring the field or hitting Enter on an unchanged value costs
+    // a full RSC round trip and re-renders the whole index for no change.
+    if ((searchParams.get("q") ?? "") === next) return;
+
     startTransition(() => router.push(`/explore?${params.toString()}`));
   }
 

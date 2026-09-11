@@ -8,6 +8,7 @@ import { bandForLocale } from "@/lib/booking/types";
 import { AddButton } from "@/app/explore/add-button";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 const LEVEL_MARK: Record<number, string> = { 1: "I", 2: "II", 3: "III" };
 
@@ -15,17 +16,19 @@ export default async function QuestPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   const supabase = await createClient();
 
-  const { data: quest } = await supabase
-    .from("quests")
-    .select("id, title, category, difficulty, group_size, locale, spice, embedding")
-    .eq("slug", slug)
-    .maybeSingle();
+  // Independent: who is asking has no bearing on which quest this is.
+  // Running them in sequence put an auth round trip in front of the only
+  // query the page actually needs to render anything.
+  const [{ data: quest }, user] = await Promise.all([
+    supabase
+      .from("quests")
+      .select("id, title, category, difficulty, group_size, locale, spice, embedding")
+      .eq("slug", slug)
+      .maybeSingle(),
+    getCurrentUser(),
+  ]);
 
   if (!quest) notFound();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   const [items, ownRow, related] = await Promise.all([
     getPublicItemsByQuestId(quest.id),

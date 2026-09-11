@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getCategories } from "@/lib/queries/explore";
 import { getMySubmissions, canIPublish } from "@/lib/queries/submissions";
 import { SubmitForm } from "./submit-form";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 const STATE_COPY: Record<string, string> = {
   pending_auto: "with the curator",
@@ -23,10 +23,7 @@ const STATE_COPY: Record<string, string> = {
  * people's rejected ideas is not a thing this product should have.
  */
 export default async function SubmitPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const [invited, mine, categories] = await Promise.all([

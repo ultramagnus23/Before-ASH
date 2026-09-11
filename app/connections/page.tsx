@@ -1,14 +1,11 @@
-import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getIncomingRequests, getOutgoingRequests, getActiveConnections } from "@/lib/queries/connections";
 import { ConnectionActions } from "./connection-actions";
 import { AppNav } from "@/app/app-nav";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 export default async function ConnectionsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const [incoming, outgoing, active] = await Promise.all([

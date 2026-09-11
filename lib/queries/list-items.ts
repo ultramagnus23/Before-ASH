@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUserId } from "@/lib/auth/current-user";
 
 /*
  * All list_items reads go through this file — never a raw `.from("list_items")`
@@ -156,13 +157,6 @@ export function toPublicListItem(row: PublicRow, viewerId: string | null): Publi
   };
 }
 
-async function currentViewerId(supabase: Awaited<ReturnType<typeof createClient>>): Promise<string | null> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user?.id ?? null;
-}
-
 export type FeedPage = { items: PublicListItem[]; nextCursor: string | null };
 
 // Cursor-paginated by completed_at alone (no tiebreaker column) — a
@@ -171,8 +165,12 @@ export type FeedPage = { items: PublicListItem[]; nextCursor: string | null };
 // complexity of a compound cursor for a campus-scale feed.
 export async function getFeedPage(cursor: string | null, limit = 20): Promise<FeedPage> {
   const supabase = await createClient();
-  const viewerId = await currentViewerId(supabase);
 
+  // The viewer lookup and the feed query do not depend on each other: the
+  // viewer id is only used to mark rows as the reader's own AFTER they come
+  // back. Awaiting it first made an auth round trip to ap-southeast-1 block
+  // a query that was ready to go -- PERF-BASELINE.md §6.
+  //
   // RLS excludes rows from blocked/blocking users, which is not re-stated
   // here. Visibility and review state ARE re-stated, because RLS alone lets
   // an owner see their own private rows — see PUBLIC_VISIBILITIES above.
@@ -189,7 +187,7 @@ export async function getFeedPage(cursor: string | null, limit = 20): Promise<Fe
     query = query.lt("completed_at", cursor);
   }
 
-  const { data, error } = await query;
+  const [viewerId, { data, error }] = await Promise.all([getCurrentUserId(), query]);
   if (error) throw error;
 
   const rows = (data ?? []) as unknown as PublicRow[];
@@ -205,9 +203,13 @@ export async function getFeedPage(cursor: string | null, limit = 20): Promise<Fe
 
 export async function getPublicItemsByOwnerHandle(handle: string): Promise<PublicListItem[]> {
   const supabase = await createClient();
-  const viewerId = await currentViewerId(supabase);
 
-  const { data: profile } = await supabase.from("profiles").select("id").eq("handle", handle).maybeSingle();
+  // Independent of each other -- run together rather than one behind the
+  // other. The viewer id is only needed to flag own-rows at the end.
+  const [viewerId, { data: profile }] = await Promise.all([
+    getCurrentUserId(),
+    supabase.from("profiles").select("id").eq("handle", handle).maybeSingle(),
+  ]);
   if (!profile) return [];
 
   // visibility='public' only, never 'anonymous' — an anonymous item must
@@ -228,16 +230,18 @@ export async function getPublicItemsByOwnerHandle(handle: string): Promise<Publi
 
 export async function getPublicItemsByQuestId(questId: string): Promise<PublicListItem[]> {
   const supabase = await createClient();
-  const viewerId = await currentViewerId(supabase);
 
-  const { data, error } = await supabase
-    .from("list_items")
-    .select(PUBLIC_COLUMNS)
-    .eq("quest_id", questId)
-    .in("visibility", PUBLIC_VISIBILITIES)
-    .eq("review_state", PUBLIC_REVIEW_STATE)
-    .not("completed_at", "is", null)
-    .order("completed_at", { ascending: false });
+  const [viewerId, { data, error }] = await Promise.all([
+    getCurrentUserId(),
+    supabase
+      .from("list_items")
+      .select(PUBLIC_COLUMNS)
+      .eq("quest_id", questId)
+      .in("visibility", PUBLIC_VISIBILITIES)
+      .eq("review_state", PUBLIC_REVIEW_STATE)
+      .not("completed_at", "is", null)
+      .order("completed_at", { ascending: false }),
+  ]);
 
   if (error) throw error;
   return ((data ?? []) as unknown as PublicRow[]).map((row) => toPublicListItem(row, viewerId));

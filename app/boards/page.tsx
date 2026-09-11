@@ -1,4 +1,3 @@
-import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getMyBoards, getPendingInvites, getDiscoverableBoards } from "@/lib/queries/boards";
 import { AppNav } from "@/app/app-nav";
@@ -7,12 +6,10 @@ import { CreateBoardForm } from "./create-board-form";
 import { InviteResponse } from "./invite-response";
 import { JoinRequestButton } from "./join-request-button";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 export default async function BoardsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const [myBoards, invites, discoverable] = await Promise.all([

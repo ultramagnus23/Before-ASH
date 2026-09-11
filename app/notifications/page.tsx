@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getNotifications, markAllNotificationsRead } from "@/lib/queries/notifications";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 /*
  * The only delivery channel in the product. No push, no email, no digest —
@@ -15,10 +15,7 @@ import { PlateTilt } from "@/app/plate-tilt";
  * and there are at most four kinds of thing in here.
  */
 export default async function NotificationsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const notifications = await getNotifications();

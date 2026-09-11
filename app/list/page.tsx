@@ -12,6 +12,7 @@ import { PlateTilt } from "@/app/plate-tilt";
 import { isAnonymousReviewEnabled, isAnonymousPaused } from "@/lib/moderation/anonymous-review";
 import { getWeeklyFeaturedQuest } from "@/lib/queries/featured";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 function padMrz(value: string, length: number): string {
   return (value + "<".repeat(length)).slice(0, length);
@@ -19,19 +20,15 @@ function padMrz(value: string, length: number): string {
 
 export default async function ListPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("handle")
-    .eq("id", user.id)
-    .maybeSingle();
-
+  // The profile select used to sit on its own line between the auth call and
+  // this Promise.all, despite depending on nothing in it -- a whole serial
+  // round trip to ap-southeast-1 for one handle. PERF-BASELINE.md §6.
   const anonEnabled = isAnonymousReviewEnabled();
-  const [items, categories, anonStatus, featured] = await Promise.all([
+  const [{ data: profile }, items, categories, anonStatus, featured] = await Promise.all([
+    supabase.from("profiles").select("handle").eq("id", user.id).maybeSingle(),
     getOwnList(user.id),
     getCategories(),
     anonEnabled ? isAnonymousPaused() : Promise.resolve({ paused: false, pendingCount: 0 }),

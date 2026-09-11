@@ -5,6 +5,7 @@ import { getOwnList } from "@/lib/queries/list-items";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
 import { StampTile } from "./stamp-tile";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 // The passport-object view — WORK-PROMPT-v3 Phase 3 item 2's chosen
 // direction for "give the stamp a consequence beyond the row it sits in".
@@ -14,9 +15,7 @@ import { StampTile } from "./stamp-tile";
 // a real passport's pages fill in the order you travelled.
 export default async function PassportPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const { data: profile } = await supabase.from("profiles").select("handle").eq("id", user.id).maybeSingle();

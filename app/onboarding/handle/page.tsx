@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { PROFILE_COOKIE_MAX_AGE } from "@/lib/auth/complete-session";
 import { ClaimHandleForm } from "./claim-handle-form";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 // Server-side profile check, not just middleware's bwa_has_profile cookie
 // hint — that cookie was previously session-only (no maxAge), so a
@@ -13,9 +14,7 @@ import { ClaimHandleForm } from "./claim-handle-form";
 // reason in the future.
 export default async function OnboardingHandlePage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const { data: profile } = await supabase.from("profiles").select("id").eq("id", user.id).maybeSingle();

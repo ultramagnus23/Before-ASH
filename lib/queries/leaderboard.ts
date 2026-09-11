@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 export type LeaderboardQuest = {
   id: string;
@@ -29,9 +30,7 @@ const BOARD_SIZE = 40;
 // interesting case: the quest everyone admires and nobody has done.
 export async function getLeaderboard(): Promise<Leaderboard> {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   const [{ data: quests }, { data: voteRows }, { data: addRows }, myVotes, myItems] = await Promise.all([
     supabase.from("quests").select("id, slug, title, category, difficulty, spice"),

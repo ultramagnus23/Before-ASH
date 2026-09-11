@@ -86,20 +86,26 @@ export type BoardDetail = {
 
 export async function getBoardDetail(boardId: string, userId: string): Promise<BoardDetail | null> {
   const supabase = await createClient();
-  const { data: board } = await supabase
-    .from("boards")
-    .select("id, name, description, discoverable")
-    .eq("id", boardId)
-    .maybeSingle();
-  if (!board) return null;
 
-  const { data: membership } = await supabase
-    .from("board_members")
-    .select("role")
-    .eq("board_id", boardId)
-    .eq("user_id", userId)
-    .eq("status", "accepted")
-    .maybeSingle();
+  // Both are keyed on ids we already hold, and neither reads the other's
+  // result -- the membership lookup was simply queued behind the board
+  // lookup for no reason. PERF-BASELINE.md §6.
+  //
+  // The membership query still runs when the board turns out not to exist
+  // (or is invisible under RLS). That costs one wasted round trip in the
+  // 404 case and saves one on every successful render, which is the trade
+  // worth making on a page nobody reaches by guessing ids.
+  const [{ data: board }, { data: membership }] = await Promise.all([
+    supabase.from("boards").select("id, name, description, discoverable").eq("id", boardId).maybeSingle(),
+    supabase
+      .from("board_members")
+      .select("role")
+      .eq("board_id", boardId)
+      .eq("user_id", userId)
+      .eq("status", "accepted")
+      .maybeSingle(),
+  ]);
+  if (!board) return null;
 
   return { ...board, myRole: membership?.role ?? null };
 }

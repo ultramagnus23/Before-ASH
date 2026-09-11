@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getTonight } from "@/lib/queries/tonight";
 import { campusNow, bucketFor } from "@/lib/tonight/select";
 import { AddButton } from "@/app/explore/add-button";
 import { CountMeInButton } from "@/app/explore/count-me-in-button";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 /*
  * Tonight -- a handful of things doable in the next 48 hours, chosen against
@@ -34,10 +34,7 @@ const OPENER: Record<string, string> = {
 };
 
 export default async function TonightPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/");
 
   const now = new Date();
