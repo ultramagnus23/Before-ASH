@@ -33,3 +33,8 @@ next-env.d.ts
 perf-out/
 perf-session.json
 lh-*.json
+
+# Live-test session fixtures (contain magic-link tokens)
+live-test.json
+perf-session.json
+perf-out/
