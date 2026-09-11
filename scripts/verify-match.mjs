@@ -10,6 +10,7 @@ const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const admin = createClient(URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 const made = [];
+const groupsMade = [];
 async function makeUser(tag) {
   const email = `match-${tag}-${Date.now()}@ashoka.edu.in`;
   // Per-run throwaway credential, generated once and used for both the
@@ -61,6 +62,7 @@ try {
   const r3 = await bob.client.rpc("register_quest_interest", { p_quest_id: questA });
   check("second user matches", r3.data?.matched === true && !!r3.data?.group_id, JSON.stringify(r3.data ?? r3.error?.message));
   const groupId = r3.data?.group_id;
+  if (groupId) groupsMade.push(groupId);
 
   // 4. Both sides notified.
   const { data: notes } = await admin.from("notifications").select("user_id,type,payload").eq("type", "match_found");
@@ -143,7 +145,17 @@ try {
     await admin.from("profiles").delete().eq("id", id);
     await admin.auth.admin.deleteUser(id);
   }
-  await admin.from("outing_groups").delete().eq("state", "active").is("id", null);
+  // The line that used to be here was `.eq("state","active").is("id", null)`
+  // -- a contradiction that matched nothing, so every run left its outing
+  // group behind. Two orphans had accumulated in the production project by
+  // the time a live walkthrough audited the tables. Delete the groups these
+  // users were actually in, before their membership rows go with them.
+  for (const id of groupsMade) {
+    await admin.from("outing_expenses").delete().eq("group_id", id);
+    await admin.from("outing_settlements").delete().eq("group_id", id);
+    await admin.from("outing_group_members").delete().eq("group_id", id);
+    await admin.from("outing_groups").delete().eq("id", id);
+  }
   const failed = results.filter((r) => !r.pass);
   console.log(`\n${results.length - failed.length}/${results.length} passed`);
   process.exit(failed.length === 0 ? 0 : 1);
