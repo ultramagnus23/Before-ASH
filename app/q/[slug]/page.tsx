@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPublicItemsByQuestId } from "@/lib/queries/list-items";
 import { getRelatedQuests } from "@/lib/queries/explore";
+import { bookingLinksFor } from "@/lib/booking/registry";
+import { bandForLocale } from "@/lib/booking/types";
 import { AddButton } from "@/app/explore/add-button";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
@@ -32,6 +34,12 @@ export default async function QuestPage({ params }: { params: Promise<{ slug: st
       : Promise.resolve({ data: null }),
     getRelatedQuests(quest.id, quest.embedding),
   ]);
+
+  const bookingLinks = bookingLinksFor({
+    title: quest.title,
+    category: quest.category,
+    band: bandForLocale(quest.locale),
+  });
 
   return (
     <>
@@ -89,6 +97,42 @@ export default async function QuestPage({ params }: { params: Promise<{ slug: st
               </li>
             ))}
           </ul>
+        )}
+
+        {/*
+            Task 5 -- deep links out, from config/booking-providers.json. These
+            are search URLs: no company here has given this app an API, so
+            nothing claims a price, a seat or an availability. It hands the
+            query to a site the student already uses and stops there. Most of
+            the catalog matches nothing and renders no section at all, which
+            is correct -- you do not book a habit.
+        */}
+        {bookingLinks.length > 0 && (
+          <div className="mt-10 pt-6 border-t border-rule">
+            <h2 className="font-mono text-s-minus-1 text-ink-faint uppercase tracking-wide mb-3">
+              Getting to it
+            </h2>
+            <ul className="list-none flex flex-wrap gap-x-5 gap-y-2">
+              {bookingLinks.map((link) => (
+                <li key={link.providerId}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    // noreferrer as well as noopener: these are third-party
+                    // sites and there is no reason to tell them which page
+                    // on a students' bucket-list app someone came from.
+                    rel="noopener noreferrer"
+                    className="font-mono text-s-minus-1 text-ink-mid border-b border-rule pb-px hover:text-ink hover:border-ink"
+                  >
+                    {link.label} &rarr;
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="font-mono text-s-minus-2 text-ink-faint mt-3">
+              These just search. Nothing here knows prices or availability.
+            </p>
+          </div>
         )}
 
         {related.length > 0 && (

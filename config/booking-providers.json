@@ -1,0 +1,56 @@
+{
+  "_comment": [
+    "Booking deep links. This file is CONFIG, not code: no host appears in a",
+    ".ts file anywhere, so adding, removing or repointing a provider is an",
+    "edit here and nothing else. Validated against a Zod schema at load time",
+    "by lib/booking/registry.ts, which refuses the whole file rather than",
+    "silently dropping a malformed entry.",
+    "",
+    "These are SEARCH URLs, deliberately. None of these companies has given",
+    "this app an API key, so nothing here claims live prices, availability or",
+    "booking state -- it hands the query to a site the student already uses",
+    "and gets out of the way. Inventing an integration we do not have would",
+    "mean showing numbers we cannot stand behind.",
+    "",
+    "Placeholders: {query} is the URL-encoded search term. Any other",
+    "placeholder is a load-time error, so a typo cannot ship as a literal",
+    "brace in someone's address bar."
+  ],
+  "providers": [
+    {
+      "id": "google-maps",
+      "label": "Find it on Maps",
+      "urlTemplate": "https://www.google.com/maps/search/?api=1&query={query}",
+      "bands": ["on_campus", "sonipat", "ncr", "anywhere"],
+      "categories": []
+    },
+    {
+      "id": "irctc",
+      "label": "Trains",
+      "urlTemplate": "https://www.google.com/search?q={query}+train+tickets",
+      "bands": ["ncr", "anywhere"],
+      "categories": ["delhi_ncr", "travel"]
+    },
+    {
+      "id": "zomato",
+      "label": "Order or book a table",
+      "urlTemplate": "https://www.zomato.com/ncr/restaurants?q={query}",
+      "bands": ["sonipat", "ncr"],
+      "categories": ["food", "delhi_ncr"]
+    },
+    {
+      "id": "bookmyshow",
+      "label": "Tickets",
+      "urlTemplate": "https://in.bookmyshow.com/explore/home/delhi-ncr?q={query}",
+      "bands": ["ncr"],
+      "categories": ["culture", "delhi_ncr", "chaos"]
+    },
+    {
+      "id": "dmrc",
+      "label": "Metro route",
+      "urlTemplate": "https://www.google.com/maps/dir/?api=1&destination={query}&travelmode=transit",
+      "bands": ["ncr"],
+      "categories": []
+    }
+  ]
+}

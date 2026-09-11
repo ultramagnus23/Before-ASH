@@ -29,6 +29,9 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
         <Link href="/admin/tags" className="text-ink-mid hover:text-ink">
           Tag review
         </Link>
+        <Link href="/admin/submissions" className="text-ink-mid hover:text-ink">
+          Submissions
+        </Link>
       </nav>
       {children}
     </div>
