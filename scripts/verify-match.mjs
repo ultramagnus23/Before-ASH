@@ -73,6 +73,35 @@ try {
   const ids = (members ?? []).map((m) => m.user_id).sort();
   check("group contains both users", ids.length === 2 && ids.includes(alice.id) && ids.includes(bob.id), `members=${ids.length}`);
 
+  // 5b. REGRESSION: a member reading the members table through their own
+  // client. Everything above this point reads it as the SERVICE ROLE, which
+  // bypasses RLS -- so the self-referential SELECT policy shipped in 0014
+  // passed every check here while failing outright for every real user
+  // ("infinite recursion detected in policy", 42P17). /outings and
+  // /outings/[id] both threw a server-side exception the first time they
+  // were opened on live. Fixed in 0018; this is the assertion that would
+  // have caught it.
+  const { data: aliceSeesMembers, error: memberReadError } = await alice.client
+    .from("outing_group_members")
+    .select("user_id")
+    .eq("group_id", groupId);
+  check(
+    "a member can read the member list through RLS",
+    memberReadError === null && (aliceSeesMembers ?? []).length === 2,
+    memberReadError?.message ?? `visible=${(aliceSeesMembers ?? []).length}`
+  );
+
+  // And the same for the group row, which the ledger header reads.
+  const { data: aliceSeesGroup, error: groupReadError } = await alice.client
+    .from("outing_groups")
+    .select("id")
+    .eq("id", groupId);
+  check(
+    "a member can read their own outing group",
+    groupReadError === null && (aliceSeesGroup ?? []).length === 1,
+    groupReadError?.message ?? `visible=${(aliceSeesGroup ?? []).length}`
+  );
+
   // 6. Interests marked matched.
   const { data: states } = await admin.from("quest_interests").select("state").eq("quest_id", questA).in("user_id", [alice.id, bob.id]);
   check("both interests marked matched", (states ?? []).every((s) => s.state === "matched"), JSON.stringify(states));

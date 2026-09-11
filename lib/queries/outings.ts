@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 export type OutingSummary = {
   id: string;
@@ -25,15 +26,23 @@ function one<T>(value: T | T[] | null): T | null {
 /**
  * The outings the viewer is in.
  *
- * RLS on outing_group_members restricts this to the caller's own rows, so
- * no owner filter is written here — the same pattern as notifications.
+ * The user_id filter is NOT redundant with RLS, and leaving it off was a
+ * bug: the policy grants a member visibility of every member row in their
+ * groups — which is what the ledger needs — so an unfiltered select returns
+ * one row per person per group, and a two-person outing appeared twice in
+ * the list. RLS scopes this to the caller's GROUPS; only the filter scopes
+ * it to the caller's own membership.
  */
 export async function getMyOutings(): Promise<OutingSummary[]> {
   const supabase = await createClient();
 
+  const user = await getCurrentUser();
+  if (!user) return [];
+
   const { data, error } = await supabase
     .from("outing_group_members")
     .select("group_id, outing_groups(id, created_at, quests(title, slug))")
+    .eq("user_id", user.id)
     .order("joined_at", { ascending: false });
   if (error) throw error;
 
