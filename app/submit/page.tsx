@@ -26,11 +26,17 @@ export default async function SubmitPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/");
 
-  const [invited, mine, categories] = await Promise.all([
+  const [invited, mine, allCategories] = await Promise.all([
     canIPublish(),
     getMySubmissions(),
     getCategories(),
   ]);
+
+  // getCategories() is built for the /explore filter bar, so its first
+  // entry is the "all" pseudo-category ("Everything"). That is a filter,
+  // not a place an item can belong, and offering it here would have let a
+  // submission be filed under a category that does not exist.
+  const categories = allCategories.filter((c) => c.key !== "all");
 
   return (
     <>

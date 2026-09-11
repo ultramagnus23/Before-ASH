@@ -69,12 +69,18 @@ export default async function OutingPage({ params }: { params: Promise<{ id: str
                       {isYou ? "You" : b.handle}
                     </span>
                     <span className="font-mono text-s-minus-1">
+                      {/* The verb has to agree with the subject: the name
+                          column says "You" for the viewer and a handle for
+                          everyone else, and a fixed "is owed" produced
+                          "You is owed" on live. */}
                       {b.netPaise === 0 ? (
                         <span className="text-ink-faint">settled</span>
                       ) : b.netPaise > 0 ? (
-                        <span>is owed {formatPaise(b.netPaise)}</span>
+                        <span>
+                          {isYou ? "are" : "is"} owed {formatPaise(b.netPaise)}
+                        </span>
                       ) : (
-                        <span>owes {formatPaise(-b.netPaise)}</span>
+                        <span>owe{isYou ? "" : "s"} {formatPaise(-b.netPaise)}</span>
                       )}
                     </span>
                   </li>
