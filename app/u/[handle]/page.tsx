@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getPublicItemsByOwnerHandle } from "@/lib/queries/list-items";
 import { AppNav } from "@/app/app-nav";
 import { PlateTilt } from "@/app/plate-tilt";
@@ -47,7 +48,17 @@ export default async function ProfilePage({ params }: { params: Promise<{ handle
         </h2>
 
         {items.length === 0 ? (
-          <p className="text-ink-faint text-s-minus-1">Nothing public yet.</p>
+          <div className="py-4">
+            <p className="text-ink-faint text-s-minus-1">
+              Nothing public yet. @{profile.handle} hasn&apos;t marked anything visible to campus.
+            </p>
+            <Link
+              href="/feed"
+              className="inline-block mt-4 border border-ink px-4 py-2 font-mono text-s-minus-1 font-semibold transition-colors duration-150 hover:bg-ink hover:text-page"
+            >
+              See what campus has stamped
+            </Link>
+          </div>
         ) : (
           <ul className="plate-rows list-none">
             {items.map((item) => (
