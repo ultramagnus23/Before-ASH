@@ -5,6 +5,7 @@ import { emailSchema, handleSchema, bioSchema, ASHOKA_EMAIL_ERROR } from "@/lib/
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { PROFILE_COOKIE_MAX_AGE } from "./complete-session";
+import { logEvent } from "@/lib/events/log";
 
 const POLICY_VERSION = process.env.POLICY_VERSION ?? "unversioned";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -112,6 +113,8 @@ export async function claimHandle(
     }
     return { error: "Couldn't claim that handle. Try again." };
   }
+
+  await logEvent(user.id, "profile_created", {});
 
   const cookieStore = await cookies();
   cookieStore.set("bwa_has_profile", "1", {

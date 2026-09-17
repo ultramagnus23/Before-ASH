@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { logEvent } from "@/lib/events/log";
 
 export type ExpressInterestResult = { error?: string; ok?: boolean };
 
@@ -69,6 +70,7 @@ export async function expressInterest(listItemId: string): Promise<ExpressIntere
 
   if (error) return { error: "Couldn't send that." };
 
+  await logEvent(user.id, "connection_requested", {});
   revalidatePath("/feed");
   revalidatePath("/connections");
   return { ok: true };
@@ -106,6 +108,7 @@ export async function acceptConnection(connectionId: string): Promise<{ error?: 
     .eq("id", connectionId);
 
   if (error) return { error: "Couldn't accept that." };
+  await logEvent(check.userId, "connection_accepted", {});
   revalidatePath("/connections");
   return {};
 }

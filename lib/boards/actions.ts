@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { logEvent } from "@/lib/events/log";
 
 const boardSchema = z.object({
   name: z.string().trim().min(3).max(80),
@@ -51,6 +52,7 @@ export async function createBoard(input: {
   });
   if (memberError) return { error: "Board created, but couldn't set you as owner. Contact support." };
 
+  await logEvent(user.id, "board_created", { discoverable: parsed.data.discoverable });
   revalidatePath("/boards");
   return { boardId: board.id };
 }

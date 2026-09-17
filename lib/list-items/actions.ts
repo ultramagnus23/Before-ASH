@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { runModerationPipeline } from "@/lib/moderation/pipeline";
 import { isAnonymousReviewEnabled, checkAnonymousEligibility, isAnonymousPaused } from "@/lib/moderation/anonymous-review";
 import { one } from "@/lib/supabase/embed";
+import { logEvent } from "@/lib/events/log";
 
 const customItemSchema = z.object({
   title: z.string().trim().min(3, "A few more words than that.").max(140),
@@ -59,6 +60,7 @@ export async function addCustomItem(
     return { error: "Couldn't add that. Try again." };
   }
 
+  await logEvent(user.id, "item_added", { source: "custom", category: parsed.data.category });
   revalidatePath("/list");
   return { ok: true };
 }
@@ -94,6 +96,7 @@ export async function addCustomCopy(title: string, category: string): Promise<{ 
   });
 
   if (error) return { error: "Couldn't add that." };
+  await logEvent(user.id, "item_added", { source: "copy", category: parsed.data.category });
   revalidatePath("/list");
   return { ok: true };
 }
@@ -132,6 +135,7 @@ export async function addFromCatalog(questId: string): Promise<AddFromCatalogSta
     return { error: "Couldn't add that. Try again." };
   }
 
+  await logEvent(user.id, "item_added", { source: "catalog", category: quest.category });
   revalidatePath("/list");
   revalidatePath("/explore");
   return { ok: true };
@@ -187,6 +191,7 @@ export async function markDone(itemId: string, proof?: string): Promise<MarkDone
     return { error: "Couldn't stamp that. Try again." };
   }
 
+  await logEvent(user.id, "item_stamped", {});
   revalidatePath("/list");
   return { completedAt };
 }
@@ -253,6 +258,7 @@ export async function setVisibility(
       .eq("id", itemId)
       .eq("owner_id", user.id);
     if (error) return { error: "Couldn't update that." };
+    await logEvent(user.id, "visibility_changed", { to: "private" });
     revalidatePath("/list");
     revalidatePath("/feed");
     return { reviewState: current.review_state };
@@ -305,6 +311,7 @@ export async function setVisibility(
       .insert({ actor: "system", action: "reject", target_type: "list_item", target_id: itemId, reason: decision.reason });
   }
 
+  await logEvent(user.id, "visibility_changed", { to: parsed.data, outcome: decision.outcome });
   revalidatePath("/list");
   revalidatePath("/feed");
   return { reviewState: decision.outcome, error: decision.outcome === "rejected" ? decision.reason : undefined };
