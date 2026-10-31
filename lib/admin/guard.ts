@@ -16,25 +16,44 @@ const MFA_FRESHNESS_HOURS = 4;
 export const MFA_VERIFIED_COOKIE = "bwa_admin_mfa_verified_at";
 
 export type AdminGuardResult =
-  | { status: "ok"; userId: string; handle: string }
+  | { status: "ok"; userId: string; handle: string; role: "admin" | "oversight" }
   | { status: "not_admin" }
   | { status: "needs_enrollment"; userId: string }
   | { status: "needs_verification"; userId: string };
 
+function handleList(envName: string): string[] {
+  return (process.env[envName] ?? "")
+    .split(",")
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+// Mutating admin actions: ADMIN_HANDLES only.
 export async function checkAdminAccess(): Promise<AdminGuardResult> {
+  return checkAccess(false);
+}
+
+// Read-only oversight pages (/admin/overview, /admin/audit): admins plus
+// OVERSIGHT_HANDLES (e.g. Student Life Office staff). Same MFA gate. Oversight
+// users can never reach a mutating action; those call checkAdminAccess().
+export async function checkOversightAccess(): Promise<AdminGuardResult> {
+  return checkAccess(true);
+}
+
+async function checkAccess(allowOversight: boolean): Promise<AdminGuardResult> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { status: "not_admin" };
 
-  const adminHandles = (process.env.ADMIN_HANDLES ?? "")
-    .split(",")
-    .map((h) => h.trim().toLowerCase())
-    .filter(Boolean);
+  const adminHandles = handleList("ADMIN_HANDLES");
+  const oversightHandles = allowOversight ? handleList("OVERSIGHT_HANDLES") : [];
 
   const { data: profile } = await supabase.from("profiles").select("handle").eq("id", user.id).maybeSingle();
-  if (!profile || !adminHandles.includes(profile.handle.toLowerCase())) {
+  const handleLower = profile?.handle.toLowerCase() ?? "";
+  const role = adminHandles.includes(handleLower) ? "admin" : oversightHandles.includes(handleLower) ? "oversight" : null;
+  if (!profile || !role) {
     return { status: "not_admin" };
   }
 
@@ -57,5 +76,5 @@ export async function checkAdminAccess(): Promise<AdminGuardResult> {
     return { status: "needs_verification", userId: user.id };
   }
 
-  return { status: "ok", userId: user.id, handle: profile.handle };
+  return { status: "ok", userId: user.id, handle: profile.handle, role };
 }

@@ -6,12 +6,10 @@ const LINKS = [
   { href: "/tonight", label: "Tonight" },
   { href: "/list", label: "01 List" },
   { href: "/explore", label: "02 Index" },
-  { href: "/feed", label: "03 Wire" },
-  { href: "/vote", label: "04 Board" },
+  { href: "/vote", label: "03 Board" },
   { href: "/outings", label: "Outings" },
   { href: "/submit", label: "Submit" },
   { href: "/connections", label: "Connections" },
-  { href: "/boards", label: "Boards" },
 ] as const;
 
 // Server Component, no client JS — matches prototype.html's .index nav,

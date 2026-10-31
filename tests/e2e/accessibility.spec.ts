@@ -16,7 +16,7 @@ const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const canRun = Boolean(url && serviceRoleKey);
 
-const ROUTES = ["/list", "/explore", "/feed", "/admin"];
+const ROUTES = ["/list", "/explore", "/admin"];
 
 test.describe("axe-core accessibility scan (report-only, see BUILD-PROMPT.md #22)", () => {
   test.skip(!canRun, "Needs NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY for a dev/test project.");

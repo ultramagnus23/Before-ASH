@@ -1,44 +1,81 @@
 "use client";
 
-import { useActionState, useState } from "react";
-import { requestMagicLink, type RequestLinkState } from "@/lib/auth/actions";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signInWithGoogle } from "@/lib/auth/actions";
 
-const initialState: RequestLinkState = {};
-
-export function CoverForm({ allowedDomain }: { allowedDomain: string }) {
-  const [state, formAction, pending] = useActionState(requestMagicLink, initialState);
-  const [consent, setConsent] = useState(false);
-
-  if (state.sent) {
-    return (
-      <p className="font-mono text-s-0 text-page/85">
-        Link sent. Check your inbox — it expires in a few minutes.
-      </p>
-    );
+type CredentialResponse = { credential: string };
+type GoogleId = {
+  initialize: (config: {
+    client_id: string;
+    callback: (r: CredentialResponse) => void;
+    hd?: string;
+    auto_select?: boolean;
+  }) => void;
+  renderButton: (el: HTMLElement, opts: Record<string, string | number>) => void;
+};
+declare global {
+  interface Window {
+    google?: { accounts: { id: GoogleId } };
   }
+}
+
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
+export function CoverForm({ allowedDomain, next }: { allowedDomain: string; next?: string }) {
+  const router = useRouter();
+  const buttonRef = useRef<HTMLDivElement>(null);
+  const [consent, setConsent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  // The Google callback is registered once; read the live checkbox via a ref.
+  const consentRef = useRef(false);
+  consentRef.current = consent;
+
+  useEffect(() => {
+    if (!CLIENT_ID) return;
+    const init = () => {
+      if (!window.google || !buttonRef.current) return;
+      window.google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        hd: allowedDomain,
+        callback: async ({ credential }) => {
+          if (!consentRef.current) {
+            setError("Tick the box above first, then sign in.");
+            return;
+          }
+          setBusy(true);
+          setError(null);
+          const result = await signInWithGoogle(credential, true);
+          if (result.error || !result.redirectTo) {
+            setBusy(false);
+            setError(result.error ?? "Couldn't sign you in.");
+            return;
+          }
+          const dest = result.redirectTo === "/list" && next?.startsWith("/") ? next : result.redirectTo;
+          router.push(dest as never);
+          router.refresh();
+        },
+      });
+      window.google.accounts.id.renderButton(buttonRef.current, {
+        theme: "filled_blue",
+        size: "large",
+        text: "signin_with",
+        shape: "rectangular",
+        width: 280,
+      });
+    };
+    if (window.google) return init();
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.onload = init;
+    document.head.appendChild(script);
+  }, [allowedDomain, next, router]);
 
   return (
-    <form action={formAction}>
-      <div className="flex flex-wrap gap-2 items-stretch">
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder={`you@${allowedDomain}`}
-          aria-label="Your Ashoka email"
-          className="flex-1 min-w-[15rem] bg-white/5 text-page border border-foil/34 px-4 py-3.5 font-mono text-s-0"
-        />
-        <input type="hidden" name="consent" value={consent ? "true" : "false"} />
-        <button
-          type="submit"
-          disabled={pending || !consent}
-          className="bg-page text-cover-deep font-semibold px-6 py-3.5 transition-[background-color,transform] duration-150 hover:bg-foil active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-page disabled:active:translate-y-0"
-        >
-          {pending ? "Sending…" : "Open it"}
-        </button>
-      </div>
-
-      <label className="flex items-start gap-2 mt-4 text-page/60 text-s-minus-1 font-mono">
+    <div>
+      <label className="flex items-start gap-2 mb-5 text-page/60 text-s-minus-1 font-mono">
         <input
           type="checkbox"
           checked={consent}
@@ -48,18 +85,35 @@ export function CoverForm({ allowedDomain }: { allowedDomain: string }) {
         <span>
           I&apos;ve read the <a href="/terms" className="underline">Terms</a>,{" "}
           <a href="/privacy" className="underline">Privacy</a>, and{" "}
-          <a href="/grievance" className="underline">Community rules</a>. Send
-          me a link.
+          <a href="/grievance" className="underline">Community rules</a>.
         </span>
       </label>
 
-      {state.error && <p className="text-error-on-dark text-s-minus-1 mt-3">{state.error}</p>}
+      {CLIENT_ID ? (
+        <div
+          ref={buttonRef}
+          aria-busy={busy}
+          className={`min-h-[44px] transition-opacity ${consent && !busy ? "" : "opacity-40"}`}
+          // Sign-in needs consent; a click on the dimmed button just shows the hint.
+          onClickCapture={(e) => {
+            if (!consent) {
+              e.stopPropagation();
+              setError("Tick the box above first, then sign in.");
+            }
+          }}
+        />
+      ) : (
+        <p className="font-mono text-s-minus-1 text-error-on-dark">
+          Sign-in isn&apos;t configured (missing NEXT_PUBLIC_GOOGLE_CLIENT_ID).
+        </p>
+      )}
 
-      {/* text-page/60 (~5.9:1), not /45 (~3.9:1, fails WCAG AA at this
-          text size) — see BUILD-PROMPT.md §11's contrast pass. */}
+      {busy && <p className="font-mono text-s-minus-1 text-page/70 mt-3">Signing you in…</p>}
+      {error && <p className="text-error-on-dark text-s-minus-1 mt-3">{error}</p>}
+
       <p className="font-mono text-s-minus-1 text-page/60 mt-4">
-        {allowedDomain} addresses only. No password, we send a link.
+        Sign in with your @{allowedDomain} Google account. No password, no email to check.
       </p>
-    </form>
+    </div>
   );
 }

@@ -57,7 +57,7 @@ export default function AdminVerifyPage() {
     }
 
     await fetch("/api/admin/mfa-verified", { method: "POST" });
-    router.push("/admin");
+    router.push("/admin/overview");
   }
 
   return (
