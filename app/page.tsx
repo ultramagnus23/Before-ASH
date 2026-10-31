@@ -34,7 +34,7 @@ export default async function CoverPage({
           Pick some. Do them. Stamp them. Everything you finish lands on a page
           other people can copy from.
         </p>
-        <CoverForm allowedDomain={ALLOWED_EMAIL_DOMAIN} />
+        <CoverForm allowedDomain={ALLOWED_EMAIL_DOMAIN} next={next} />
 
         {/*
          * A page with only a form and an empty ticker is a blank room —

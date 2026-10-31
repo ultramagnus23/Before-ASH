@@ -61,7 +61,7 @@ export default function AdminEnrollPage() {
     // the guard's freshness cookie still needs setting — reuse the same
     // server action the regular verify page uses.
     await fetch("/api/admin/mfa-verified", { method: "POST" });
-    router.push("/admin");
+    router.push("/admin/overview");
   }
 
   if (error && !qrCode) {
