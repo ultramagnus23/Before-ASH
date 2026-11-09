@@ -4,7 +4,7 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen max-w-[64ch] mx-auto px-4 py-16 text-ink bg-page">
       <h1 className="font-display font-extrabold text-s-3 mb-2">Privacy</h1>
-      <p className="font-mono text-s-minus-1 text-ink-faint mb-8">Last updated: 22 August 2026</p>
+      <p className="font-mono text-s-minus-1 text-ink-faint mb-8">Last updated: 29 October 2026</p>
 
       <section className="mb-8">
         <h2 className="font-display font-semibold text-s-1 mb-2">What we collect, and why</h2>
@@ -22,12 +22,33 @@ export default function PrivacyPage() {
       </section>
 
       <section className="mb-8">
+        <h2 className="font-display font-semibold text-s-1 mb-2">How sign-in works</h2>
+        <p className="text-ink-mid mb-3">
+          You sign in with your Ashoka Google account. Google confirms to us that you own that address; we
+          receive your email address and nothing else from your Google account (no contacts, no Drive, no
+          calendar). Google sees that you signed in to Before ASH, under Google&apos;s own privacy policy. Only
+          @ashoka.edu.in addresses can create an account.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="font-display font-semibold text-s-1 mb-2">Who can see what (oversight)</h2>
+        <p className="text-ink-mid mb-3">
+          The moderator can see items waiting for review, without the author&apos;s identity. Designated staff
+          at the university&apos;s Student Life Office have read-only access to aggregate counts (members,
+          reports, review backlog) and to the log of moderation actions. They cannot see your email, your
+          private notes, or who wrote an anonymous post, and they cannot change or delete anything.
+        </p>
+      </section>
+
+      <section className="mb-8">
         <h2 className="font-display font-semibold text-s-1 mb-2">Events table (published schema)</h2>
         <p className="text-ink-mid mb-3">
           Our only analytics is a first-party <code>events</code> table: a user id (or nothing, for anonymous
           actions), an event name (e.g. <code>item_added</code>, <code>item_stamped</code>), a small JSON
           payload, and a timestamp. That&apos;s the entire schema. No IP addresses, no device fingerprinting, no
-          third party ever receives this data.
+          third party ever receives this data. When the server hits an error we also record an event named{" "}
+          <code>server_error</code> with the page path and a short technical message, and no user id, so we can fix it.
         </p>
       </section>
 
@@ -88,7 +109,7 @@ export default function PrivacyPage() {
       <section>
         <h2 className="font-display font-semibold text-s-1 mb-2">Where your data lives</h2>
         <p className="text-ink-mid">
-          Supabase (Postgres), rate limiting via Upstash Redis, and an open-source language model we host and
+          Supabase (Postgres, which also handles sign-in sessions), Google (sign-in only), rate limiting via Upstash Redis, and an open-source language model we host and
           control ourselves — never Anthropic, OpenAI, or any other closed-model API. When the moderation
           system or search needs to process text, only the bare text itself is sent — never your name, your
           handle, your account id, or anything that could tie it back to you.

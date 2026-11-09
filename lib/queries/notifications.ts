@@ -59,11 +59,8 @@ function present(row: Row): { title: string; detail: string | null; href: string
     case "connection_accepted":
       return { title: "Your request was accepted", detail: null, href: "/connections" };
     case "board_activity":
-      return {
-        title: "Activity on a board",
-        detail: null,
-        href: typeof row.payload?.board_id === "string" ? `/boards/${row.payload.board_id}` : "/boards",
-      };
+      // Boards are archived (see _archive/forum); old notices stay readable.
+      return { title: "Activity on a board", detail: null, href: "/list" };
   }
 }
 

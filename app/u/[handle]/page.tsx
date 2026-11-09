@@ -22,7 +22,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ handle
 
   return (
     <>
-      <AppNav active="/feed" />
+      <AppNav active="/explore" />
       <main className="min-h-screen flex justify-center px-4 py-8 sm:py-12">
       <PlateTilt className="plate-enter plate--bearer w-full max-w-[64ch] bg-page text-ink px-5 sm:px-9 pb-10 rounded-[2px_5px_5px_2px] shadow-[0_26px_60px_-24px_oklch(0.128_0.03_258/0.85)]">
         <div className="flex items-start gap-5 mb-8">
@@ -53,10 +53,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ handle
               Nothing public yet. @{profile.handle} hasn&apos;t marked anything visible to campus.
             </p>
             <Link
-              href="/feed"
+              href="/explore"
               className="inline-block mt-4 border border-ink px-4 py-2 font-mono text-s-minus-1 font-semibold transition-colors duration-150 hover:bg-ink hover:text-page"
             >
-              See what campus has stamped
+              Browse the index
             </Link>
           </div>
         ) : (

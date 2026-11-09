@@ -23,6 +23,12 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
   return (
     <div className="min-h-screen px-4 sm:px-8 py-8 bg-page text-ink">
       <nav aria-label="Admin" className="flex gap-4 font-mono text-s-minus-1 uppercase tracking-wide mb-8">
+        <Link href="/admin/overview" className="text-ink-mid hover:text-ink">
+          Overview
+        </Link>
+        <Link href="/admin/audit" className="text-ink-mid hover:text-ink">
+          Audit log
+        </Link>
         <Link href="/admin" className="text-ink-mid hover:text-ink">
           Safety queue
         </Link>

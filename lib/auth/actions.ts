@@ -1,14 +1,13 @@
 "use server";
 
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server";
-import { emailSchema, handleSchema, bioSchema, ASHOKA_EMAIL_ERROR } from "@/lib/validation";
+import { handleSchema, bioSchema, ASHOKA_EMAIL_ERROR } from "@/lib/validation";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { PROFILE_COOKIE_MAX_AGE } from "./complete-session";
 import { logEvent } from "@/lib/events/log";
 
 const POLICY_VERSION = process.env.POLICY_VERSION ?? "unversioned";
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 const ALLOWED_EMAIL_DOMAIN = process.env.ALLOWED_EMAIL_DOMAIN ?? "ashoka.edu.in";
 
 // Checked here, not in the Zod schema, because it needs a DB read against
@@ -25,46 +24,56 @@ async function isAllowedEmail(email: string): Promise<boolean> {
   return Boolean(data);
 }
 
-export type RequestLinkState = { error?: string; sent?: boolean };
+export type GoogleSignInResult = { error?: string; redirectTo?: string };
 
-// §8.2: the checkbox that gates the magic-link submit button is enforced
-// here too, server-side — a client-side-only disabled button is not an
-// enforcement layer, it's a UX nicety. `consented !== 'true'` fails closed.
-export async function requestMagicLink(
-  _prevState: RequestLinkState,
-  formData: FormData
-): Promise<RequestLinkState> {
-  const consented = formData.get("consent") === "true";
+// In-page Google sign-in (Google Identity Services): the browser gets an ID
+// token without ever leaving the page and hands it here. Supabase verifies
+// the token's signature/audience and creates the session; we then re-check the
+// verified email against the allow-list. The auth.users trigger
+// (0003/0010) rejects non-Ashoka emails at insert regardless, so this is the
+// friendly-error layer, not the only one.
+export async function signInWithGoogle(idToken: string, consented: boolean): Promise<GoogleSignInResult> {
   if (!consented) {
     return { error: "You need to accept the terms, privacy, and community rules first." };
   }
+  if (!idToken) return { error: "Google sign-in failed. Try again." };
 
-  const parsed = emailSchema.safeParse(formData.get("email"));
-  if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "Invalid email." };
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithIdToken({ provider: "google", token: idToken });
+
+  const email = data?.user?.email?.toLowerCase();
+  if (error || !data?.user || !email) {
+    // The domain trigger surfaces as a generic database error here.
+    return { error: /ashoka/i.test(error?.message ?? "") ? ASHOKA_EMAIL_ERROR : "Couldn't sign you in. Use your @" + ALLOWED_EMAIL_DOMAIN + " account." };
   }
 
-  if (!(await isAllowedEmail(parsed.data))) {
+  if (!(await isAllowedEmail(email))) {
+    await supabase.auth.signOut();
     return { error: ASHOKA_EMAIL_ERROR };
   }
 
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOtp({
-    email: parsed.data,
-    options: {
-      // policy_version travels in the redirect URL so the callback route
-      // can log acceptance against a real user id, which doesn't exist
-      // until the magic link is confirmed. Not sensitive data.
-      emailRedirectTo: `${APP_URL}/auth/callback?policy_version=${encodeURIComponent(POLICY_VERSION)}`,
-    },
-  });
-
-  if (error) {
-    // Never leak whether an account exists — same message either way.
-    return { error: "Couldn't send the link. Try again in a moment." };
+  const userId = data.user.id;
+  const { data: accepted } = await supabase
+    .from("policy_acceptances")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("policy_version", POLICY_VERSION)
+    .maybeSingle();
+  if (!accepted) {
+    await supabase.from("policy_acceptances").insert({ user_id: userId, policy_version: POLICY_VERSION });
   }
 
-  return { sent: true };
+  const { data: profile } = await supabase.from("profiles").select("id").eq("id", userId).maybeSingle();
+  if (profile) {
+    const cookieStore = await cookies();
+    cookieStore.set("bwa_has_profile", "1", {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: PROFILE_COOKIE_MAX_AGE,
+    });
+  }
+  return { redirectTo: profile ? "/list" : "/onboarding/handle" };
 }
 
 export type ClaimHandleState = { error?: string };
