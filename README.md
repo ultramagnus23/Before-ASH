@@ -1,4 +1,47 @@
-# Before ASH — through P8 (all phases complete)
+# Before ASH
+
+**A bucket list for Ashoka University students: the things worth doing before you leave.**
+
+Four years at Ashoka go fast. Before ASH is a small, campus-only web app where students pick things to
+do (from a 491-item catalogue, or their own), mark them done with a press-and-hold stamp, and build a
+page other people can copy from. It is free, has no ads, sells no data, and is open only to
+`@ashoka.edu.in` accounts.
+
+## Why it matters
+
+- **A student-built campus commons.** It turns "I should really do that before I graduate" into a shared,
+  discoverable record of what is possible at and around Ashoka.
+- **Safety designed in, not bolted on.** Named posts pass automatic checks; anonymous posts also get a
+  human read before publishing. Reports, blocking, appeals, and a permanent log of every moderation
+  action and identity reveal.
+- **Privacy as the default.** Built to the DPDP Act 2023 as a floor: export, correction, 30-day-recoverable
+  deletion, first-party analytics only, no third-party trackers, no data sales.
+- **Accountable to the institution.** Designated Student Life Office staff get a read-only, MFA-protected
+  view of aggregate health and the audit log. They cannot see emails, private notes, or who wrote an
+  anonymous post. See [`docs/STUDENT-LIFE-BRIEF.md`](./docs/STUDENT-LIFE-BRIEF.md).
+
+## How access is restricted to Ashoka
+
+Sign-in is Google only, on the page (no email links). `@ashoka.edu.in` is enforced three ways: a Google
+domain hint, a server-side re-check of the verified email, and a database trigger on `auth.users` that
+rejects any other address even if the Auth API is called directly.
+
+## Status
+
+Core product, moderation, and oversight are built. Launch needs configuration: a Google OAuth client ID,
+Supabase Google provider, a named grievance officer, and oversight staff handles. Forum-style features
+(boards, the Wire feed, reactions) are archived in [`_archive/forum`](./_archive/forum/README.md) for the
+official launch; their database tables are untouched. Required environment variables are listed in
+`.env.example`.
+
+## Stack
+
+Next.js 15 (App Router), React 19, Tailwind v4, Supabase (Postgres, Auth, RLS), Drizzle, an
+open-source language model for moderation and search, Upstash for rate limiting, Vercel.
+
+---
+
+## Developer notes
 
 Read [`BUILD-PROMPT.md`](./BUILD-PROMPT.md) first — it's the full product spec, the
 non-negotiables, and the phase plan. This README is just the local setup for
